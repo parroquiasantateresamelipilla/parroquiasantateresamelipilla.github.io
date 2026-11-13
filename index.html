@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Parroquia Santa Teresa de los Andes · Melipilla</title>
+<meta name="description" content="Parroquia Santa Teresa de Jesús de los Andes, Melipilla. Horarios de Misa, Evangelio del día, oficina parroquial, sacramentos, capillas y contacto.">
+<meta property="og:title" content="Parroquia Santa Teresa de Jesús de los Andes · Melipilla">
+<meta property="og:description" content="Horarios de Misa, Evangelio del día, sacramentos y contacto.">
+<meta property="og:image" content="logo.jpg">
+<link rel="icon" href="logo.jpg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Spectral:ital,wght@0,400;0,600;1,400&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout: banda de cordillera arriba, secciones en columna; vino del logo parroquial + azul andino. Panel de edición como cajón lateral. */
+:root{
+  --bg:#f6f7f8; --surface:#ffffff; --ink:#26201d; --muted:#655c57; --line:#dddcd9;
+  --wine:#8a2a2c; --sky:#3d6987; --sky-soft:#e4ebf1; --gold:#a07a2e; --snow:#ffffff; --ok:#2f7a4f; --bad:#b3261e;
+  --display:"Marcellus","Trajan Pro",Georgia,serif;
+  --body:"Spectral",Georgia,"Times New Roman",serif;
+  --ui:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141719; --surface:#1c2023; --ink:#ece7e2; --muted:#a8a09a; --line:#31363a;
+  --wine:#e08f8c; --sky:#8fb5d2; --sky-soft:#1f2a33; --gold:#d6b26a; --snow:#e9eef2; --ok:#7cc79a; --bad:#f2948d; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141719; --surface:#1c2023; --ink:#ece7e2; --muted:#a8a09a; --line:#31363a;
+  --wine:#e08f8c; --sky:#8fb5d2; --sky-soft:#1f2a33; --gold:#d6b26a; --snow:#e9eef2; --ok:#7cc79a; --bad:#f2948d; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6}
+a{color:var(--sky)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;line-height:1.2;margin:0}
+h2{font-size:clamp(1.6rem,3vw,2.1rem);color:var(--wine)}
+h3{font-size:1.2rem}
+p{margin:0}
+.eyebrow{font-family:var(--ui);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+
+.tpl{background:var(--sky-soft);font-family:var(--ui);font-size:.85rem}
+.tpl .wrap{padding-block:.55rem}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.7rem;position:relative}
+.brand{display:flex;align-items:center;gap:.7rem;text-decoration:none;color:var(--ink);min-width:0}
+.brand .logo{width:40px;height:40px;border-radius:50%;flex:none;object-fit:cover;background:var(--surface);border:1px solid var(--line)}
+.brand b{font-family:var(--display);font-weight:400;font-size:1.02rem;line-height:1.15;display:block}
+.brand small{font-family:var(--ui);font-size:.75rem;color:var(--muted)}
+nav.menu{display:flex;gap:1.1rem;font-family:var(--ui);font-size:.9rem;font-weight:500}
+nav.menu a{color:var(--ink);text-decoration:none;padding:.3rem 0;border-bottom:2px solid transparent}
+nav.menu a:hover{border-color:var(--gold)}
+.menu-btn{display:none;font-family:var(--ui);background:none;border:1px solid var(--line);color:var(--ink);border-radius:6px;padding:.4rem .7rem;font-size:.9rem;cursor:pointer}
+@media (max-width:900px){
+  .menu-btn{display:block}
+  nav.menu{display:none;position:absolute;left:0;right:0;top:100%;background:var(--surface);flex-direction:column;gap:0;border-bottom:1px solid var(--line);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:.4rem}
+  nav.menu.open{display:flex}
+  nav.menu a{padding:.65rem 0;border-bottom:1px solid var(--line)}
+  nav.menu a:last-child{border-bottom:0}
+}
+
+.hero{position:relative;background:var(--sky-soft);overflow:hidden}
+.hero .wrap{position:relative;z-index:1;padding-block:3.2rem 9rem;display:grid;gap:1rem}
+.hero h1{font-size:clamp(2rem,5.6vw,3.4rem);color:var(--wine);max-width:18ch}
+.hero .lead{font-size:1.15rem;max-width:56ch}
+.hero .quote{font-style:italic;color:var(--muted)}
+.cta{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.6rem}
+.btn{font-family:var(--ui);font-weight:600;font-size:.92rem;text-decoration:none;padding:.65rem 1.05rem;border-radius:6px;border:1px solid var(--wine);color:var(--wine);background:transparent;cursor:pointer;display:inline-block}
+.btn.solid{background:var(--wine);color:var(--bg)}
+.btn.small{padding:.4rem .7rem;font-size:.82rem}
+.ridge{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:150px;display:block}
+
+.next{margin-top:-2.6rem;position:relative;z-index:2}
+.next .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.3rem;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1.5rem;box-shadow:0 6px 24px rgba(30,25,20,.08)}
+.next .big{font-family:var(--display);font-size:1.6rem;color:var(--wine);font-variant-numeric:tabular-nums}
+.next .note{font-family:var(--ui);font-size:.85rem;color:var(--muted)}
+
+main section{padding-block:3.4rem;border-bottom:1px solid var(--line)}
+section[id]{scroll-margin-top:5rem}
+.sec-head{display:grid;gap:.4rem;margin-bottom:1.6rem;max-width:62ch}
+.sec-head p{color:var(--muted)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1.6rem}
+.grid2 > *{min-width:0}
+
+.sched{width:100%;border-collapse:collapse;font-family:var(--ui);font-size:.95rem;font-variant-numeric:tabular-nums}
+.sched th,.sched td{text-align:left;padding:.65rem .5rem;border-bottom:1px solid var(--line);vertical-align:top}
+.sched th{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.sched td:first-child{font-weight:600;white-space:nowrap}
+.sched tr.today td{background:var(--sky-soft)}
+.sched tr.today td:first-child::after{content:" · hoy";color:var(--sky);font-weight:500}
+.sched .nota{display:block;color:var(--muted);font-size:.85rem}
+.tablebox{overflow-x:auto}
+.side{display:grid;gap:1.2rem;align-content:start}
+.side .block{border-left:3px solid var(--gold);padding-left:1rem;display:grid;gap:.25rem}
+.side .block h3{color:var(--wine)}
+.side .block p{font-family:var(--ui);font-size:.95rem}
+.side .block p.sub{color:var(--muted)}
+
+.pastoral{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1.2rem 2rem}
+.pastoral article{display:grid;gap:.3rem;padding-top:1rem;border-top:2px solid var(--wine)}
+.pastoral p{color:var(--muted);font-size:.98rem}
+
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr));gap:1.4rem}
+.person{display:grid;gap:.35rem;align-content:start}
+.portrait{aspect-ratio:4/5;max-width:100%;width:100%;border-radius:8px;background:var(--sky-soft);display:grid;place-items:center;color:var(--muted);object-fit:cover}
+.person .role{font-family:var(--ui);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.person h3{font-size:1.15rem}
+.person p{font-size:.95rem;color:var(--muted)}
+
+.sacr{display:grid;grid-template-columns:1fr;column-gap:2.5rem;border-top:1px solid var(--line)}
+@media (min-width:700px){.sacr{grid-template-columns:1fr 1fr}}
+.sacr details{border-bottom:1px solid var(--line);padding:.9rem .2rem}
+.sacr summary{cursor:pointer;font-family:var(--display);font-size:1.15rem;list-style:none;display:flex;justify-content:space-between;gap:1rem}
+.sacr summary::-webkit-details-marker{display:none}
+.sacr summary::after{content:"+";font-family:var(--ui);color:var(--gold)}
+.sacr details[open] summary::after{content:"–"}
+.sacr .req-sub{font-family:var(--ui);font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--gold);margin-top:.8rem}
+.sacr ul{margin:.4rem 0 0;padding-left:1.1rem;font-family:var(--ui);font-size:.92rem;color:var(--muted);display:grid;gap:.2rem}
+
+.news article{display:grid;grid-template-columns:6rem 1fr;gap:1rem;padding-block:1rem;border-bottom:1px solid var(--line)}
+.news article > div{min-width:0}
+.news time{font-family:var(--ui);font-size:.85rem;color:var(--sky);font-weight:600;font-variant-numeric:tabular-nums}
+.news h3{font-size:1.1rem;margin-bottom:.2rem}
+.news p{font-size:.95rem;color:var(--muted);white-space:pre-line}
+.empty{font-family:var(--ui);color:var(--muted);font-size:.95rem}
+
+.mapcard{background:var(--sky-soft);border-radius:10px;padding:1.4rem;display:grid;gap:.8rem;align-content:start}
+.mapcard svg{width:100%;height:auto;max-width:100%}
+.addr{font-family:var(--display);font-size:1.3rem}
+
+.channel{display:grid;grid-template-columns:2.4rem 1fr auto;gap:.8rem;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--line)}
+.channel .ic{width:2.4rem;height:2.4rem;border-radius:50%;background:var(--sky-soft);display:grid;place-items:center;color:var(--sky)}
+.channel .lbl{font-family:var(--ui);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.channel .val{font-family:var(--ui);font-size:1rem;word-break:break-word;user-select:all}
+.channel > div{min-width:0}
+.copy{font-family:var(--ui);font-size:.8rem;background:none;border:1px solid var(--line);color:var(--ink);border-radius:5px;padding:.3rem .6rem;cursor:pointer}
+form.msg{display:grid;gap:.8rem;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.3rem}
+form.msg label{font-family:var(--ui);font-size:.85rem;font-weight:600;display:grid;gap:.3rem}
+form.msg input,form.msg textarea,form.msg select{font:400 .95rem var(--ui);padding:.6rem .7rem;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);width:100%}
+form.msg textarea{min-height:7rem;resize:vertical}
+.ok{font-family:var(--ui);font-size:.9rem;color:var(--sky)}
+
+.socials{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1rem}
+.social{display:flex;align-items:center;gap:.8rem;text-decoration:none;color:var(--ink);padding:1rem;border:1px solid var(--line);border-radius:10px;background:var(--surface);min-width:0}
+.social:hover{border-color:var(--wine)}
+.social svg{flex:none;color:var(--wine)}
+.social div{min-width:0}
+.social b{font-family:var(--ui);font-weight:600;display:block}
+.social span{font-family:var(--ui);font-size:.85rem;color:var(--muted);display:block;overflow-wrap:anywhere}
+
+footer{padding-block:2.5rem;font-family:var(--ui);font-size:.88rem;color:var(--muted)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;align-items:end}
+footer .name{font-family:var(--display);font-size:1.05rem;color:var(--ink)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
+.gospel-band{background:var(--surface)}
+.gospel{display:grid;gap:.7rem;max-width:calc(62ch + 32px)}
+#ev-cita{font-size:clamp(1.9rem,4.5vw,2.7rem)}
+.ev-cel{font-family:var(--ui);font-size:.95rem;color:var(--muted);display:flex;align-items:center;gap:.5rem}
+.ev-dot{width:.8rem;height:.8rem;border-radius:50%;border:1px solid var(--line);flex:none}
+.ev-res{font-size:1.1rem}
+.ev-src{font-family:var(--ui);font-size:.8rem;color:var(--muted)}
+.posts{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:1.2rem}
+.post{display:grid;grid-template-rows:auto 1fr;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.post:hover{border-color:var(--wine)}
+.post .pimg{aspect-ratio:1/1;width:100%;max-width:100%;object-fit:cover;display:block;background:var(--sky-soft)}
+.post .pph{aspect-ratio:3/1;display:grid;place-items:center;background:var(--sky-soft);color:var(--wine)}
+.post .pbody{padding:.9rem 1rem;display:grid;gap:.4rem;align-content:start}
+.post .pmeta{font-family:var(--ui);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.post p{font-size:.95rem}
+.post .pmore{font-family:var(--ui);font-size:.85rem;color:var(--sky);font-weight:600}
+#fbPlugin{margin-top:1.6rem;overflow:hidden}
+.val a{color:var(--sky)}
+/* ===== Panel de administración ===== */
+.admin-fab{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;font-family:var(--ui);font-weight:600;font-size:.9rem;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:.7rem 1.1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(460px,100%);z-index:30;background:var(--surface);border-left:1px solid var(--line);display:flex;flex-direction:column;font-family:var(--ui);font-size:.92rem;box-shadow:-10px 0 30px rgba(0,0,0,.15);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;gap:.5rem;padding:1rem 1.1rem;border-bottom:1px solid var(--line)}
+.drawer-head h2{font-size:1.25rem;color:var(--ink)}
+.tabs{display:flex;gap:.3rem;overflow-x:auto;padding:.6rem 1.1rem;border-bottom:1px solid var(--line);flex:none}
+.tabs button{flex:none;font:500 .82rem var(--ui);border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:.35rem .75rem;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--wine);border-color:var(--wine);color:var(--bg)}
+.ed-body{flex:1;overflow-y:auto;padding:1rem 1.1rem;display:grid;gap:.9rem;align-content:start}
+.ed-body .help{color:var(--muted);font-size:.85rem}
+.fld{display:grid;gap:.3rem}
+.fld > span{font-weight:600;font-size:.82rem}
+.fld input,.fld textarea,.fld select{font:400 .92rem var(--ui);padding:.5rem .6rem;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);width:100%}
+.fld textarea{min-height:4.5rem;resize:vertical}
+.item{border:1px solid var(--line);border-radius:8px;padding:.8rem;display:grid;gap:.6rem;background:var(--bg)}
+.item-head{display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+.item-head b{font-size:.85rem}
+.item-tools{display:flex;gap:.3rem}
+.iconbtn{font:500 .78rem var(--ui);border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:5px;padding:.25rem .5rem;cursor:pointer}
+.iconbtn.danger{color:var(--bad)}
+.thumb{width:64px;height:64px;border-radius:6px;object-fit:cover;border:1px solid var(--line)}
+.drawer-foot{border-top:1px solid var(--line);padding:.8rem 1.1rem;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;justify-content:space-between}
+.status{font-size:.85rem;color:var(--muted)}
+.status.ok{color:var(--ok)} .status.bad{color:var(--bad)}
+body.editing{padding-right:0}
+@media (min-width:1100px){body.editing main,body.editing .hero,body.editing header.top,body.editing .next,body.editing footer,body.editing .tpl{margin-right:460px}}
+:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+.login{display:grid;gap:.8rem}
+.login ol{margin:0;padding-left:1.2rem;display:grid;gap:.35rem;color:var(--muted);font-size:.86rem}
+</style>
+</head>
+<body>
+
+<template id="shell">
+<div class="tpl" id="v-avisoBar"><div class="wrap" id="v-aviso"></div></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio"><span id="v-logo"></span><span><b id="v-nombreCorto"></b><small id="v-ciudad"></small></span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">Menú</button>
+    <nav class="menu" id="menu">
+      <a href="#evangelio">Evangelio</a><a href="#horarios">Horarios</a><a href="#pastoral">Pastoral</a><a href="#comunidad">Comunidad</a><a href="#sacramentos">Sacramentos</a><a href="#avisos">Avisos</a><a href="#ubicacion">Ubicación</a><a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+<div class="hero" id="inicio">
+  <div class="wrap">
+    <span class="eyebrow" id="v-subtitulo"></span>
+    <h1 id="v-nombre"></h1>
+    <p class="lead" id="v-bienvenida"></p>
+    <p class="quote" id="v-frase"></p>
+    <div class="cta"><a class="btn solid" href="#horarios">Ver horarios de Misa</a><a class="btn" id="v-waHero" target="_blank" rel="noopener">Escríbenos por WhatsApp</a></div>
+  </div>
+  <svg class="ridge" viewBox="0 0 1200 150" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 150V92l90-38 70 26 110-62 85 48 70-30 120 70 95-52 110 44 100-66 90 40 95-24 85 34 80-22V150z" fill="var(--sky)" opacity=".35"/>
+    <path d="M270 18l-28 16 18-2 10 10 12-14 18 8z M640 22l-26 22 16-4 12 8 10-12 14 4z M960 46l-20 14 14-2 8 6 8-8 12 2z" fill="var(--snow)" opacity=".85"/>
+    <path d="M0 150v-30l120-28 140 22 160-36 150 30 170-26 140 24 180-30 140 26v48z" fill="var(--bg)"/>
+  </svg>
+</div>
+<div class="wrap next"><div class="card" aria-live="polite"><span class="eyebrow">Próxima Misa</span><span class="big" id="nextTime">—</span><span class="note">Según el horario publicado abajo</span></div></div>
+<main>
+  <section id="evangelio" class="gospel-band"><div class="wrap gospel">
+    <span class="eyebrow" id="ev-fecha">Evangelio del día</span>
+    <h2 id="ev-cita">Evangelio del día</h2>
+    <p class="ev-cel" id="ev-cel"><span class="ev-dot" id="ev-dot" hidden></span><span id="ev-celtxt">Lee el Evangelio que la Iglesia proclama hoy.</span></p>
+    <p class="ev-res" id="ev-res" hidden></p>
+    <div><a class="btn solid" id="ev-link" href="https://www.eucaristiadiaria.cl/dia.php" target="_blank" rel="noopener">Leer el Evangelio completo</a></div>
+    <p class="ev-src">Fuente: Eucaristía Diaria, Área de Liturgia y Espiritualidad.</p>
+  </div></section>
+  <section id="horarios"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Horarios</span><h2>Misas, confesiones y oficina</h2><p id="v-horariosNota"></p></div>
+    <div class="grid2">
+      <div class="tablebox"><table class="sched"><thead><tr><th>Día</th><th>Misa</th><th>Lugar</th></tr></thead><tbody id="v-misas"></tbody></table></div>
+      <div class="side">
+        <div class="block"><h3>Confesiones</h3><p id="v-confesiones"></p></div>
+        <div class="block"><h3>Oficina parroquial</h3><p id="v-oficina"></p><p class="sub" id="v-tramites"></p></div>
+        <div class="block"><h3>Fiesta patronal</h3><p id="v-fiesta"></p></div>
+      </div>
+    </div>
+  </div></section>
+  <section id="pastoral"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Vida parroquial</span><h2>Comunidades y servicios</h2></div>
+    <div class="pastoral" id="v-pastoral"></div>
+  </div></section>
+  <section id="comunidad"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Personal consagrado</span><h2>Quienes sirven en la parroquia</h2></div>
+    <div class="people" id="v-personal"></div>
+  </div></section>
+  <section id="sacramentos"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Sacramentos</span><h2>Cómo inscribirse</h2><p>Las inscripciones se hacen en la oficina parroquial. Abre cada sacramento para ver los requisitos.</p></div>
+    <div class="sacr" id="v-sacramentos"></div>
+  </div></section>
+  <section id="avisos"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Avisos parroquiales</span><h2>Lo que viene en la parroquia</h2></div>
+    <div class="news" id="v-avisos"></div>
+  </div></section>
+  <section id="ubicacion"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Ubicación</span><h2>Cómo llegar</h2></div>
+    <div class="grid2">
+      <div class="mapcard">
+        <svg viewBox="0 0 320 170" aria-hidden="true"><rect width="320" height="170" rx="8" fill="var(--surface)"/><path d="M0 60h320M0 120h320M80 0v170M200 0v170" stroke="var(--line)" stroke-width="10"/><circle cx="140" cy="90" r="9" fill="var(--wine)"/><path d="M140 72v-14M134 64h12" stroke="var(--wine)" stroke-width="2.5"/></svg>
+        <p class="addr" id="v-direccion"></p>
+        <p style="font-family:var(--ui);font-size:.92rem;color:var(--muted)" id="v-referencia"></p>
+        <div><a class="btn solid" id="v-mapa" target="_blank" rel="noopener">Abrir en Google Maps</a></div>
+      </div>
+      <div class="side"><span class="eyebrow">Capillas de la parroquia</span><div class="side" id="v-capillas"></div></div>
+    </div>
+  </div></section>
+  <section id="contacto"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Canales de comunicación</span><h2>Contacto</h2></div>
+    <div class="grid2">
+      <div id="v-canales"></div>
+      <form class="msg" id="msgForm">
+        <label for="f-nombre">Nombre<input id="f-nombre" name="nombre" required autocomplete="name"></label>
+        <label for="f-correo">Correo o teléfono<input id="f-correo" name="correo" required></label>
+        <label for="f-tema">Tema<select id="f-tema" name="tema"><option>Consulta general</option><option>Bautismo</option><option>Matrimonio</option><option>Intención de Misa</option><option>Certificados</option><option>Comedor Fraterno</option></select></label>
+        <label for="f-mensaje">Mensaje<textarea id="f-mensaje" name="mensaje" required></textarea></label>
+        <button class="btn solid" type="submit">Enviar mensaje</button>
+        <p class="ok" id="formOk" hidden>Formulario de prueba: se conectará al correo de la parroquia cuando el sitio esté en su servidor.</p>
+      </form>
+    </div>
+  </div></section>
+  <section id="redes"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Redes sociales</span><h2>Síguenos</h2></div>
+    <div class="socials" id="v-redes"></div>
+    <div class="sec-head" style="margin-top:2.6rem"><span class="eyebrow">Últimas publicaciones</span><h3 style="font-size:1.4rem">Lo último en nuestras redes</h3></div>
+    <div class="posts" id="v-posts"></div>
+    <div id="fbPlugin"></div>
+  </div></section>
+</main>
+<footer><div class="wrap">
+  <div><p class="name" id="v-pieNombre"></p><p id="v-pieDatos"></p></div>
+  <button class="btn small" type="button" id="adminLink">Administrar sitio</button>
+</div></footer>
+</template>
+<div id="app"></div>
+
+
+<script>
+(function(){
+var DATA=null;
+var DAYS=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+var $=function(id){return document.getElementById(id)};
+document.getElementById('app').appendChild(document.getElementById('shell').content.cloneNode(true));
+
+function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+function lines(node,text){node.textContent='';String(text||'').split('\n').forEach(function(l,i){if(i)node.appendChild(document.createElement('br'));node.appendChild(document.createTextNode(l))})}
+function safeUrl(u){u=String(u||'').trim();return /^https?:\/\//i.test(u)?u:''}
+function waUrl(n){var dg=String(n||'').replace(/\D/g,'');if(dg.length===9&&dg[0]==='9')dg='56'+dg;return dg.length>=10?'https://wa.me/'+dg:''}
+function safeImg(u){u=String(u||'');return /^data:image\//.test(u)||/^https?:\/\//i.test(u)||/^[\w\-\/.]+\.(jpe?g|png|webp|gif|svg)$/i.test(u)?u:''}
+var ICONS={
+ Facebook:'<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H7v4h3v8h4v-8h3l1-4h-4V8z"/></svg>',
+ Instagram:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>',
+ YouTube:'<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M22 8.2a3 3 0 0 0-2-2C18.2 5.7 12 5.7 12 5.7s-6.2 0-8 .5a3 3 0 0 0-2 2A31 31 0 0 0 1.7 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2 2c1.8.5 8 .5 8 .5s6.2 0 8-.5a3 3 0 0 0 2-2 31 31 0 0 0 .3-3.8 31 31 0 0 0-.3-3.8zM10 15V9l5.2 3z"/></svg>',
+ WhatsApp:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>',
+ TikTok:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v11a4 4 0 1 1-4-4M14 3c1 3 3 4 6 4"/></svg>',
+ Otra:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>'};
+var CH={correo:['Correo','<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>'],telefono:['Teléfono','<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>'],whatsapp:['WhatsApp','<path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/>'],urgencias:['Urgencias sacramentales','<path d="M12 3v18M6 9h12"/>']};
+
+function render(d){
+  var g=d.general;
+  $('v-aviso').textContent=g.aviso||'';$('v-avisoBar').hidden=!g.aviso;
+  var lg=$('v-logo');lg.textContent='';
+  if(safeImg(g.logo)){var im=el('img','logo');im.src=g.logo;im.alt='';lg.appendChild(im)}
+  else lg.innerHTML='<svg class="logo" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 7v14M15 11h10" stroke="var(--wine)" stroke-width="2.4" stroke-linecap="round"/><path d="M11 33V22l9-6 9 6v11z" fill="none" stroke="var(--wine)" stroke-width="2"/></svg>';
+  $('v-nombreCorto').textContent=g.nombreCorto||g.nombre;$('v-ciudad').textContent=g.ciudad;
+  $('v-subtitulo').textContent=g.subtitulo;$('v-nombre').textContent=g.nombre;
+  $('v-bienvenida').textContent=g.bienvenida;$('v-frase').textContent=g.frase;$('v-frase').hidden=!g.frase;
+  $('v-horariosNota').textContent=d.horariosNota||'';
+  var tb=$('v-misas');tb.textContent='';var today=new Date().getDay();
+  [1,2,3,4,5,6,0].forEach(function(i){var m=d.misas[i]||{};var tr=el('tr');if(i===today)tr.className='today';
+    tr.appendChild(el('td',null,DAYS[i]));var td=el('td',null,(m.horas||'').trim()?m.horas:'Sin Misa');if(m.nota)td.appendChild(el('span','nota',m.nota));tr.appendChild(td);
+    tr.appendChild(el('td',null,((m.horas||'').trim()||m.nota)?(m.lugar||''):'—'));tb.appendChild(tr)});
+  lines($('v-confesiones'),d.atencion.confesiones);lines($('v-oficina'),d.atencion.oficina);lines($('v-tramites'),d.atencion.tramites);
+  $('v-fiesta').textContent=g.fiesta;
+  var pa=$('v-pastoral');pa.textContent='';d.pastoral.forEach(function(p){var a=el('article');a.appendChild(el('h3',null,p.titulo));a.appendChild(el('p',null,p.texto));pa.appendChild(a)});
+  $('pastoral').hidden=!d.pastoral.length;
+  var pe=$('v-personal');pe.textContent='';d.personal.forEach(function(p){var c=el('div','person');
+    if(safeImg(p.foto)){var im=el('img','portrait');im.src=p.foto;im.alt=p.nombre;c.appendChild(im)}
+    else{var ph=el('div','portrait');ph.innerHTML='<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>';c.appendChild(ph)}
+    c.appendChild(el('span','role',p.cargo));c.appendChild(el('h3',null,p.nombre));if(p.detalle)c.appendChild(el('p',null,p.detalle));pe.appendChild(c)});
+  var sa=$('v-sacramentos');sa.textContent='';d.sacramentos.forEach(function(s){var de=el('details');de.appendChild(el('summary',null,s.titulo));var ul=el('ul');
+    var cur=ul;de.appendChild(ul);String(s.requisitos||'').split('\n').map(function(r){return r.trim()}).filter(Boolean).forEach(function(r){if(/:$/.test(r)){de.appendChild(el('p','req-sub',r.slice(0,-1)));cur=el('ul');de.appendChild(cur)}else cur.appendChild(el('li',null,r))});sa.appendChild(de)});
+  var av=$('v-avisos');av.textContent='';if(!d.avisos.length)av.appendChild(el('p','empty','No hay avisos publicados por ahora.'));
+  d.avisos.forEach(function(a){var ar=el('article');ar.appendChild(el('time',null,a.fecha));var dv=el('div');dv.appendChild(el('h3',null,a.titulo));dv.appendChild(el('p',null,a.texto));ar.appendChild(dv);av.appendChild(ar)});
+  var u=d.ubicacion;$('v-direccion').textContent=u.direccion;$('v-referencia').textContent=u.referencia;
+  var mp=safeUrl(u.mapa)||('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(u.direccion));$('v-mapa').href=mp;
+  var cp=$('v-capillas');cp.textContent='';(d.capillas||[]).forEach(function(c){var b=el('div','block');b.appendChild(el('h3',null,c.nombre));if(c.sector)b.appendChild(el('p','sub',c.sector));var h=el('p');lines(h,c.horario);b.appendChild(h);cp.appendChild(b)});
+  var cn=$('v-canales');cn.textContent='';Object.keys(CH).forEach(function(k){var v=(d.contacto[k]||'').trim();if(!v)return;
+    var row=el('div','channel');row.innerHTML='<span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'+CH[k][1]+'</svg></span>';
+    var t=el('div');t.appendChild(el('div','lbl',CH[k][0]));var vv=el('div','val');
+    if(k==='whatsapp'&&waUrl(v)){var a=el('a',null,v);a.href=waUrl(v);a.target='_blank';a.rel='noopener';vv.appendChild(a);vv.appendChild(el('div','lbl','Toca el número para abrir WhatsApp'))}
+    else if(k==='correo'){var a2=el('a',null,v);a2.href='mailto:'+v;vv.appendChild(a2)}
+    else if(k==='telefono'||k==='urgencias'){var a3=el('a',null,v);a3.href='tel:'+v.replace(/[^\d+]/g,'');vv.appendChild(a3)}
+    else vv.textContent=v;
+    t.appendChild(vv);row.appendChild(t);
+    var b=el('button','copy','Copiar');b.type='button';b.onclick=function(){copy(b,v,vv)};row.appendChild(b);cn.appendChild(row)});
+  var rs=$('v-redes');rs.textContent='';d.redes.forEach(function(r){var url=safeUrl(r.url);if(!url)return;var a=el('a','social');a.href=url;a.target='_blank';a.rel='noopener';
+    a.innerHTML=ICONS[r.red]||ICONS.Otra;var t=el('div');t.appendChild(el('b',null,r.red==='Otra'?'Enlace':r.red));t.appendChild(el('span',null,r.usuario));a.appendChild(t);rs.appendChild(a)});
+  $('redes').hidden=!rs.children.length;
+  var wh=$('v-waHero'),wu=waUrl(d.contacto.whatsapp);wh.hidden=!wu;if(wu)wh.href=wu;
+  var po=$('v-posts');po.textContent='';(d.publicaciones||[]).forEach(function(x){var url=safeUrl(x.url);var a=el(url?'a':'div','post');if(url){a.href=url;a.target='_blank';a.rel='noopener'}
+    if(safeImg(x.imagen)){var im=el('img','pimg');im.src=x.imagen;im.alt='';a.appendChild(im)}else{var ph=el('div','pph');ph.innerHTML=ICONS[x.red]||ICONS.Otra;a.appendChild(ph)}
+    var bd=el('div','pbody');bd.appendChild(el('span','pmeta',[x.red,x.fecha].filter(Boolean).join(' · ')));bd.appendChild(el('p',null,x.texto));if(url)bd.appendChild(el('span','pmore','Ver publicación'));a.appendChild(bd);po.appendChild(a)});
+  $('v-pieNombre').textContent=g.nombre;
+  $('v-pieDatos').textContent=[u.direccion,d.contacto.correo,d.contacto.telefono].filter(Boolean).join(' · ');
+  nextMass(d);
+}
+function copy(b,v,node){var done=function(){b.textContent='Copiado';setTimeout(function(){b.textContent='Copiar'},1600)};
+  var sel=function(){var r=document.createRange();r.selectNodeContents(node);var s=getSelection();s.removeAllRanges();s.addRange(r)};
+  try{navigator.clipboard.writeText(v).then(done,sel)}catch(e){sel()}}
+function nextMass(d){var now=new Date(),mins=now.getHours()*60+now.getMinutes();
+  for(var i=0;i<8;i++){var day=(now.getDay()+i)%7,m=d.misas[day];if(!m||!m.horas)continue;
+    var ts=m.horas.split(',').map(function(s){return s.trim()}).filter(function(s){return /^\d{1,2}:\d{2}$/.test(s)}).sort();
+    for(var j=0;j<ts.length;j++){var p=ts[j].split(':'),t=+p[0]*60+ +p[1];
+      if(i>0||t>mins){$('nextTime').textContent=(i===0?'Hoy':i===1?'Mañana':DAYS[day])+', '+ts[j];return}}}
+  $('nextTime').textContent='Consulta los avisos'}
+
+fetch('data.json?v='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){DATA=d;render(DATA);loadFb();if(location.hash==='#admin')openEditor()}).catch(function(){$('nextTime').textContent='No se pudo cargar la información. Recarga la página.'});
+$('menuBtn').onclick=function(){var o=$('menu').classList.toggle('open');this.setAttribute('aria-expanded',o)};
+$('menu').onclick=function(e){if(e.target.tagName==='A'){$('menu').classList.remove('open');$('menuBtn').setAttribute('aria-expanded','false')}};
+$('msgForm').onsubmit=function(e){e.preventDefault();$('formOk').hidden=false};
+
+/* ===== Administración ===== */
+var SECTIONS=[
+ {id:'general',label:'General',help:'Nombre, bienvenida, logo y aviso superior.',obj:'general',fields:[['nombre','Nombre completo'],['nombreCorto','Nombre corto (encabezado)'],['ciudad','Ciudad'],['subtitulo','Subtítulo (diócesis)'],['bienvenida','Texto de bienvenida','area'],['frase','Frase destacada'],['fiesta','Fiesta patronal'],['aviso','Aviso superior (déjalo vacío para ocultarlo)'],['logo','Logo de la parroquia','img']]},
+ {id:'horarios',label:'Horarios de Misa',help:'Escribe las horas separadas por coma (ej: 09:00, 12:00). Deja vacío si ese día no hay Misa.',custom:'misas'},
+ {id:'atencion',label:'Confesiones y oficina',obj:'atencion',fields:[['confesiones','Confesiones','area'],['oficina','Horario de oficina','area'],['tramites','Trámites en oficina','area']]},
+ {id:'pastoral',label:'Pastoral',list:'pastoral',noun:'servicio',fields:[['titulo','Título'],['texto','Descripción','area']]},
+ {id:'personal',label:'Personal',list:'personal',noun:'persona',fields:[['cargo','Cargo'],['nombre','Nombre'],['detalle','Detalle'],['foto','Fotografía','img']]},
+ {id:'sacramentos',label:'Sacramentos',list:'sacramentos',noun:'sacramento',help:'Una línea por requisito. Si una línea termina en dos puntos (ej: Adultos:), se muestra como subtítulo.',fields:[['titulo','Sacramento'],['requisitos','Requisitos (uno por línea)','area']]},
+ {id:'avisos',label:'Avisos',list:'avisos',noun:'aviso',fields:[['fecha','Fecha (ej: 8 nov)'],['titulo','Título'],['texto','Texto','area']]},
+ {id:'ubicacion',label:'Ubicación',obj:'ubicacion',fields:[['direccion','Dirección'],['referencia','Referencia'],['mapa','Enlace de Google Maps']]},
+ {id:'capillas',label:'Capillas',list:'capillas',noun:'capilla',help:'Indica los horarios con una línea por celebración.',fields:[['nombre','Nombre'],['sector','Sector'],['horario','Horarios (uno por línea)','area']]},
+ {id:'contacto',label:'Contacto',obj:'contacto',help:'Los campos vacíos no se muestran.',fields:[['correo','Correo'],['telefono','Teléfono'],['whatsapp','WhatsApp'],['urgencias','Urgencias sacramentales']]},
+ {id:'publicaciones',label:'Publicaciones',list:'publicaciones',noun:'publicación',help:'Destaca aquí tus últimas publicaciones: copia el enlace de la publicación y sube su imagen.',fields:[['red','Red','select',['Facebook','Instagram','YouTube','WhatsApp','TikTok','Otra']],['fecha','Fecha (ej: 3 nov)'],['texto','Texto breve','area'],['imagen','Imagen','img'],['url','Enlace a la publicación']]},
+ {id:'redes',label:'Redes',list:'redes',noun:'red social',fields:[['red','Red','select',['Facebook','Instagram','YouTube','WhatsApp','TikTok','Otra']],['usuario','Texto visible'],['url','Enlace (https://…)']]}
+];
+var draft=null,current='general',dirty=false;
+
+function field(label,id,kind,value,onval,opts){
+  var w=el('label','fld');w.htmlFor=id;w.appendChild(el('span',null,label));var inp;
+  if(kind==='area'){inp=el('textarea');inp.value=value||''}
+  else if(kind==='select'){inp=el('select');opts.forEach(function(o){var op=el('option',null,o);if(o===value)op.selected=true;inp.appendChild(op)})}
+  else if(kind==='img'){
+    var box=el('div');box.style.cssText='display:flex;gap:.6rem;align-items:center;flex-wrap:wrap';
+    var th=el('img','thumb');th.alt='';var setT=function(v){th.hidden=!v;if(v)th.src=v};setT(value);
+    inp=el('input');inp.type='file';inp.accept='image/*';inp.id=id;inp.style.cssText='flex:1;min-width:0';
+    var rm=el('button','iconbtn danger','Quitar');rm.type='button';rm.onclick=function(){onval('');setT('')};
+    inp.onchange=function(){var f=inp.files&&inp.files[0];if(!f)return;shrink(f,function(url){onval(url);setT(url)})};
+    box.appendChild(th);box.appendChild(inp);box.appendChild(rm);w.appendChild(box);return w}
+  else{inp=el('input');inp.value=value||''}
+  inp.id=id;inp.addEventListener(kind==='select'?'change':'input',function(){onval(inp.value)});w.appendChild(inp);return w}
+function shrink(file,cb){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){
+  var max=480,s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);
+  var x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.82))};im.src=r.result};r.readAsDataURL(file)}
+function changed(){dirty=true;status('Cambios sin publicar','');render(draft)}
+
+function buildTabs(){var t=$('ed-tabs');t.textContent='';SECTIONS.forEach(function(s){var b=el('button',null,s.label);b.type='button';b.setAttribute('role','tab');b.setAttribute('aria-selected',s.id===current);b.onclick=function(){current=s.id;buildTabs();buildForm()};t.appendChild(b)})}
+function buildForm(){var body=$('ed-body');body.textContent='';var s=SECTIONS.filter(function(x){return x.id===current})[0];
+  body.appendChild(el('h3',null,s.label));if(s.help)body.appendChild(el('p','help',s.help));
+  if(s.obj){s.fields.forEach(function(f){body.appendChild(field(f[1],'ed-'+s.id+'-'+f[0],f[2],draft[s.obj][f[0]],function(v){draft[s.obj][f[0]]=v;changed()},f[3]))})}
+  else if(s.custom==='misas'){
+    body.appendChild(field('Nota sobre los horarios','ed-horariosNota','area',draft.horariosNota,function(v){draft.horariosNota=v;changed()}));
+    [1,2,3,4,5,6,0].forEach(function(i){var m=draft.misas[i];var it=el('div','item');it.appendChild(el('b',null,DAYS[i]));
+      [['horas','Horas'],['nota','Nota (opcional)'],['lugar','Lugar']].forEach(function(f){it.appendChild(field(f[1],'ed-misa-'+i+'-'+f[0],'',m[f[0]],function(v){m[f[0]]=v;changed()}))});body.appendChild(it)})}
+  else{var arr=draft[s.list];
+    arr.forEach(function(item,idx){var it=el('div','item');var hd=el('div','item-head');hd.appendChild(el('b',null,(s.noun.charAt(0).toUpperCase()+s.noun.slice(1))+' '+(idx+1)));
+      var tools=el('div','item-tools');
+      var up=el('button','iconbtn','↑ Subir');up.type='button';up.disabled=idx===0;up.onclick=function(){arr.splice(idx-1,0,arr.splice(idx,1)[0]);changed();buildForm()};
+      var del=el('button','iconbtn danger','Quitar');del.type='button';del.onclick=function(){arr.splice(idx,1);changed();buildForm()};
+      tools.appendChild(up);tools.appendChild(del);hd.appendChild(tools);it.appendChild(hd);
+      s.fields.forEach(function(f){it.appendChild(field(f[1],'ed-'+s.id+'-'+idx+'-'+f[0],f[2],item[f[0]],function(v){item[f[0]]=v;changed()},f[3]))});body.appendChild(it)});
+    var add=el('button','btn small','+ Agregar '+s.noun);add.type='button';add.onclick=function(){var n={};s.fields.forEach(function(f){n[f[0]]=f[2]==='select'?f[3][0]:''});arr.push(n);changed();buildForm()};body.appendChild(add)}}
+function status(t,c){var s=$('ed-status');s.textContent=t;s.className='status'+(c?' '+c:'')}
+
+var REPO='parroquiasantateresamelipilla/parroquiasantateresamelipilla.github.io';
+function getTok(){try{return localStorage.getItem('gh-token')||''}catch(e){return ''}}
+function setTok(t){try{if(t)localStorage.setItem('gh-token',t);else localStorage.removeItem('gh-token')}catch(e){}}
+function gh(path,opt){opt=opt||{};opt.headers={'Authorization':'Bearer '+getTok(),'Accept':'application/vnd.github+json'};return fetch('https://api.github.com/repos/'+REPO+path,opt)}
+
+function openEditor(){
+  var d=el('aside','drawer');d.id='drawer';d.setAttribute('aria-label','Administrar sitio');
+  document.body.appendChild(d);document.body.classList.add('editing');
+  if(getTok())showEditor();else showLogin()}
+function showLogin(msg){var d=$('drawer');
+  d.innerHTML='<div class="drawer-head"><h2>Administrar sitio</h2><button class="iconbtn" type="button" id="ed-close">Cerrar</button></div><form class="ed-body login" id="loginForm"><p>Ingresa la clave de acceso del sitio. Se guarda en este navegador, así que solo la pides una vez por computador o celular.</p><label class="fld" for="tok"><span>Clave de acceso</span><input id="tok" type="password" autocomplete="off" required></label><button class="btn solid" type="submit">Entrar</button><p class="status" id="ed-status"></p><details><summary>¿Cómo obtengo una clave?</summary><ol><li>Entra a github.com con la cuenta de la parroquia.</li><li>Ve a Settings, Developer settings, Personal access tokens, Fine-grained tokens.</li><li>Crea un token solo para el repositorio del sitio, con permiso Contents: Read and write.</li><li>Copia el token y pégalo aquí.</li></ol></details></form>';
+  $('ed-close').onclick=closeEditor;if(msg)status(msg,'bad');
+  $('loginForm').onsubmit=function(e){e.preventDefault();setTok($('tok').value.trim());status('Verificando…','');
+    gh('').then(function(r){return r.ok?r.json():null}).then(function(j){if(j&&j.permissions&&j.permissions.push)showEditor();else{setTok('');status('La clave no es válida o no tiene permiso para editar el sitio.','bad')}},function(){setTok('');status('No hay conexión con GitHub. Revisa tu internet.','bad')})}}
+function showEditor(){if(!draft)draft=JSON.parse(JSON.stringify(DATA));var d=$('drawer');
+  d.innerHTML='<div class="drawer-head"><h2>Administrar sitio</h2><span style="display:flex;gap:.4rem"><button class="iconbtn" type="button" id="ed-logout">Salir</button><button class="iconbtn" type="button" id="ed-close">Cerrar</button></span></div><div class="tabs" id="ed-tabs" role="tablist"></div><div class="ed-body" id="ed-body"></div><div class="drawer-foot"><span class="status" id="ed-status">Los cambios se ven al instante en esta pantalla.</span><span style="display:flex;gap:.5rem"><button class="btn small" type="button" id="ed-discard">Descartar</button><button class="btn small solid" type="button" id="ed-save">Publicar cambios</button></span></div>';
+  buildTabs();buildForm();
+  $('ed-close').onclick=closeEditor;$('ed-logout').onclick=function(){setTok('');showLogin()};
+  $('ed-discard').onclick=function(){draft=JSON.parse(JSON.stringify(DATA));dirty=false;render(DATA);buildForm();status('Cambios descartados','')};
+  $('ed-save').onclick=save}
+function closeEditor(){var d=$('drawer');if(d)d.remove();document.body.classList.remove('editing');if(dirty){draft=null;dirty=false;render(DATA)}}
+function b64(str){var bytes=new TextEncoder().encode(str),bin='';for(var i=0;i<bytes.length;i+=8192)bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+8192));return btoa(bin)}
+function save(){var b=$('ed-save');b.disabled=true;status('Publicando…','');
+  gh('/contents/data.json?ref=main').then(function(r){if(r.status===401||r.status===403)throw{auth:1};return r.ok?r.json():{}}).then(function(cur){
+    return gh('/contents/data.json',{method:'PUT',body:JSON.stringify({message:'Actualiza contenido desde el panel',content:b64(JSON.stringify(draft,null,1)),sha:cur.sha,branch:'main'})})
+  }).then(function(r){if(r.status===401||r.status===403)throw{auth:1};if(!r.ok)throw{code:r.status};
+    DATA=JSON.parse(JSON.stringify(draft));dirty=false;b.disabled=false;status('Publicado. Las visitas lo verán en uno o dos minutos.','ok')
+  }).catch(function(e){b.disabled=false;
+    if(e&&e.auth){setTok('');showLogin('La clave venció o no tiene permiso. Ingresa una nueva.')}
+    else if(e&&e.code===409)status('Alguien publicó al mismo tiempo. Vuelve a presionar Publicar.','bad');
+    else if(e&&e.code===413||e&&e.code===422)status('El contenido quedó muy pesado. Usa fotos más livianas.','bad');
+    else status('No se pudo publicar. Revisa tu conexión e inténtalo de nuevo.','bad')})}
+
+/* Evangelio del día */
+var COLORS={verde:'#3f7d4a',blanco:'#ffffff',morado:'#6a3d8f',rojo:'#b3261e',rosado:'#d98aa8',negro:'#222222'};
+function santiagoDate(){try{return new Date().toLocaleDateString('en-CA',{timeZone:'America/Santiago'})}catch(e){var n=new Date();return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0')}}
+function fechaLarga(){try{var t=new Date().toLocaleDateString('es-CL',{timeZone:'America/Santiago',weekday:'long',day:'numeric',month:'long'});return t.charAt(0).toUpperCase()+t.slice(1)}catch(e){return ''}}
+$('ev-fecha').textContent='Evangelio del día · '+fechaLarga();
+function showGospel(g){if(!g||g.fecha!==santiagoDate())return;
+  if(g.cita)$('ev-cita').textContent=g.cita;
+  if(g.celebracion)$('ev-celtxt').textContent=g.celebracion;
+  var c=String(g.color||'').toLowerCase().split(/\s|,/)[0];var dot=$('ev-dot');if(COLORS[c]){dot.style.background=COLORS[c];dot.hidden=false;dot.title='Color litúrgico: '+g.color}
+  if(g.resumen){$('ev-res').textContent=g.resumen;$('ev-res').hidden=false}
+  var u=safeUrl(g.url);if(u)$('ev-link').href=u}
+fetch('evangelio.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(showGospel).catch(function(){});
+
+/* Muro de Facebook con las últimas publicaciones */
+var fbDone=false;
+function loadFb(){if(fbDone)return;fbDone=true;var fb=(DATA.redes||[]).filter(function(r){return r.red==='Facebook'&&safeUrl(r.url)})[0];if(!fb)return;
+  var f=document.createElement('iframe');f.title='Publicaciones de Facebook';f.loading='lazy';f.style.cssText='border:0;width:100%;max-width:500px;height:650px';
+  f.src='https://www.facebook.com/plugins/page.php?href='+encodeURIComponent(fb.url)+'&tabs=timeline&width=500&height=650&small_header=true&adapt_container_width=true&hide_cover=false';$('fbPlugin').appendChild(f)}
+
+$('adminLink').onclick=function(){if(DATA)openEditor()};
+})();
+</script>
+</body>
+</html>

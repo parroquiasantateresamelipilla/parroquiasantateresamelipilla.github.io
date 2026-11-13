@@ -1,0 +1,221 @@
+{
+ "general": {
+  "nombre": "Parroquia Santa Teresa de Jesús de los Andes",
+  "nombreCorto": "Parroquia Santa Teresa de los Andes",
+  "ciudad": "Melipilla",
+  "subtitulo": "Diócesis de Melipilla",
+  "bienvenida": "Buscamos mostrar a Cristo con cercanía, especialmente a los más necesitados. Aquí encontrarás los horarios de Misa, la atención de la oficina, la vida de nuestras comunidades y los pasos para recibir los sacramentos.",
+  "frase": "«Dios es alegría infinita». Santa Teresa de los Andes",
+  "fiesta": "13 de julio, Santa Teresa de los Andes",
+  "aviso": "",
+  "logo": "logo.jpg"
+ },
+ "horariosNota": "Durante el Mes de María (8 de noviembre al 8 de diciembre): de lunes a sábado, Rosario 19:00 y Misa o Liturgia 19:30. Domingo, Rosario 11:30 y Misa 12:00.",
+ "misas": [
+  {
+   "dia": "Domingo",
+   "horas": "12:00",
+   "nota": "",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "dia": "Lunes",
+   "horas": "",
+   "nota": "",
+   "lugar": ""
+  },
+  {
+   "dia": "Martes",
+   "horas": "19:00",
+   "nota": "",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "dia": "Miércoles",
+   "horas": "",
+   "nota": "Liturgia de la Palabra 19:00 (Misa el quinto miércoles del mes)",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "dia": "Jueves",
+   "horas": "19:00",
+   "nota": "Adoración al Santísimo 20:00",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "dia": "Viernes",
+   "horas": "19:00",
+   "nota": "",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "dia": "Sábado",
+   "horas": "19:00",
+   "nota": "",
+   "lugar": "Templo parroquial"
+  }
+ ],
+ "atencion": {
+  "confesiones": "Habitualmente media hora antes de cada Misa.",
+  "oficina": "Lunes a sábado: 9:30 a 13:00\nLunes a viernes: 15:30 a 18:30",
+  "tramites": "Certificados de sacramentos, inscripciones, intenciones de Misa, recordatorios por difuntos y enfermos, y coordinación de responsos."
+ },
+ "pastoral": [
+  {
+   "titulo": "Comedor Fraterno",
+   "texto": "Todos los días a las 10:00. Nuestro servicio a los más necesitados; puedes colaborar con alimentos o como voluntario."
+  },
+  {
+   "titulo": "Adoración al Santísimo",
+   "texto": "Jueves a las 20:00, después de la Misa, en el templo parroquial."
+  },
+  {
+   "titulo": "Amigos de Jesús",
+   "texto": "Grupo que se reúne los viernes a las 20:00."
+  },
+  {
+   "titulo": "Jóvenes y Grupo Folclórico",
+   "texto": "Encuentros los sábados en la parroquia."
+  },
+  {
+   "titulo": "Fraternidad Santa Teresa",
+   "texto": "Comunidad de oración y vida espiritual inspirada en nuestra patrona."
+  },
+  {
+   "titulo": "Catequesis, liturgia y coros",
+   "texto": "Catequistas, ministros de la Comunión, equipo de liturgia y coros sirven en la parroquia y sus capillas."
+  }
+ ],
+ "personal": [
+  {
+   "cargo": "Párroco",
+   "nombre": "Pbro. José Antonio Costabal Cea",
+   "detalle": "",
+   "foto": ""
+  },
+  {
+   "cargo": "Vicario parroquial",
+   "nombre": "Por confirmar",
+   "detalle": "",
+   "foto": ""
+  },
+  {
+   "cargo": "Diáconos permanentes",
+   "nombre": "Por confirmar",
+   "detalle": "",
+   "foto": ""
+  },
+  {
+   "cargo": "Secretaría parroquial",
+   "nombre": "Lilian Hurtado Bravo",
+   "detalle": "Atención de oficina",
+   "foto": ""
+  }
+ ],
+ "sacramentos": [
+  {
+   "titulo": "Bautismo",
+   "requisitos": "Niños hasta 13 años:\nQue los padres lo soliciten\nCertificado de nacimiento (Registro Civil)\nDos padrinos católicos, al menos bautizados (certificado de bautismo o confirmación)\nDos charlas de preparación: primer miércoles y jueves del mes, después de la Misa\nCelebración: cuarto sábado del mes a las 11:00\nEn las capillas: una vez al mes, en la Misa del primer sábado que corresponda\nJóvenes de 14 a 17 años:\nSe preparan en el itinerario de Confirmación (una vez a la semana, dos años)\nSi solo desean el Bautismo, conversar con el sacerdote\nAdultos:\nItinerario de Confirmación, una vez a la semana durante un año\nCasos particulares: conversar con el sacerdote"
+  },
+  {
+   "titulo": "Primera Comunión",
+   "requisitos": "Niños desde los 8 años o 3° básico, hasta los 13 años:\nCatequesis una vez a la semana durante dos años\nParticipar en la Misa una vez a la semana\nCompromiso de los padres\nEstar bautizado (si no lo está, se bautiza al terminar el primer año)\nJóvenes y adultos:\nSe preparan en el itinerario de Confirmación"
+  },
+  {
+   "titulo": "Confirmación",
+   "requisitos": "Jóvenes desde los 14 años o I° medio, hasta los 17 o III° medio:\nCatequesis una vez a la semana durante dos años\nSi falta el Bautismo o la Primera Comunión, se celebran durante el proceso\nAdultos (egresados del colegio o mayores de 19 años):\nCatequesis una vez a la semana durante un año\nCasos particulares: conversar con el sacerdote"
+  },
+  {
+   "titulo": "Matrimonio",
+   "requisitos": "Uno de los novios debe vivir en el sector parroquial\nCertificados de bautismo de ambos novios\nEntrevista de información matrimonial con los novios\nNinguno de los dos puede estar casado por la Iglesia (o debe tener sentencia de nulidad)\nDos testigos por novio, que no sean familiares y los conozcan hace al menos dos años\nLos testigos son distintos de los padrinos de la ceremonia\nSi el matrimonio se celebra en otra parroquia, se solicita el traslado"
+  },
+  {
+   "titulo": "Unción de los enfermos",
+   "requisitos": "La persona debe estar bautizada\nQue el enfermo lo desee y la familia lo pida\nAntes de una operación con riesgo de vida\nPersonas mayores de 65 años\nPuede recibirse más de una vez si la salud se agrava\nCoordinar en la oficina o por WhatsApp"
+  },
+  {
+   "titulo": "Responsos y recordatorios",
+   "requisitos": "Responsos en la parroquia o en las capillas: coordinar en la oficina\nRecordatorios de difuntos y enfermos en las Misas: solicitar en la oficina"
+  }
+ ],
+ "avisos": [
+  {
+   "fecha": "8 nov",
+   "titulo": "Inicio del Mes de María",
+   "texto": "Lunes a sábado: Rosario 19:00 y Misa o Liturgia 19:30.\nDomingo: Rosario 11:30 y Misa 12:00. ¡Te esperamos!"
+  },
+  {
+   "fecha": "28 nov",
+   "titulo": "Bingo Parroquial 2026",
+   "texto": "Sábado 28 de noviembre, 15:00, Escuela República de Brasil (Riquelme 850, Melipilla). Organiza la Capilla Sagrado Corazón de Jesús de Huechún. Valor $3.000, 5 bingos. Se reciben premios para colaborar."
+  }
+ ],
+ "ubicacion": {
+  "direccion": "Pardo 1281, Melipilla",
+  "referencia": "Esquina de Pardo con Benítez",
+  "mapa": "https://www.google.com/maps/search/?api=1&query=Pardo+1281+Melipilla"
+ },
+ "capillas": [
+  {
+   "nombre": "Sagrado Corazón de Jesús",
+   "sector": "Huechún",
+   "horario": "Sábado 12:00: Misa la 1.ª y 3.ª semana; Liturgia las demás semanas\nMiércoles 19:00: Misa la 4.ª semana"
+  },
+  {
+   "nombre": "San Francisco",
+   "sector": "El Parque",
+   "horario": "Domingo 10:00: Misa la 2.ª y 4.ª semana; Liturgia la 1.ª y 3.ª\nMiércoles 19:00: Misa la 1.ª semana\nQuinto domingo: Liturgia 17:00"
+  },
+  {
+   "nombre": "Santa Joaquina",
+   "sector": "Hulco",
+   "horario": "Domingo 10:00: Misa la 1.ª y 3.ª semana; Liturgia la 2.ª y 4.ª\nMiércoles 19:00: Misa la 2.ª semana\nQuinto domingo: Liturgia 17:00"
+  },
+  {
+   "nombre": "Nuestra Señora del Carmen",
+   "sector": "El Bajo",
+   "horario": "Sábado 17:00: Misa la 2.ª y 4.ª semana; Liturgia la 1.ª y 3.ª\nMiércoles 19:00: Misa la 3.ª semana\nQuinto sábado: Liturgia 17:00"
+  }
+ ],
+ "contacto": {
+  "correo": "psantateresa@hotmail.com",
+  "telefono": "+56 9 8216 1720",
+  "whatsapp": "+56 9 8216 1720",
+  "urgencias": ""
+ },
+ "redes": [
+  {
+   "red": "Facebook",
+   "usuario": "Parroquia Santa Teresa de Jesús de los Andes de Melipilla",
+   "url": "https://www.facebook.com/santateresitamelipilla"
+  },
+  {
+   "red": "Instagram",
+   "usuario": "@parroquiasantateresa_melipilla",
+   "url": "https://www.instagram.com/parroquiasantateresa_melipilla/"
+  }
+ ],
+ "publicaciones": [
+  {
+   "red": "Facebook",
+   "fecha": "3 nov",
+   "texto": "Este domingo 8 de noviembre comienza el Mes de María en la parroquia. Te invitamos a vivirlo con un corazón dispuesto y lleno de fe.",
+   "imagen": "",
+   "url": "https://www.facebook.com/santateresitamelipilla/posts/pfbid02gBS8Www3CaY8JjAh5HrsMTJMoHhHCqpGAwbPjmPdNWoR3bYRwzqccQEG8faWeZS5l"
+  },
+  {
+   "red": "Instagram",
+   "fecha": "Destacado",
+   "texto": "Bingo Parroquial 2026: sábado 28 de noviembre a las 15:00 en la Escuela República de Brasil. ¡Grandes premios y comida!",
+   "imagen": "",
+   "url": "https://www.instagram.com/parroquiasantateresa_melipilla/"
+  },
+  {
+   "red": "Facebook",
+   "fecha": "3 nov",
+   "texto": "Compartimos el Evangelio del día según san Lucas (Lc 14, 15-24).",
+   "imagen": "",
+   "url": "https://www.facebook.com/santateresitamelipilla"
+  }
+ ]
+}
