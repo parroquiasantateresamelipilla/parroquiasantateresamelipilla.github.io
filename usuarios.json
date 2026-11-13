@@ -1,3 +1,11 @@
 {
- "usuarios": []
+ "usuarios": [
+  {
+   "salt": "8Nal9gNP5uVw1IsAIAHyMA==",
+   "iv": "094bzZHG1mQYMMVk",
+   "data": "S0cQotYaEmx9S38ur1xjbR1YzH78OsLm7k4Ji/KLybukbZQtQVgBb99CVzy+aj5fveOyIpqz5FTBLgRn806DYjUi7swXukYl1tF0n5IOkAuXbMKjlagb4zACYN6XbPmDDW0N1520BxDFuDtC0Q==",
+   "iter": 600000,
+   "usuario": "jacc"
+  }
+ ]
 }
