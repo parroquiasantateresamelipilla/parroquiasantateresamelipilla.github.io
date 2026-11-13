@@ -169,7 +169,16 @@ footer .name{font-family:var(--display);font-size:1.05rem;color:var(--ink)}
 .post .pmeta{font-family:var(--ui);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .post p{font-size:.95rem}
 .post .pmore{font-family:var(--ui);font-size:.85rem;color:var(--sky);font-weight:600}
-#fbPlugin{margin-top:1.6rem;overflow:hidden}
+#fbPlugin{overflow:hidden;min-height:200px}
+.feeds{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:1.6rem;align-items:start}
+.feeds > *{min-width:0}
+.feed h4{margin:0 0 .8rem;font-weight:600}
+.posts.two{grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))}
+.pcap{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.don-band{background:var(--sky-soft)}
+.don{display:grid;gap:.9rem;justify-items:start}
+.don-btn{font-size:1.05rem;padding:.85rem 1.4rem}
+.don-note{font-family:var(--ui);font-size:.82rem;color:var(--muted)}
 .val a{color:var(--sky)}
 /* ===== Panel de administración ===== */
 .admin-fab{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;font-family:var(--ui);font-weight:600;font-size:.9rem;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:.7rem 1.1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.2)}
@@ -212,7 +221,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
     <a class="brand" href="#inicio"><span id="v-logo"></span><span><b id="v-nombreCorto"></b><small id="v-ciudad"></small></span></a>
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">Menú</button>
     <nav class="menu" id="menu">
-      <a href="#evangelio">Evangelio</a><a href="#horarios">Horarios</a><a href="#pastoral">Pastoral</a><a href="#comunidad">Comunidad</a><a href="#sacramentos">Sacramentos</a><a href="#avisos">Avisos</a><a href="#ubicacion">Ubicación</a><a href="#contacto">Contacto</a>
+      <a href="#evangelio">Evangelio</a><a href="#horarios">Horarios</a><a href="#pastoral">Pastoral</a><a href="#comunidad">Comunidad</a><a href="#sacramentos">Sacramentos</a><a href="#avisos">Avisos</a><a href="#ubicacion">Ubicación</a><a href="#contacto">Contacto</a><a href="#donar">Donar</a>
     </nav>
   </div>
 </header>
@@ -222,7 +231,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
     <h1 id="v-nombre"></h1>
     <p class="lead" id="v-bienvenida"></p>
     <p class="quote" id="v-frase"></p>
-    <div class="cta"><a class="btn solid" href="#horarios">Ver horarios de Misa</a><a class="btn" id="v-waHero" target="_blank" rel="noopener">Escríbenos por WhatsApp</a></div>
+    <div class="cta"><a class="btn solid" href="#horarios">Ver horarios de Misa</a><a class="btn" id="v-waHero" target="_blank" rel="noopener">Escríbenos por WhatsApp</a><a class="btn" id="v-donHero" target="_blank" rel="noopener">Donar a la parroquia</a></div>
   </div>
   <svg class="ridge" viewBox="0 0 1200 150" preserveAspectRatio="none" aria-hidden="true">
     <path d="M0 150V92l90-38 70 26 110-62 85 48 70-30 120 70 95-52 110 44 100-66 90 40 95-24 85 34 80-22V150z" fill="var(--sky)" opacity=".35"/>
@@ -230,7 +239,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
     <path d="M0 150v-30l120-28 140 22 160-36 150 30 170-26 140 24 180-30 140 26v48z" fill="var(--bg)"/>
   </svg>
 </div>
-<div class="wrap next"><div class="card" aria-live="polite"><span class="eyebrow">Próxima Misa</span><span class="big" id="nextTime">—</span><span class="note">Según el horario publicado abajo</span></div></div>
+<div class="wrap next"><div class="card" aria-live="polite"><span class="eyebrow">Próxima Misa</span><span class="big" id="nextTime">—</span><span class="note" id="nextNote">Según el horario publicado abajo</span></div></div>
 <main>
   <section id="evangelio" class="gospel-band"><div class="wrap gospel">
     <span class="eyebrow" id="ev-fecha">Evangelio del día</span>
@@ -279,6 +288,11 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
       <div class="side"><span class="eyebrow">Capillas de la parroquia</span><div class="side" id="v-capillas"></div></div>
     </div>
   </div></section>
+  <section id="donar" class="don-band"><div class="wrap don">
+    <div class="sec-head"><span class="eyebrow">Colabora con la parroquia</span><h2>Tu aporte sostiene nuestra misión</h2><p id="v-donTexto"></p></div>
+    <div><a class="btn solid don-btn" id="v-donLink" target="_blank" rel="noopener">Donar en línea</a></div>
+    <p class="don-note">Serás llevado a la plataforma segura de donaciones de la parroquia.</p>
+  </div></section>
   <section id="contacto"><div class="wrap">
     <div class="sec-head"><span class="eyebrow">Canales de comunicación</span><h2>Contacto</h2></div>
     <div class="grid2">
@@ -288,8 +302,9 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
         <label for="f-correo">Correo o teléfono<input id="f-correo" name="correo" required></label>
         <label for="f-tema">Tema<select id="f-tema" name="tema"><option>Consulta general</option><option>Bautismo</option><option>Matrimonio</option><option>Intención de Misa</option><option>Certificados</option><option>Comedor Fraterno</option></select></label>
         <label for="f-mensaje">Mensaje<textarea id="f-mensaje" name="mensaje" required></textarea></label>
-        <button class="btn solid" type="submit">Enviar mensaje</button>
-        <p class="ok" id="formOk" hidden>Formulario de prueba: se conectará al correo de la parroquia cuando el sitio esté en su servidor.</p>
+        <button class="btn solid" type="submit" id="f-send">Enviar mensaje</button>
+        <input type="text" name="_honey" id="f-honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <p class="ok" id="formOk" role="status" hidden></p>
       </form>
     </div>
   </div></section>
@@ -297,8 +312,10 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
     <div class="sec-head"><span class="eyebrow">Redes sociales</span><h2>Síguenos</h2></div>
     <div class="socials" id="v-redes"></div>
     <div class="sec-head" style="margin-top:2.6rem"><span class="eyebrow">Últimas publicaciones</span><h3 style="font-size:1.4rem">Lo último en nuestras redes</h3></div>
-    <div class="posts" id="v-posts"></div>
-    <div id="fbPlugin"></div>
+    <div class="feeds">
+      <div class="feed"><h4 class="eyebrow">Instagram</h4><div class="posts two" id="v-posts"></div></div>
+      <div class="feed" id="fbCol"><h4 class="eyebrow">Facebook</h4><div id="fbPlugin"></div></div>
+    </div>
   </div></section>
 </main>
 <footer><div class="wrap">
@@ -339,8 +356,9 @@ function render(d){
   $('v-nombreCorto').textContent=g.nombreCorto||g.nombre;$('v-ciudad').textContent=g.ciudad;
   $('v-subtitulo').textContent=g.subtitulo;$('v-nombre').textContent=g.nombre;
   $('v-bienvenida').textContent=g.bienvenida;$('v-frase').textContent=g.frase;$('v-frase').hidden=!g.frase;
-  $('v-horariosNota').textContent=d.horariosNota||'';
+  $('v-horariosNota').textContent=calOk()?'Horario de los próximos 7 días, tomado del calendario parroquial. Puede cambiar en fiestas y vacaciones.':(d.horariosNota||'');
   var tb=$('v-misas');tb.textContent='';var today=new Date().getDay();
+  if(calOk()){renderCal(tb)}else
   [1,2,3,4,5,6,0].forEach(function(i){var m=d.misas[i]||{};var tr=el('tr');if(i===today)tr.className='today';
     tr.appendChild(el('td',null,DAYS[i]));var td=el('td',null,(m.horas||'').trim()?m.horas:'Sin Misa');if(m.nota)td.appendChild(el('span','nota',m.nota));tr.appendChild(td);
     tr.appendChild(el('td',null,((m.horas||'').trim()||m.nota)?(m.lugar||''):'—'));tb.appendChild(tr)});
@@ -372,7 +390,14 @@ function render(d){
     a.innerHTML=ICONS[r.red]||ICONS.Otra;var t=el('div');t.appendChild(el('b',null,r.red==='Otra'?'Enlace':r.red));t.appendChild(el('span',null,r.usuario));a.appendChild(t);rs.appendChild(a)});
   $('redes').hidden=!rs.children.length;
   var wh=$('v-waHero'),wu=waUrl(d.contacto.whatsapp);wh.hidden=!wu;if(wu)wh.href=wu;
-  var po=$('v-posts');po.textContent='';(d.publicaciones||[]).forEach(function(x){var url=safeUrl(x.url);var a=el(url?'a':'div','post');if(url){a.href=url;a.target='_blank';a.rel='noopener'}
+  if(g.donaciones===undefined)g.donaciones='https://psantateresa.donando.cl';
+  if(g.donacionesTexto===undefined)g.donacionesTexto='Con tu donación apoyas el Comedor Fraterno, la vida de nuestras cinco comunidades y el cuidado del templo y las capillas. Puedes aportar en línea de forma segura.';
+  var du=safeUrl(g.donaciones);$('donar').hidden=!du;$('v-donHero').hidden=!du;if(du){$('v-donLink').href=du;$('v-donHero').href=du}
+  $('v-donTexto').textContent=g.donacionesTexto||'';
+  var po=$('v-posts');po.textContent='';var manual=IGPOSTS&&IGPOSTS.length?[]:(d.publicaciones||[]);
+  (IGPOSTS||[]).slice(0,2).forEach(function(x){var a=el('a','post');a.href=x.url;a.target='_blank';a.rel='noopener';var im=el('img','pimg');im.src=x.img;im.alt='';im.loading='lazy';a.appendChild(im);
+    var bd=el('div','pbody');bd.appendChild(el('span','pmeta','Instagram · '+x.fecha));var cp=el('p',null,x.texto);cp.className='pcap';bd.appendChild(cp);bd.appendChild(el('span','pmore','Ver en Instagram'));a.appendChild(bd);po.appendChild(a)});
+  manual.forEach(function(x){var url=safeUrl(x.url);var a=el(url?'a':'div','post');if(url){a.href=url;a.target='_blank';a.rel='noopener'}
     if(safeImg(x.imagen)){var im=el('img','pimg');im.src=x.imagen;im.alt='';a.appendChild(im)}else{var ph=el('div','pph');ph.innerHTML=ICONS[x.red]||ICONS.Otra;a.appendChild(ph)}
     var bd=el('div','pbody');bd.appendChild(el('span','pmeta',[x.red,x.fecha].filter(Boolean).join(' · ')));bd.appendChild(el('p',null,x.texto));if(url)bd.appendChild(el('span','pmore','Ver publicación'));a.appendChild(bd);po.appendChild(a)});
   $('v-pieNombre').textContent=g.nombre;
@@ -382,21 +407,53 @@ function render(d){
 function copy(b,v,node){var done=function(){b.textContent='Copiado';setTimeout(function(){b.textContent='Copiar'},1600)};
   var sel=function(){var r=document.createRange();r.selectNodeContents(node);var s=getSelection();s.removeAllRanges();s.addRange(r)};
   try{navigator.clipboard.writeText(v).then(done,sel)}catch(e){sel()}}
-function nextMass(d){var now=new Date(),mins=now.getHours()*60+now.getMinutes();
+var CAL=null;
+function hoyISO(){try{return new Date().toLocaleDateString('en-CA',{timeZone:'America/Santiago'})}catch(e){return new Date().toISOString().slice(0,10)}}
+function addDays(iso,n){var d=new Date(iso+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)}
+function dowOf(iso){return new Date(iso+'T12:00:00Z').getUTCDay()}
+function dayDiff(iso){return Math.round((Date.parse(iso+'T12:00:00Z')-Date.parse(hoyISO()+'T12:00:00Z'))/864e5)}
+function calOk(){return !!(CAL&&CAL.eventos&&CAL.actualizado&&dayDiff(CAL.actualizado)>=-2)}
+var MESES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+function renderCal(tb){var hoy=hoyISO();
+  for(var i=0;i<7;i++){var f=addDays(hoy,i),ev=CAL.eventos.filter(function(e){return e.fecha===f});
+    var tr=el('tr');if(i===0)tr.className='today';var td0=el('td',null,DAYS[dowOf(f)]);td0.appendChild(el('span','nota',(+f.slice(8))+' '+MESES[+f.slice(5,7)-1]));tr.appendChild(td0);
+    var t1=el('td'),t2=el('td');
+    if(!ev.length){t1.textContent='Sin celebraciones';t2.textContent='—'}
+    ev.forEach(function(e){t1.appendChild(el('div',null,e.hora+' '+e.tipo));t2.appendChild(el('div',null,e.lugar))});
+    tr.appendChild(t1);tr.appendChild(t2);tb.appendChild(tr)}}
+function nextMass(d){if(calOk()){var now=Date.now(),nx=CAL.eventos.filter(function(e){return e.tipo==='Misa'&&Date.parse(e.inicio)>now})[0];
+    if(nx){var dd=dayDiff(nx.fecha);$('nextTime').textContent=(dd===0?'Hoy':dd===1?'Mañana':DAYS[dowOf(nx.fecha)])+', '+nx.hora;$('nextNote').textContent=nx.lugar;return}}
+  $('nextNote').textContent='Según el horario publicado abajo';
+  var now=new Date(),mins=now.getHours()*60+now.getMinutes();
   for(var i=0;i<8;i++){var day=(now.getDay()+i)%7,m=d.misas[day];if(!m||!m.horas)continue;
     var ts=m.horas.split(',').map(function(s){return s.trim()}).filter(function(s){return /^\d{1,2}:\d{2}$/.test(s)}).sort();
     for(var j=0;j<ts.length;j++){var p=ts[j].split(':'),t=+p[0]*60+ +p[1];
       if(i>0||t>mins){$('nextTime').textContent=(i===0?'Hoy':i===1?'Mañana':DAYS[day])+', '+ts[j];return}}}
   $('nextTime').textContent='Consulta los avisos'}
 
-fetch('data.json?v='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){DATA=d;render(DATA);loadFb();if(location.hash==='#admin')openEditor()}).catch(function(){$('nextTime').textContent='No se pudo cargar la información. Recarga la página.'});
+var IGPOSTS=null;
+function loadIG(){var u=safeUrl(DATA.general.instagramFeed);if(!u)return;fetch(u).then(function(r){return r.json()}).then(function(j){var ps=Array.isArray(j)?j:(j.posts||[]);
+  IGPOSTS=ps.slice(0,2).map(function(p){var sz=p.sizes||{};var img=(sz.medium&&sz.medium.mediaUrl)||(sz.large&&sz.large.mediaUrl)||p.thumbnailUrl||p.mediaUrl;
+    var dt=p.timestamp?new Date(p.timestamp):null;return {url:p.permalink,img:img,texto:p.prunedCaption||p.caption||'',fecha:dt?dt.getDate()+' '+MESES[dt.getMonth()]:''}}).filter(function(x){return x.img&&safeUrl(x.url)});
+  if(!draft)render(DATA)}).catch(function(){})}
+fetch('calendario.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(c){if(c){CAL=c;if(DATA&&!draft)render(DATA)}}).catch(function(){});
+fetch('data.json?v='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){DATA=d;render(DATA);loadFb();loadIG();if(location.hash==='#admin')openEditor()}).catch(function(){$('nextTime').textContent='No se pudo cargar la información. Recarga la página.'});
 $('menuBtn').onclick=function(){var o=$('menu').classList.toggle('open');this.setAttribute('aria-expanded',o)};
 $('menu').onclick=function(e){if(e.target.tagName==='A'){$('menu').classList.remove('open');$('menuBtn').setAttribute('aria-expanded','false')}};
-$('msgForm').onsubmit=function(e){e.preventDefault();$('formOk').hidden=false};
+$('msgForm').onsubmit=function(e){e.preventDefault();var ok=$('formOk'),b=$('f-send');if($('f-honey').value)return;
+  var dest=(DATA&&DATA.contacto&&DATA.contacto.correo)||'psantateresa@hotmail.com';var c=$('f-correo').value.trim();
+  b.disabled=true;ok.hidden=false;ok.style.color='';ok.textContent='Enviando…';
+  fetch('https://formsubmit.co/ajax/'+encodeURIComponent(dest),{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({Nombre:$('f-nombre').value.trim(),'Correo o teléfono':c,Tema:$('f-tema').value,Mensaje:$('f-mensaje').value.trim(),
+      _subject:'Mensaje desde el sitio web: '+$('f-tema').value,_template:'table',_replyto:/@/.test(c)?c:undefined})})
+  .then(function(r){return r.json()}).then(function(j){b.disabled=false;
+    if(String(j.success)==='true'){ok.textContent='¡Gracias! Tu mensaje fue enviado. Te responderemos pronto.';$('msgForm').reset()}
+    else{ok.style.color='var(--bad)';ok.textContent='No se pudo enviar el mensaje. Escríbenos por WhatsApp o al correo de la parroquia.'}})
+  .catch(function(){b.disabled=false;ok.style.color='var(--bad)';ok.textContent='No hay conexión. Inténtalo de nuevo o escríbenos por WhatsApp.'})};
 
 /* ===== Administración ===== */
 var SECTIONS=[
- {id:'general',label:'General',help:'Nombre, bienvenida, logo y aviso superior.',obj:'general',fields:[['nombre','Nombre completo'],['nombreCorto','Nombre corto (encabezado)'],['ciudad','Ciudad'],['subtitulo','Subtítulo (diócesis)'],['bienvenida','Texto de bienvenida','area'],['frase','Frase destacada'],['fiesta','Fiesta patronal'],['aviso','Aviso superior (déjalo vacío para ocultarlo)'],['logo','Logo de la parroquia','img']]},
+ {id:'general',label:'General',help:'Nombre, bienvenida, logo y aviso superior.',obj:'general',fields:[['nombre','Nombre completo'],['nombreCorto','Nombre corto (encabezado)'],['ciudad','Ciudad'],['subtitulo','Subtítulo (diócesis)'],['bienvenida','Texto de bienvenida','area'],['frase','Frase destacada'],['fiesta','Fiesta patronal'],['aviso','Aviso superior (déjalo vacío para ocultarlo)'],['logo','Logo de la parroquia','img'],['donaciones','Enlace para donaciones (déjalo vacío para ocultar)'],['donacionesTexto','Texto de la sección de donaciones','area'],['instagramFeed','Enlace JSON de Behold (Instagram automático)']]},
  {id:'horarios',label:'Horarios de Misa',help:'Escribe las horas separadas por coma (ej: 09:00, 12:00). Deja vacío si ese día no hay Misa.',custom:'misas'},
  {id:'atencion',label:'Confesiones y oficina',obj:'atencion',fields:[['confesiones','Confesiones','area'],['oficina','Horario de oficina','area'],['tramites','Trámites en oficina','area']]},
  {id:'pastoral',label:'Pastoral',list:'pastoral',noun:'servicio',fields:[['titulo','Título'],['texto','Descripción','area']]},
@@ -407,7 +464,7 @@ var SECTIONS=[
  {id:'capillas',label:'Capillas',list:'capillas',noun:'capilla',help:'Indica los horarios con una línea por celebración.',fields:[['nombre','Nombre'],['sector','Sector'],['horario','Horarios (uno por línea)','area']]},
  {id:'contacto',label:'Contacto',obj:'contacto',help:'Los campos vacíos no se muestran.',fields:[['correo','Correo'],['telefono','Teléfono'],['whatsapp','WhatsApp'],['urgencias','Urgencias sacramentales']]},
  {id:'publicaciones',label:'Publicaciones',list:'publicaciones',noun:'publicación',help:'Destaca aquí tus últimas publicaciones: copia el enlace de la publicación y sube su imagen.',fields:[['red','Red','select',['Facebook','Instagram','YouTube','WhatsApp','TikTok','Otra']],['fecha','Fecha (ej: 3 nov)'],['texto','Texto breve','area'],['imagen','Imagen','img'],['url','Enlace a la publicación']]},
- {id:'redes',label:'Redes',list:'redes',noun:'red social',fields:[['red','Red','select',['Facebook','Instagram','YouTube','WhatsApp','TikTok','Otra']],['usuario','Texto visible'],['url','Enlace (https://…)']]},
+ {id:'redes',label:'Redes',help:'Para mostrar automáticamente las últimas publicaciones de Instagram, pega en la pestaña General el enlace JSON de Behold.',list:'redes',noun:'red social',fields:[['red','Red','select',['Facebook','Instagram','YouTube','WhatsApp','TikTok','Otra']],['usuario','Texto visible'],['url','Enlace (https://…)']]},
  {id:'usuarios',label:'Usuarios y contraseña',custom:'usuarios'}
 ];
 var draft=null,current='general',dirty=false;
@@ -553,8 +610,8 @@ fetch('evangelio.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return
 /* Muro de Facebook con las últimas publicaciones */
 var fbDone=false;
 function loadFb(){if(fbDone)return;fbDone=true;var fb=(DATA.redes||[]).filter(function(r){return r.red==='Facebook'&&safeUrl(r.url)})[0];if(!fb)return;
-  var f=document.createElement('iframe');f.title='Publicaciones de Facebook';f.loading='lazy';f.style.cssText='border:0;width:100%;max-width:500px;height:650px';
-  f.src='https://www.facebook.com/plugins/page.php?href='+encodeURIComponent(fb.url)+'&tabs=timeline&width=500&height=650&small_header=true&adapt_container_width=true&hide_cover=false';$('fbPlugin').appendChild(f)}
+  var f=document.createElement('iframe');f.title='Publicaciones de Facebook';f.loading='lazy';f.style.cssText='border:0;width:100%;max-width:500px;height:760px';
+  f.src='https://www.facebook.com/plugins/page.php?href='+encodeURIComponent(fb.url)+'&tabs=timeline&width=500&height=760&small_header=true&adapt_container_width=true&hide_cover=false';$('fbPlugin').appendChild(f)}
 
 $('adminLink').onclick=function(){if(DATA)openEditor()};
 })();
