@@ -407,7 +407,8 @@ var SECTIONS=[
  {id:'capillas',label:'Capillas',list:'capillas',noun:'capilla',help:'Indica los horarios con una línea por celebración.',fields:[['nombre','Nombre'],['sector','Sector'],['horario','Horarios (uno por línea)','area']]},
  {id:'contacto',label:'Contacto',obj:'contacto',help:'Los campos vacíos no se muestran.',fields:[['correo','Correo'],['telefono','Teléfono'],['whatsapp','WhatsApp'],['urgencias','Urgencias sacramentales']]},
  {id:'publicaciones',label:'Publicaciones',list:'publicaciones',noun:'publicación',help:'Destaca aquí tus últimas publicaciones: copia el enlace de la publicación y sube su imagen.',fields:[['red','Red','select',['Facebook','Instagram','YouTube','WhatsApp','TikTok','Otra']],['fecha','Fecha (ej: 3 nov)'],['texto','Texto breve','area'],['imagen','Imagen','img'],['url','Enlace a la publicación']]},
- {id:'redes',label:'Redes',list:'redes',noun:'red social',fields:[['red','Red','select',['Facebook','Instagram','YouTube','WhatsApp','TikTok','Otra']],['usuario','Texto visible'],['url','Enlace (https://…)']]}
+ {id:'redes',label:'Redes',list:'redes',noun:'red social',fields:[['red','Red','select',['Facebook','Instagram','YouTube','WhatsApp','TikTok','Otra']],['usuario','Texto visible'],['url','Enlace (https://…)']]},
+ {id:'usuarios',label:'Usuarios y contraseña',custom:'usuarios'}
 ];
 var draft=null,current='general',dirty=false;
 
@@ -433,6 +434,7 @@ function buildTabs(){var t=$('ed-tabs');t.textContent='';SECTIONS.forEach(functi
 function buildForm(){var body=$('ed-body');body.textContent='';var s=SECTIONS.filter(function(x){return x.id===current})[0];
   body.appendChild(el('h3',null,s.label));if(s.help)body.appendChild(el('p','help',s.help));
   if(s.obj){s.fields.forEach(function(f){body.appendChild(field(f[1],'ed-'+s.id+'-'+f[0],f[2],draft[s.obj][f[0]],function(v){draft[s.obj][f[0]]=v;changed()},f[3]))})}
+  else if(s.custom==='usuarios'){buildUsers(body)}
   else if(s.custom==='misas'){
     body.appendChild(field('Nota sobre los horarios','ed-horariosNota','area',draft.horariosNota,function(v){draft.horariosNota=v;changed()}));
     [1,2,3,4,5,6,0].forEach(function(i){var m=draft.misas[i];var it=el('div','item');it.appendChild(el('b',null,DAYS[i]));
@@ -456,15 +458,65 @@ function openEditor(){
   var d=el('aside','drawer');d.id='drawer';d.setAttribute('aria-label','Administrar sitio');
   document.body.appendChild(d);document.body.classList.add('editing');
   if(getTok())showEditor();else showLogin()}
+/* Usuarios con contraseña propia: la clave de GitHub se guarda cifrada (AES-GCM + PBKDF2) en usuarios.json */
+var ITER=600000;
+function u8b64(u){var bin='';for(var i=0;i<u.length;i++)bin+=String.fromCharCode(u[i]);return btoa(bin)}
+function b64u8(s){var bin=atob(s),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return u}
+function deriveKey(pass,salt){return crypto.subtle.importKey('raw',new TextEncoder().encode(pass),'PBKDF2',false,['deriveKey']).then(function(k){
+  return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:ITER,hash:'SHA-256'},k,{name:'AES-GCM',length:256},false,['encrypt','decrypt'])})}
+function encryptTok(pass,tok){var salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12));
+  return deriveKey(pass,salt).then(function(k){return crypto.subtle.encrypt({name:'AES-GCM',iv:iv},k,new TextEncoder().encode(tok))}).then(function(ct){return {salt:u8b64(salt),iv:u8b64(iv),data:u8b64(new Uint8Array(ct)),iter:ITER}})}
+function decryptTok(pass,rec){return deriveKey(pass,b64u8(rec.salt)).then(function(k){return crypto.subtle.decrypt({name:'AES-GCM',iv:b64u8(rec.iv)},k,b64u8(rec.data))}).then(function(pt){return new TextDecoder().decode(pt)})}
+function loadUsers(){return fetch('usuarios.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():{usuarios:[]}}).catch(function(){return {usuarios:[]}})}
+function checkTok(){return gh('').then(function(r){return r.ok?r.json():null}).then(function(j){return !!(j&&j.permissions&&j.permissions.push)})}
+function putFile(path,text,msg){return gh('/contents/'+path+'?ref=main').then(function(r){if(r.status===401||r.status===403)throw{auth:1};return r.ok?r.json():{}}).then(function(cur){
+  return gh('/contents/'+path,{method:'PUT',body:JSON.stringify({message:msg,content:b64(text),sha:cur.sha,branch:'main'})})}).then(function(r){if(r.status===401||r.status===403)throw{auth:1};if(!r.ok)throw{code:r.status};return r})}
+
 function showLogin(msg){var d=$('drawer');
-  d.innerHTML='<div class="drawer-head"><h2>Administrar sitio</h2><button class="iconbtn" type="button" id="ed-close">Cerrar</button></div><form class="ed-body login" id="loginForm"><p>Ingresa la clave de acceso del sitio. Se guarda en este navegador, así que solo la pides una vez por computador o celular.</p><label class="fld" for="tok"><span>Clave de acceso</span><input id="tok" type="password" autocomplete="off" required></label><button class="btn solid" type="submit">Entrar</button><p class="status" id="ed-status"></p><details><summary>¿Cómo obtengo una clave?</summary><ol><li>Entra a github.com con la cuenta de la parroquia.</li><li>Ve a Settings, Developer settings, Personal access tokens, Fine-grained tokens.</li><li>Crea un token solo para el repositorio del sitio, con permiso Contents: Read and write.</li><li>Copia el token y pégalo aquí.</li></ol></details></form>';
+  d.innerHTML='<div class="drawer-head"><h2>Administrar sitio</h2><button class="iconbtn" type="button" id="ed-close">Cerrar</button></div>'
+   +'<form class="ed-body login" id="loginForm"><p>Ingresa con tu usuario y contraseña.</p>'
+   +'<label class="fld" for="lg-user"><span>Usuario</span><input id="lg-user" autocomplete="username" autocapitalize="none" required></label>'
+   +'<label class="fld" for="lg-pass"><span>Contraseña</span><input id="lg-pass" type="password" autocomplete="current-password" required></label>'
+   +'<button class="btn solid" type="submit" id="lg-btn">Entrar</button><p class="status" id="ed-status"></p>'
+   +'<details><summary>Entrar con la clave de GitHub</summary><div class="login" style="margin-top:.6rem"><p class="help">Úsala la primera vez, o si olvidaste tu contraseña. Empieza con github_pat_.</p>'
+   +'<label class="fld" for="tok"><span>Clave de GitHub</span><input id="tok" type="password" autocomplete="off"></label><button class="btn small" type="button" id="tok-btn">Entrar con clave</button></div></details></form>';
   $('ed-close').onclick=closeEditor;if(msg)status(msg,'bad');
-  $('loginForm').onsubmit=function(e){e.preventDefault();setTok($('tok').value.trim());status('Verificando…','');
-    gh('').then(function(r){return r.ok?r.json():null}).then(function(j){if(j&&j.permissions&&j.permissions.push)showEditor();else{setTok('');status('La clave no es válida o no tiene permiso para editar el sitio.','bad')}},function(){setTok('');status('No hay conexión con GitHub. Revisa tu internet.','bad')})}}
+  $('loginForm').onsubmit=function(e){e.preventDefault();var u=$('lg-user').value.trim().toLowerCase(),pw=$('lg-pass').value,btn=$('lg-btn');btn.disabled=true;status('Verificando…','');
+    loadUsers().then(function(db){var rec=(db.usuarios||[]).filter(function(x){return x.usuario===u})[0];if(!rec)throw{bad:1};
+      return decryptTok(pw,rec).catch(function(){throw{bad:1}})}).then(function(tok){setTok(tok);return checkTok()}).then(function(ok){btn.disabled=false;
+      if(ok)showEditor();else{setTok('');status('Tu acceso ya no es válido: la clave de GitHub cambió. Entra con la clave nueva y vuelve a crear tu contraseña.','bad')}
+    }).catch(function(e){btn.disabled=false;setTok('');status(e&&e.bad?'Usuario o contraseña incorrectos.':'No hay conexión. Revisa tu internet.','bad')})};
+  $('tok-btn').onclick=function(){var t=$('tok').value.trim();if(!t)return;setTok(t);status('Verificando…','');
+    checkTok().then(function(ok){if(ok){current='usuarios';showEditor()}else{setTok('');status('La clave no es válida o no tiene permiso para editar el sitio.','bad')}},function(){setTok('');status('No hay conexión con GitHub. Revisa tu internet.','bad')})}}
+
+function buildUsers(body){
+  body.appendChild(el('p','help','Crea un usuario y una contraseña para entrar al panel sin la clave de GitHub. Usa una contraseña de al menos 10 caracteres. Si cambias la clave de GitHub, hay que volver a crear los usuarios.'));
+  var list=el('div');list.style.cssText='display:grid;gap:.5rem';body.appendChild(list);
+  function refresh(){list.textContent='Cargando…';loadUsers().then(function(db){list.textContent='';var us=db.usuarios||[];
+    if(!us.length)list.appendChild(el('p','help','Todavía no hay usuarios creados.'));
+    us.forEach(function(x){var it=el('div','item');var hd=el('div','item-head');hd.appendChild(el('b',null,x.usuario));var del=el('button','iconbtn danger','Quitar');del.type='button';
+      del.onclick=function(){del.disabled=true;var rest=us.filter(function(y){return y.usuario!==x.usuario});
+        putFile('usuarios.json',JSON.stringify({usuarios:rest},null,1),'Quita usuario '+x.usuario).then(function(){status('Usuario quitado.','ok');setTimeout(refresh,1500)},fail)};
+      hd.appendChild(del);it.appendChild(hd);list.appendChild(it)})})}
+  function fail(e){if(e&&e.auth){setTok('');showLogin('La clave venció o no tiene permiso.')}else status('No se pudo guardar. Inténtalo de nuevo.','bad')}
+  var f=el('div','item');f.appendChild(el('b',null,'Nuevo usuario o cambio de contraseña'));
+  var iu=field('Usuario (sin espacios)','us-user','','',function(){});var ip=field('Contraseña','us-pass','','',function(){});var ip2=field('Repite la contraseña','us-pass2','','',function(){});
+  ip.querySelector('input').type='password';ip2.querySelector('input').type='password';ip.querySelector('input').autocomplete='new-password';ip2.querySelector('input').autocomplete='new-password';
+  f.appendChild(iu);f.appendChild(ip);f.appendChild(ip2);
+  var go=el('button','btn small solid','Guardar usuario');go.type='button';f.appendChild(go);body.appendChild(f);
+  go.onclick=function(){var u=$('us-user').value.trim().toLowerCase(),p1=$('us-pass').value,p2=$('us-pass2').value;
+    if(!/^[a-z0-9._-]{3,30}$/.test(u))return status('El usuario debe tener entre 3 y 30 letras o números, sin espacios.','bad');
+    if(p1.length<10)return status('La contraseña debe tener al menos 10 caracteres.','bad');
+    if(p1!==p2)return status('Las contraseñas no coinciden.','bad');
+    go.disabled=true;status('Guardando…','');
+    Promise.all([loadUsers(),encryptTok(p1,getTok())]).then(function(r){var us=(r[0].usuarios||[]).filter(function(y){return y.usuario!==u});var rec=r[1];rec.usuario=u;us.push(rec);
+      return putFile('usuarios.json',JSON.stringify({usuarios:us},null,1),'Guarda usuario '+u)}).then(function(){go.disabled=false;$('us-pass').value='';$('us-pass2').value='';
+      status('Usuario "'+u+'" guardado. Podrás entrar con él en uno o dos minutos.','ok');setTimeout(refresh,1500)},function(e){go.disabled=false;fail(e)})};
+  refresh()}
 function showEditor(){if(!draft)draft=JSON.parse(JSON.stringify(DATA));var d=$('drawer');
   d.innerHTML='<div class="drawer-head"><h2>Administrar sitio</h2><span style="display:flex;gap:.4rem"><button class="iconbtn" type="button" id="ed-logout">Salir</button><button class="iconbtn" type="button" id="ed-close">Cerrar</button></span></div><div class="tabs" id="ed-tabs" role="tablist"></div><div class="ed-body" id="ed-body"></div><div class="drawer-foot"><span class="status" id="ed-status">Los cambios se ven al instante en esta pantalla.</span><span style="display:flex;gap:.5rem"><button class="btn small" type="button" id="ed-discard">Descartar</button><button class="btn small solid" type="button" id="ed-save">Publicar cambios</button></span></div>';
   buildTabs();buildForm();
-  $('ed-close').onclick=closeEditor;$('ed-logout').onclick=function(){setTok('');showLogin()};
+  $('ed-close').onclick=closeEditor;$('ed-logout').onclick=function(){setTok('');showLogin()};if(current==='usuarios')status('Crea aquí tu usuario y contraseña.','');
   $('ed-discard').onclick=function(){draft=JSON.parse(JSON.stringify(DATA));dirty=false;render(DATA);buildForm();status('Cambios descartados','')};
   $('ed-save').onclick=save}
 function closeEditor(){var d=$('drawer');if(d)d.remove();document.body.classList.remove('editing');if(dirty){draft=null;dirty=false;render(DATA)}}
