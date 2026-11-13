@@ -1,0 +1,31 @@
+name: Agenda de Misas
+
+on:
+  schedule:
+    # cada 3 horas
+    - cron: '17 */3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install --no-save ical-expander@3.2.0
+      - run: node calendario.mjs
+      - name: Guardar cambios
+        run: |
+          if [ -n "$(git status --porcelain calendario.json)" ]; then
+            git config user.name "Agenda parroquial"
+            git config user.email "actions@users.noreply.github.com"
+            git add calendario.json
+            git commit -m "Agenda de Misas $(TZ=America/Santiago date '+%F %H:%M')"
+            git pull --rebase
+            git push
+          fi
