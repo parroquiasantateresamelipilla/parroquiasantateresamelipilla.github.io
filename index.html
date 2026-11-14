@@ -119,6 +119,8 @@ section[id]{scroll-margin-top:5rem}
 
 .news article{display:grid;grid-template-columns:6rem 1fr;gap:1rem;padding-block:1rem;border-bottom:1px solid var(--line)}
 .news article > div{min-width:0}
+.news time .nota{display:block;font-weight:500;color:var(--muted)}
+.news .pmore{font-family:var(--ui);font-size:.85rem;font-weight:600;color:var(--sky);text-decoration:none}
 .news time{font-family:var(--ui);font-size:.85rem;color:var(--sky);font-weight:600;font-variant-numeric:tabular-nums}
 .news h3{font-size:1.1rem;margin-bottom:.2rem}
 .news p{font-size:.95rem;color:var(--muted);white-space:pre-line}
@@ -272,7 +274,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
     <div class="sacr" id="v-sacramentos"></div>
   </div></section>
   <section id="avisos"><div class="wrap">
-    <div class="sec-head"><span class="eyebrow">Avisos parroquiales</span><h2>Lo que viene en la parroquia</h2></div>
+    <div class="sec-head"><span class="eyebrow">Avisos parroquiales</span><h2>Lo que viene en la parroquia</h2><p>Actividades de hoy y de los próximos días, tomadas de nuestras publicaciones y del calendario parroquial.</p></div>
     <div class="news" id="v-avisos"></div>
   </div></section>
   <section id="ubicacion"><div class="wrap">
@@ -371,8 +373,7 @@ function render(d){
     c.appendChild(el('span','role',p.cargo));c.appendChild(el('h3',null,p.nombre));if(p.detalle)c.appendChild(el('p',null,p.detalle));pe.appendChild(c)});
   var sa=$('v-sacramentos');sa.textContent='';d.sacramentos.forEach(function(s){var de=el('details');de.appendChild(el('summary',null,s.titulo));var ul=el('ul');
     var cur=ul;de.appendChild(ul);String(s.requisitos||'').split('\n').map(function(r){return r.trim()}).filter(Boolean).forEach(function(r){if(/:$/.test(r)){de.appendChild(el('p','req-sub',r.slice(0,-1)));cur=el('ul');de.appendChild(cur)}else cur.appendChild(el('li',null,r))});sa.appendChild(de)});
-  var av=$('v-avisos');av.textContent='';if(!d.avisos.length)av.appendChild(el('p','empty','No hay avisos publicados por ahora.'));
-  d.avisos.forEach(function(a){var ar=el('article');ar.appendChild(el('time',null,a.fecha));var dv=el('div');dv.appendChild(el('h3',null,a.titulo));dv.appendChild(el('p',null,a.texto));ar.appendChild(dv);av.appendChild(ar)});
+  renderAvisos(d);
   var u=d.ubicacion;$('v-direccion').textContent=u.direccion;$('v-referencia').textContent=u.referencia;
   var mp=safeUrl(u.mapa)||('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(u.direccion));$('v-mapa').href=mp;
   var cp=$('v-capillas');cp.textContent='';(d.capillas||[]).forEach(function(c){var b=el('div','block');b.appendChild(el('h3',null,c.nombre));if(c.sector)b.appendChild(el('p','sub',c.sector));var h=el('p');lines(h,c.horario);b.appendChild(h);cp.appendChild(b)});
@@ -430,9 +431,49 @@ function nextMass(d){if(!$('nextTime'))return;if(calOk()){var now=Date.now(),nx=
       if(i>0||t>mins){$('nextTime').textContent=(i===0?'Hoy':i===1?'Mañana':DAYS[day])+', '+ts[j];return}}}
   $('nextTime').textContent='Consulta los avisos'}
 
-var IGPOSTS=null;
+var IGPOSTS=null,IGRAW=null;
+/* Actividades: se detectan fechas en las publicaciones de Instagram y se completan con el calendario */
+var MESL=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+function limpiar(t){return String(t||'').replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}\u{200D}\u{20E3}]/gu,'').replace(/[ \t]+/g,' ')}
+function isoDe(y,m,d){return y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0')}
+function extraerActividades(posts){var out=[],hoy=hoyISO(),vistos={};
+  (posts||[]).forEach(function(p){var cap=limpiar(p.caption||p.prunedCaption||'');if(!cap)return;
+    var re=/(\d{1,2})\s*(?:de\s+)?(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)/gi,m,fechas=[];
+    var base=p.timestamp?new Date(p.timestamp):new Date();
+    while((m=re.exec(cap))){var mi=MESL.indexOf(m[2].toLowerCase().replace('setiembre','septiembre'));var y=base.getFullYear();
+      var f=isoDe(y,mi,+m[1]);if(Date.parse(f)<base.getTime()-60*864e5)f=isoDe(y+1,mi,+m[1]);fechas.push({f:f,i:m.index,len:m[0].length})}
+    if(!fechas.length)return;
+    var cands=fechas.map(function(x){return {ini:x.f,fin:x.f}});
+    for(var q=0;q+1<fechas.length;q++){if(/^\s*(al|hasta|-)\s+(el\s+)?$/i.test(cap.slice(fechas[q].i+fechas[q].len,fechas[q+1].i)))cands.push({ini:fechas[q].f,fin:fechas[q+1].f})}
+    cands=cands.filter(function(c){return c.fin>=hoy}).sort(function(a,b){return a.ini.localeCompare(b.ini)||b.fin.localeCompare(a.fin)});
+    if(!cands.length)return;var ini=cands[0].ini,fin=cands[0].fin;
+    var hm=cap.match(/(\d{1,2})[:.](\d{2})\s*(?:hrs?\.?|horas)/i)||cap.match(/(\d{1,2})[:.](\d{2})/)||cap.match(/(\d{1,2})\s*(?:hrs?\.?|horas)/i);
+    var hora=hm?String(+hm[1]).padStart(2,'0')+':'+(hm[2]||'00'):'';
+    var lineas=cap.split(/\n+/).map(function(l){return l.replace(/^[^0-9A-Za-zÁÉÍÓÚÑáéíóúñ¡¿«"]+/,'').trim()}).filter(Boolean);
+    var reF=/\d{1,2}\s*(?:de\s+)?(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)/i;
+    var segs=(lineas[0]||'').split(/[,;]|!\s/).map(function(x){return x.replace(/[¡!]/g,'').trim()}).filter(function(x){return x.length>=8&&!reF.test(x)});
+    var titulo=segs[0]||(lineas[0]||'').replace(/[¡!]/g,'').trim();titulo=titulo.charAt(0).toUpperCase()+titulo.slice(1);if(titulo.length>90)titulo=titulo.slice(0,88).replace(/\s+\S*$/,'')+'…';
+    var texto=lineas.slice(1).join(' ');if(texto.length>200)texto=texto.slice(0,198).replace(/\s+\S*$/,'')+'…';
+    var k=titulo.toLowerCase();if(vistos[k])return;vistos[k]=1;
+    out.push({ini:ini,fin:fin,hora:hora,titulo:titulo,texto:texto,url:safeUrl(p.permalink),fuente:'Instagram'})});
+  return out}
+function renderAvisos(d){var av=$('v-avisos');av.textContent='';var hoy=hoyISO(),items=extraerActividades(IGRAW);
+  if(calOk()){var vist={};CAL.eventos.filter(function(e){return !/^(misa|liturgia)/i.test(e.tipo)&&e.fecha>=hoy}).forEach(function(e){var k=e.tipo+e.fecha;if(vist[k])return;vist[k]=1;
+    items.push({ini:e.fecha,fin:e.fecha,hora:e.hora,titulo:e.tipo,texto:e.lugar||'',fuente:'Calendario'})})}
+  items.sort(function(a,b){var x=a.ini<hoy?hoy:a.ini,y=b.ini<hoy?hoy:b.ini;return x.localeCompare(y)||(a.hora||'').localeCompare(b.hora||'')});
+  if(items.length<6){(d.avisos||[]).forEach(function(a){if(items.length<8)items.push({manual:a})})}
+  items=items.slice(0,8);
+  if(!items.length)av.appendChild(el('p','empty','No hay actividades publicadas por ahora.'));
+  items.forEach(function(a){var ar=el('article'),dv=el('div');
+    if(a.manual){ar.appendChild(el('time',null,a.manual.fecha));dv.appendChild(el('h3',null,a.manual.titulo));dv.appendChild(el('p',null,a.manual.texto))}
+    else{var fmt=function(f){return (+f.slice(8))+' '+MESES[+f.slice(5,7)-1]},lbl;
+      if(a.ini<=hoy&&a.fin>hoy)lbl='Hasta el '+fmt(a.fin);else{var dd=dayDiff(a.ini);lbl=dd===0?'Hoy':dd===1?'Mañana':fmt(a.ini)}
+      var t=el('time',null,lbl);if(a.hora)t.appendChild(el('span','nota',a.hora+' hrs'));ar.appendChild(t);
+      dv.appendChild(el('h3',null,a.titulo));if(a.texto)dv.appendChild(el('p',null,a.texto));
+      if(a.url){var l=el('a','pmore','Ver publicación');l.href=a.url;l.target='_blank';l.rel='noopener';dv.appendChild(l)}}
+    ar.appendChild(dv);av.appendChild(ar)})}
 function loadIG(){var u=safeUrl(DATA.general.instagramFeed);if(!u)return;fetch(u).then(function(r){return r.json()}).then(function(j){var ps=Array.isArray(j)?j:(j.posts||[]);
-  IGPOSTS=ps.slice(0,2).map(function(p){var sz=p.sizes||{};var img=(sz.medium&&sz.medium.mediaUrl)||(sz.large&&sz.large.mediaUrl)||p.thumbnailUrl||p.mediaUrl;
+  IGRAW=ps;IGPOSTS=ps.slice(0,2).map(function(p){var sz=p.sizes||{};var img=(sz.medium&&sz.medium.mediaUrl)||(sz.large&&sz.large.mediaUrl)||p.thumbnailUrl||p.mediaUrl;
     var dt=p.timestamp?new Date(p.timestamp):null;return {url:p.permalink,img:img,texto:p.prunedCaption||p.caption||'',fecha:dt?dt.getDate()+' '+MESES[dt.getMonth()]:''}}).filter(function(x){return x.img&&safeUrl(x.url)});
   if(!draft)render(DATA)}).catch(function(){})}
 fetch('calendario.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(c){if(c){CAL=c;if(DATA&&!draft)render(DATA)}}).catch(function(){});
