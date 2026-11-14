@@ -83,7 +83,28 @@ nav.menu a:hover{border-color:var(--gold)}
 .hero .btn:not(.solid){color:#fff;border-color:rgba(255,255,255,.75)}
 .hero .btn:not(.solid):hover{background:rgba(255,255,255,.12)}
 .hero .btn.solid{background:#9a2f31;border-color:#9a2f31;color:#fff}
-.hero .wrap{position:relative;z-index:2;padding-block:4.5rem 9.5rem;display:grid;gap:1rem}
+.hero .wrap{position:relative;z-index:2;padding-block:4rem 8.5rem;display:grid;gap:2rem}
+.hero-main{display:grid;gap:1rem;align-content:center;min-width:0}
+@media (min-width:960px){.hero-grid{grid-template-columns:minmax(0,1fr) minmax(320px,390px);align-items:center;gap:3rem}}
+@media (max-width:959px){.hero .wrap{gap:1rem;padding-block:2.5rem 7rem}.hero-main{display:contents}
+ .hero-main > .eyebrow{order:1}.hero-main > h1{order:2}.today-card{order:3;margin-block:.4rem .6rem}.hero-main > .lead{order:4}.hero-main > .quote{order:5}.hero-main > .cta{order:6}}
+.today-card{background:color-mix(in srgb,var(--surface) 95%,transparent);color:var(--ink);border-radius:14px;padding:1.2rem 1.3rem 1rem;box-shadow:0 12px 40px rgba(0,0,0,.35);display:grid;gap:.8rem;min-width:0;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.today-title{font-size:1.25rem;color:var(--wine)}
+.today-day{display:grid;gap:.35rem}
+.today-day + .today-day{border-top:1px solid var(--line);padding-top:.7rem}
+.today-day h3{font-family:var(--ui);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.today-day h3 b{color:var(--sky)}
+.today-day ul{list-style:none;margin:0;padding:0;display:grid;gap:.45rem}
+.today-day li{display:grid;grid-template-columns:3.4rem 1fr;gap:.6rem;align-items:baseline;font-family:var(--ui);font-size:.92rem;line-height:1.35}
+.today-day li > *{min-width:0}
+.today-day li.past{opacity:.5}
+.today-day .h{font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink)}
+.today-day .t{font-weight:500}
+.today-day .l{display:block;color:var(--muted);font-size:.82rem}
+.today-day .l a{color:var(--sky)}
+.today-empty{font-family:var(--ui);font-size:.9rem;color:var(--muted)}
+.today-more{font-family:var(--ui);font-size:.86rem;font-weight:600;color:var(--sky);text-decoration:none;justify-self:start}
+.today-more:hover{text-decoration:underline}
 .hero h1{font-size:clamp(2rem,5.6vw,3.4rem);color:#fff;max-width:18ch;text-shadow:0 2px 12px rgba(0,0,0,.35)}
 .hero .lead{font-size:1.15rem;max-width:52ch;color:#f4ece7}
 .hero .quote{font-style:italic;color:#e3d5cd}
@@ -274,12 +295,19 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
 </header>
 <div class="hero" id="inicio">
   <div class="hero-slides" id="v-slides" aria-hidden="true"></div>
-  <div class="wrap">
+  <div class="wrap hero-grid">
+   <div class="hero-main">
     <span class="eyebrow" id="v-subtitulo">Diócesis de Melipilla</span>
     <h1 id="v-nombre">Parroquia Santa Teresa de Jesús de los Andes</h1>
     <p class="lead" id="v-bienvenida">Parroquia católica en Pardo 1281, Melipilla. Horarios de Misa, Evangelio del día, sacramentos, Comedor Fraterno y contacto.</p>
     <p class="quote" id="v-frase"></p>
     <div class="cta"><a class="btn solid" href="#horarios">Ver horarios de Misa</a><a class="btn" id="v-waHero" target="_blank" rel="noopener">Escríbenos por WhatsApp</a><a class="btn" id="v-donHero" target="_blank" rel="noopener">Donar a la parroquia</a></div>
+   </div>
+   <aside class="today-card" id="v-today" aria-label="Hoy y mañana en la parroquia">
+    <h2 class="today-title">Hoy y mañana en la parroquia</h2>
+    <div id="v-todayList"><p class="today-empty">Cargando actividades…</p></div>
+    <a class="today-more" href="#horarios">Ver agenda de la semana</a>
+   </aside>
   </div>
   <svg class="ridge" viewBox="0 0 1200 150" preserveAspectRatio="none" aria-hidden="true">
     <path d="M0 150V92l90-38 70 26 110-62 85 48 70-30 120 70 95-52 110 44 100-66 90 40 95-24 85 34 80-22V150z" fill="var(--sky)" opacity=".35"/>
@@ -425,7 +453,7 @@ function render(d){
     c.appendChild(el('span','role',p.cargo));c.appendChild(el('h3',null,p.nombre));if(p.detalle)c.appendChild(el('p',null,p.detalle));pe.appendChild(c)});
   var sa=$('v-sacramentos');sa.textContent='';d.sacramentos.forEach(function(s){var de=el('details');de.appendChild(el('summary',null,s.titulo));var ul=el('ul');
     var cur=ul;de.appendChild(ul);String(s.requisitos||'').split('\n').map(function(r){return r.trim()}).filter(Boolean).forEach(function(r){if(/:$/.test(r)){de.appendChild(el('p','req-sub',r.slice(0,-1)));cur=el('ul');de.appendChild(cur)}else cur.appendChild(el('li',null,r))});sa.appendChild(de)});
-  renderAvisos(d);
+  renderAvisos(d);renderToday(d);
   var u=d.ubicacion;$('v-direccion').textContent=u.direccion;$('v-referencia').textContent=u.referencia;
   renderSlides(g);
   var gm=$('v-gmap');var q=encodeURIComponent((u.direccion||'Pardo 1281, Melipilla')+', Chile');
@@ -513,6 +541,23 @@ function extraerActividades(posts){var out=[],hoy=hoyISO(),vistos={};
     var k=titulo.toLowerCase();if(vistos[k])return;vistos[k]=1;
     out.push({ini:ini,fin:fin,hora:hora,titulo:titulo,texto:texto,url:safeUrl(p.permalink),fuente:'Instagram'})});
   return out}
+function actividadesDelDia(d,f){var out=[],vist={};
+  if(calOk()){CAL.eventos.filter(function(e){return e.fecha===f}).forEach(function(e){var k=(e.hora||'')+'|'+e.tipo.toLowerCase();if(vist[k])return;vist[k]=1;out.push({hora:e.hora||'',titulo:e.tipo,lugar:e.lugar||'',inicio:e.inicio})})}
+  else{var m=(d.misas||[])[dowOf(f)];if(m&&m.horas)m.horas.split(',').map(function(x){return x.trim()}).filter(Boolean).forEach(function(h){out.push({hora:h,titulo:'Misa',lugar:m.lugar||''})})}
+  extraerActividades(IGRAW).forEach(function(a){if(a.ini<=f&&a.fin>=f){var dup=out.some(function(o){return o.hora&&o.hora===a.hora||o.titulo.toLowerCase().indexOf(a.titulo.toLowerCase().slice(0,14))>=0||a.titulo.toLowerCase().indexOf(o.titulo.toLowerCase())>=0&&o.titulo.length>6});
+    if(!dup)out.push({hora:a.ini===a.fin?a.hora:(a.hora||''),titulo:a.titulo,url:a.url,lugar:''})}});
+  return out.sort(function(a,b){return (a.hora||'99').localeCompare(b.hora||'99')})}
+function renderToday(d){var box=$('v-todayList');if(!box)return;box.textContent='';var hoy=hoyISO(),now=Date.now();
+  [[hoy,'Hoy'],[addDays(hoy,1),'Mañana']].forEach(function(p){var f=p[0],sec=el('section','today-day'),h=el('h3');var b=el('b',null,p[1]);h.appendChild(b);
+    h.appendChild(document.createTextNode(' · '+DAYS[dowOf(f)]+' '+(+f.slice(8))+' '+MESES[+f.slice(5,7)-1]));sec.appendChild(h);
+    var items=actividadesDelDia(d,f);
+    if(!items.length)sec.appendChild(el('p','today-empty','Sin actividades programadas.'));
+    else{var ul=el('ul');items.slice(0,6).forEach(function(a){var li=el('li');
+      var fin=a.inicio?Date.parse(a.inicio)+60*60e3:(f===hoy&&a.hora?Date.parse(f+'T'+a.hora+':00-03:00')+60*60e3:0);if(fin&&fin<now)li.className='past';
+      li.appendChild(el('span','h',a.hora||'—'));var t=el('span');t.appendChild(el('span','t',a.titulo));
+      if(a.lugar||a.url){var l=el('span','l',a.lugar);if(a.url){var lk=el('a',null,a.lugar?' · Ver publicación':'Ver publicación');lk.href=a.url;lk.target='_blank';lk.rel='noopener';l.appendChild(lk)}t.appendChild(l)}
+      li.appendChild(t);ul.appendChild(li)});sec.appendChild(ul)}
+    box.appendChild(sec)})}
 function renderAvisos(d){var av=$('v-avisos');av.textContent='';var hoy=hoyISO(),items=extraerActividades(IGRAW);
   if(calOk()){var vist={};CAL.eventos.filter(function(e){return !/^(misa|liturgia)/i.test(e.tipo)&&e.fecha>=hoy}).forEach(function(e){var k=e.tipo+e.fecha;if(vist[k])return;vist[k]=1;
     items.push({ini:e.fecha,fin:e.fecha,hora:e.hora,titulo:e.tipo,texto:e.lugar||'',fuente:'Calendario'})})}
