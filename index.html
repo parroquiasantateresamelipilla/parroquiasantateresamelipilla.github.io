@@ -11,7 +11,6 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Fachada de la Parroquia Santa Teresa de los Andes, Pardo 1281, Melipilla">
-<link rel="preload" as="image" href="fachada.jpg">
 <meta property="og:url" content="https://parroquiasantateresamelipilla.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_CL">
@@ -73,14 +72,18 @@ nav.menu a:hover{border-color:var(--gold)}
   nav.menu a:last-child{border-bottom:0}
 }
 
-.hero{position:relative;overflow:hidden;background:#2b201c url("fachada.jpg") center 58%/cover no-repeat}
-.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(22,15,13,.86) 0%,rgba(22,15,13,.62) 45%,rgba(22,15,13,.12) 100%)}
-@media (max-width:700px){.hero{background-position:30% 60%}.hero::before{background:linear-gradient(180deg,rgba(22,15,13,.55) 0%,rgba(22,15,13,.85) 100%)}}
+.hero{position:relative;overflow:hidden;background:#2b201c}
+.hero-slides{position:absolute;inset:0;z-index:0}
+.hero-slides div{position:absolute;inset:0;background-position:center 58%;background-size:cover;background-repeat:no-repeat;opacity:0;transition:opacity 1.4s ease}
+.hero-slides div.on{opacity:1}
+@media (prefers-reduced-motion:reduce){.hero-slides div{transition:none}}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(22,15,13,.86) 0%,rgba(22,15,13,.62) 45%,rgba(22,15,13,.12) 100%)}
+@media (max-width:700px){.hero-slides div{background-position:30% 60%}.hero::before{background:linear-gradient(180deg,rgba(22,15,13,.55) 0%,rgba(22,15,13,.85) 100%)}}
 .hero .eyebrow{color:#eadfd8}
 .hero .btn:not(.solid){color:#fff;border-color:rgba(255,255,255,.75)}
 .hero .btn:not(.solid):hover{background:rgba(255,255,255,.12)}
 .hero .btn.solid{background:#9a2f31;border-color:#9a2f31;color:#fff}
-.hero .wrap{position:relative;z-index:1;padding-block:4.5rem 9.5rem;display:grid;gap:1rem}
+.hero .wrap{position:relative;z-index:2;padding-block:4.5rem 9.5rem;display:grid;gap:1rem}
 .hero h1{font-size:clamp(2rem,5.6vw,3.4rem);color:#fff;max-width:18ch;text-shadow:0 2px 12px rgba(0,0,0,.35)}
 .hero .lead{font-size:1.15rem;max-width:52ch;color:#f4ece7}
 .hero .quote{font-style:italic;color:#e3d5cd}
@@ -88,7 +91,7 @@ nav.menu a:hover{border-color:var(--gold)}
 .btn{font-family:var(--ui);font-weight:600;font-size:.92rem;text-decoration:none;padding:.65rem 1.05rem;border-radius:6px;border:1px solid var(--wine);color:var(--wine);background:transparent;cursor:pointer;display:inline-block}
 .btn.solid{background:var(--wine);color:var(--bg)}
 .btn.small{padding:.4rem .7rem;font-size:.82rem}
-.ridge{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:110px;display:block;z-index:1}
+.ridge{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:110px;display:block;z-index:2}
 
 .next{margin-top:-2.6rem;position:relative;z-index:2}
 .next .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.3rem;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1.5rem;box-shadow:0 6px 24px rgba(30,25,20,.08)}
@@ -270,6 +273,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
   </div>
 </header>
 <div class="hero" id="inicio">
+  <div class="hero-slides" id="v-slides" aria-hidden="true"></div>
   <div class="wrap">
     <span class="eyebrow" id="v-subtitulo">Diócesis de Melipilla</span>
     <h1 id="v-nombre">Parroquia Santa Teresa de Jesús de los Andes</h1>
@@ -423,6 +427,7 @@ function render(d){
     var cur=ul;de.appendChild(ul);String(s.requisitos||'').split('\n').map(function(r){return r.trim()}).filter(Boolean).forEach(function(r){if(/:$/.test(r)){de.appendChild(el('p','req-sub',r.slice(0,-1)));cur=el('ul');de.appendChild(cur)}else cur.appendChild(el('li',null,r))});sa.appendChild(de)});
   renderAvisos(d);
   var u=d.ubicacion;$('v-direccion').textContent=u.direccion;$('v-referencia').textContent=u.referencia;
+  renderSlides(g);
   var gm=$('v-gmap');var q=encodeURIComponent((u.direccion||'Pardo 1281, Melipilla')+', Chile');
   if(gm.dataset.q!==q){gm.dataset.q=q;gm.textContent='';var fr=document.createElement('iframe');fr.title='Mapa: '+(u.direccion||'Parroquia');fr.loading='lazy';fr.referrerPolicy='no-referrer-when-downgrade';
     fr.src='https://www.google.com/maps?q='+q+'&z=16&output=embed';gm.appendChild(fr)}
@@ -545,6 +550,7 @@ $('msgForm').onsubmit=function(e){e.preventDefault();var ok=$('formOk'),b=$('f-s
 
 /* ===== Administración ===== */
 var SECTIONS=[
+ {id:'portada',label:'Fotos de portada',custom:'portada'},
  {id:'general',label:'General',help:'Nombre, bienvenida, logo y aviso superior.',obj:'general',fields:[['nombre','Nombre completo'],['nombreCorto','Nombre corto (encabezado)'],['ciudad','Ciudad'],['subtitulo','Subtítulo (diócesis)'],['bienvenida','Texto de bienvenida','area'],['frase','Frase destacada'],['fiesta','Fiesta patronal'],['aviso','Aviso superior (déjalo vacío para ocultarlo)'],['logo','Logo de la parroquia','img'],['donaciones','Enlace para donaciones (déjalo vacío para ocultar)'],['donacionesTexto','Texto de la sección de donaciones','area'],['instagramFeed','Enlace JSON de Behold (Instagram automático)']]},
  {id:'horarios',label:'Horarios de Misa',help:'Escribe las horas separadas por coma (ej: 09:00, 12:00). Deja vacío si ese día no hay Misa.',custom:'misas'},
  {id:'atencion',label:'Confesiones y oficina',obj:'atencion',fields:[['confesiones','Confesiones','area'],['oficina','Horario de oficina','area'],['tramites','Trámites en oficina','area']]},
@@ -584,6 +590,7 @@ function buildForm(){var body=$('ed-body');body.textContent='';var s=SECTIONS.fi
   body.appendChild(el('h3',null,s.label));if(s.help)body.appendChild(el('p','help',s.help));
   if(s.obj){s.fields.forEach(function(f){body.appendChild(field(f[1],'ed-'+s.id+'-'+f[0],f[2],draft[s.obj][f[0]],function(v){draft[s.obj][f[0]]=v;changed()},f[3]))})}
   else if(s.custom==='usuarios'){buildUsers(body)}
+  else if(s.custom==='portada'){buildPortada(body)}
   else if(s.custom==='misas'){
     body.appendChild(field('Nota sobre los horarios','ed-horariosNota','area',draft.horariosNota,function(v){draft.horariosNota=v;changed()}));
     [1,2,3,4,5,6,0].forEach(function(i){var m=draft.misas[i];var it=el('div','item');it.appendChild(el('b',null,DAYS[i]));
@@ -618,6 +625,35 @@ function encryptTok(pass,tok){var salt=crypto.getRandomValues(new Uint8Array(16)
 function decryptTok(pass,rec){return deriveKey(pass,b64u8(rec.salt)).then(function(k){return crypto.subtle.decrypt({name:'AES-GCM',iv:b64u8(rec.iv)},k,b64u8(rec.data))}).then(function(pt){return new TextDecoder().decode(pt)})}
 function loadUsers(){return fetch('usuarios.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():{usuarios:[]}}).catch(function(){return {usuarios:[]}})}
 function checkTok(){return gh('').then(function(r){return r.ok?r.json():null}).then(function(j){return !!(j&&j.permissions&&j.permissions.push)})}
+/* Portada: fotos que cambian cada 10 segundos */
+var slideTimer=null,slideKey='',PREV={};
+function fotosPortada(g){var f=(g.portada&&g.portada.length)?g.portada:[{src:'fachada.jpg'}];return f.filter(function(x){return x&&safeImg(x.src)})}
+function renderSlides(g){var box=$('v-slides');if(!box)return;var fotos=fotosPortada(g),key=fotos.map(function(x){return x.src}).join('|');if(key===slideKey)return;slideKey=key;
+  if(slideTimer){clearInterval(slideTimer);slideTimer=null}box.textContent='';
+  fotos.forEach(function(x,i){var d=document.createElement('div');d.style.backgroundImage='url("'+String(PREV[x.src]||x.src).replace(/"/g,'%22')+'")';if(x.pos)d.style.backgroundPosition=x.pos;if(i===0)d.className='on';box.appendChild(d)});
+  if(fotos.length>1){var i=0;slideTimer=setInterval(function(){var ds=box.children;if(!ds.length)return;ds[i].className='';i=(i+1)%ds.length;ds[i].className='on'},10000)}}
+function putB64(path,content,msg){return gh('/contents/'+path+'?ref=main').then(function(r){if(r.status===401||r.status===403)throw{auth:1};return r.ok?r.json():{}}).then(function(cur){
+  return gh('/contents/'+path,{method:'PUT',body:JSON.stringify({message:msg,content:content,sha:cur.sha,branch:'main'})})}).then(function(r){if(r.status===401||r.status===403)throw{auth:1};if(!r.ok)throw{code:r.status};return r})}
+function fotoGrande(file,cb,err){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){
+  var max=1920,s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);
+  c.getContext('2d').drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.82))};im.onerror=err;im.src=r.result};r.onerror=err;r.readAsDataURL(file)}
+function buildPortada(body){var g=draft.general;if(!g.portada||!g.portada.length)g.portada=[{src:'fachada.jpg'}];var arr=g.portada;
+  body.appendChild(el('p','help','Estas fotos se muestran en la portada y cambian cada 10 segundos, en este orden. Usa fotos horizontales. Después de agregar, quitar u ordenar, presiona Publicar cambios.'));
+  arr.forEach(function(x,idx){var it=el('div','item');var hd=el('div','item-head');var th=el('img','thumb');th.src=PREV[x.src]||x.src;th.alt='';th.style.width='96px';th.style.height='64px';hd.appendChild(th);
+    var tools=el('div','item-tools');
+    var up=el('button','iconbtn','↑ Subir');up.type='button';up.disabled=idx===0;up.onclick=function(){arr.splice(idx-1,0,arr.splice(idx,1)[0]);changed();buildForm()};
+    var del=el('button','iconbtn danger','Quitar');del.type='button';del.disabled=arr.length===1;del.title=arr.length===1?'Debe quedar al menos una foto':'';del.onclick=function(){arr.splice(idx,1);changed();buildForm()};
+    tools.appendChild(up);tools.appendChild(del);hd.appendChild(tools);it.appendChild(hd);
+    it.appendChild(field('Encuadre (opcional): parte de la foto que se mantiene visible','ed-pos-'+idx,'select',x.pos||'center 58%',function(v){x.pos=v;slideKey='';changed()},['center 58%','center top','center center','center bottom','left center','right center']));
+    body.appendChild(it)});
+  var w=el('label','fld');w.htmlFor='ed-addfotos';w.appendChild(el('span',null,'Agregar fotos'));var inp=el('input');inp.type='file';inp.accept='image/*';inp.multiple=true;inp.id='ed-addfotos';w.appendChild(inp);body.appendChild(w);
+  inp.onchange=function(){var files=[].slice.call(inp.files||[]);if(!files.length)return;inp.disabled=true;var n=0;
+    var next=function(){if(n>=files.length){inp.disabled=false;inp.value='';changed();buildForm();status(files.length===1?'Foto agregada. Presiona Publicar cambios para que se vea en el sitio.':'Fotos agregadas. Presiona Publicar cambios para que se vean en el sitio.','ok');return}
+      var f=files[n++];status('Subiendo foto '+n+' de '+files.length+'…','');
+      fotoGrande(f,function(url){var path='fotos/portada-'+Date.now()+'-'+n+'.jpg';
+        putB64(path,url.split(',')[1],'Agrega foto de portada').then(function(){PREV[path]=url;arr.push({src:path});next()},function(e){inp.disabled=false;if(e&&e.auth){setTok('');showLogin('La clave venció o no tiene permiso.')}else status('No se pudo subir la foto '+n+'. Inténtalo de nuevo.','bad')})},
+        function(){status('El archivo '+f.name+' no es una imagen válida.','bad');next()})};
+    next()}}
 function putFile(path,text,msg){return gh('/contents/'+path+'?ref=main').then(function(r){if(r.status===401||r.status===403)throw{auth:1};return r.ok?r.json():{}}).then(function(cur){
   return gh('/contents/'+path,{method:'PUT',body:JSON.stringify({message:msg,content:b64(text),sha:cur.sha,branch:'main'})})}).then(function(r){if(r.status===401||r.status===403)throw{auth:1};if(!r.ok)throw{code:r.status};return r})}
 
