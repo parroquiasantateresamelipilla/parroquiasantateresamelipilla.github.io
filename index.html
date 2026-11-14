@@ -60,7 +60,7 @@ nav.menu a:hover{border-color:var(--gold)}
 }
 
 .hero{position:relative;background:var(--sky-soft);overflow:hidden}
-.hero .wrap{position:relative;z-index:1;padding-block:3.2rem 9rem;display:grid;gap:1rem}
+.hero .wrap{position:relative;z-index:1;padding-block:3.2rem 7.5rem;display:grid;gap:1rem}
 .hero h1{font-size:clamp(2rem,5.6vw,3.4rem);color:var(--wine);max-width:18ch}
 .hero .lead{font-size:1.15rem;max-width:56ch}
 .hero .quote{font-style:italic;color:var(--muted)}
@@ -239,7 +239,6 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
     <path d="M0 150v-30l120-28 140 22 160-36 150 30 170-26 140 24 180-30 140 26v48z" fill="var(--bg)"/>
   </svg>
 </div>
-<div class="wrap next"><div class="card" aria-live="polite"><span class="eyebrow">Próxima Misa</span><span class="big" id="nextTime">—</span><span class="note" id="nextNote">Según el horario publicado abajo</span></div></div>
 <main>
   <section id="evangelio" class="gospel-band"><div class="wrap gospel">
     <span class="eyebrow" id="ev-fecha">Evangelio del día</span>
@@ -252,7 +251,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
   <section id="horarios"><div class="wrap">
     <div class="sec-head"><span class="eyebrow">Horarios</span><h2>Misas, confesiones y oficina</h2><p id="v-horariosNota"></p></div>
     <div class="grid2">
-      <div class="tablebox"><table class="sched"><thead><tr><th>Día</th><th>Misa</th><th>Lugar</th></tr></thead><tbody id="v-misas"></tbody></table></div>
+      <div class="tablebox"><table class="sched"><thead><tr><th>Día</th><th>Celebración</th><th>Lugar</th></tr></thead><tbody id="v-misas"></tbody></table></div>
       <div class="side">
         <div class="block"><h3>Confesiones</h3><p id="v-confesiones"></p></div>
         <div class="block"><h3>Oficina parroquial</h3><p id="v-oficina"></p><p class="sub" id="v-tramites"></p></div>
@@ -356,7 +355,7 @@ function render(d){
   $('v-nombreCorto').textContent=g.nombreCorto||g.nombre;$('v-ciudad').textContent=g.ciudad;
   $('v-subtitulo').textContent=g.subtitulo;$('v-nombre').textContent=g.nombre;
   $('v-bienvenida').textContent=g.bienvenida;$('v-frase').textContent=g.frase;$('v-frase').hidden=!g.frase;
-  $('v-horariosNota').textContent=calOk()?'Horario de los próximos 7 días, tomado del calendario parroquial. Puede cambiar en fiestas y vacaciones.':(d.horariosNota||'');
+  $('v-horariosNota').textContent=calOk()?'Misas, liturgias y actividades de los próximos 7 días, tomadas del calendario parroquial.':(d.horariosNota||'');
   var tb=$('v-misas');tb.textContent='';var today=new Date().getDay();
   if(calOk()){renderCal(tb)}else
   [1,2,3,4,5,6,0].forEach(function(i){var m=d.misas[i]||{};var tr=el('tr');if(i===today)tr.className='today';
@@ -418,10 +417,10 @@ function renderCal(tb){var hoy=hoyISO();
   for(var i=0;i<7;i++){var f=addDays(hoy,i),ev=CAL.eventos.filter(function(e){return e.fecha===f});
     var tr=el('tr');if(i===0)tr.className='today';var td0=el('td',null,DAYS[dowOf(f)]);td0.appendChild(el('span','nota',(+f.slice(8))+' '+MESES[+f.slice(5,7)-1]));tr.appendChild(td0);
     var t1=el('td'),t2=el('td');
-    if(!ev.length){t1.textContent='Sin celebraciones';t2.textContent='—'}
-    ev.forEach(function(e){t1.appendChild(el('div',null,e.hora+' '+e.tipo));t2.appendChild(el('div',null,e.lugar))});
+    if(!ev.length){t1.textContent='Sin actividades';t2.textContent='—'}
+    ev.forEach(function(e){t1.appendChild(el('div',null,(e.hora?e.hora+' ':'')+e.tipo));t2.appendChild(el('div',null,e.lugar||'—'))});
     tr.appendChild(t1);tr.appendChild(t2);tb.appendChild(tr)}}
-function nextMass(d){if(calOk()){var now=Date.now(),nx=CAL.eventos.filter(function(e){return e.tipo==='Misa'&&Date.parse(e.inicio)>now})[0];
+function nextMass(d){if(!$('nextTime'))return;if(calOk()){var now=Date.now(),nx=CAL.eventos.filter(function(e){return e.tipo==='Misa'&&Date.parse(e.inicio)>now})[0];
     if(nx){var dd=dayDiff(nx.fecha);$('nextTime').textContent=(dd===0?'Hoy':dd===1?'Mañana':DAYS[dowOf(nx.fecha)])+', '+nx.hora;$('nextNote').textContent=nx.lugar;return}}
   $('nextNote').textContent='Según el horario publicado abajo';
   var now=new Date(),mins=now.getHours()*60+now.getMinutes();
@@ -437,7 +436,7 @@ function loadIG(){var u=safeUrl(DATA.general.instagramFeed);if(!u)return;fetch(u
     var dt=p.timestamp?new Date(p.timestamp):null;return {url:p.permalink,img:img,texto:p.prunedCaption||p.caption||'',fecha:dt?dt.getDate()+' '+MESES[dt.getMonth()]:''}}).filter(function(x){return x.img&&safeUrl(x.url)});
   if(!draft)render(DATA)}).catch(function(){})}
 fetch('calendario.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(c){if(c){CAL=c;if(DATA&&!draft)render(DATA)}}).catch(function(){});
-fetch('data.json?v='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){DATA=d;render(DATA);loadFb();loadIG();if(location.hash==='#admin')openEditor()}).catch(function(){$('nextTime').textContent='No se pudo cargar la información. Recarga la página.'});
+fetch('data.json?v='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){DATA=d;render(DATA);loadFb();loadIG();if(location.hash==='#admin')openEditor()}).catch(function(){$('v-bienvenida').textContent='No se pudo cargar la información. Recarga la página.'});
 $('menuBtn').onclick=function(){var o=$('menu').classList.toggle('open');this.setAttribute('aria-expanded',o)};
 $('menu').onclick=function(e){if(e.target.tagName==='A'){$('menu').classList.remove('open');$('menuBtn').setAttribute('aria-expanded','false')}};
 $('msgForm').onsubmit=function(e){e.preventDefault();var ok=$('formOk'),b=$('f-send');if($('f-honey').value)return;
@@ -448,6 +447,7 @@ $('msgForm').onsubmit=function(e){e.preventDefault();var ok=$('formOk'),b=$('f-s
       _subject:'Mensaje desde el sitio web: '+$('f-tema').value,_template:'table',_replyto:/@/.test(c)?c:undefined})})
   .then(function(r){return r.json()}).then(function(j){b.disabled=false;
     if(String(j.success)==='true'){ok.textContent='¡Gracias! Tu mensaje fue enviado. Te responderemos pronto.';$('msgForm').reset()}
+    else if(/activ/i.test(j.message||'')){ok.style.color='var(--bad)';ok.textContent='El formulario aún no está activado. La parroquia debe confirmar el correo de activación de FormSubmit. Mientras, escríbenos por WhatsApp.'}
     else{ok.style.color='var(--bad)';ok.textContent='No se pudo enviar el mensaje. Escríbenos por WhatsApp o al correo de la parroquia.'}})
   .catch(function(){b.disabled=false;ok.style.color='var(--bad)';ok.textContent='No hay conexión. Inténtalo de nuevo o escríbenos por WhatsApp.'})};
 

@@ -5,15 +5,15 @@ import { writeFileSync, readFileSync, existsSync } from 'node:fs';
 const CAL = '1usjj85vnqo3ak83b641ds853g@group.calendar.google.com';
 const URL = `https://calendar.google.com/calendar/ical/${encodeURIComponent(CAL)}/public/basic.ics`;
 const TZ = 'America/Santiago';
-// Solo estos tipos aparecen en la agenda de Misas del sitio
-const TIPOS = [['misa', 'Misa'], ['liturgia', 'Liturgia'], ['adoraci', 'Adoración']];
+// Lugares conocidos: si el título termina con uno de ellos, se separa como lugar
 const LUGARES = [
-  [/^parroquia$/i, 'Templo parroquial'],
-  [/^huech[uú]n$/i, 'Capilla Huechún'],
-  [/^(san fco\.?|san francisco)$/i, 'Capilla San Francisco'],
-  [/^el bajo$/i, 'Capilla El Bajo'],
-  [/^hu[iu]lco$/i, 'Capilla Huilco'],
+  ['parroquia', 'Templo parroquial'],
+  ['huechun', 'Capilla Huechún'], ['huechún', 'Capilla Huechún'],
+  ['san francisco', 'Capilla San Francisco'], ['san fco.', 'Capilla San Francisco'], ['san fco', 'Capilla San Francisco'],
+  ['el bajo', 'Capilla El Bajo'],
+  ['huilco', 'Capilla Huilco'], ['hulco', 'Capilla Huilco'],
 ];
+const lugarDe = s => { const t = s.toLowerCase().trim(); const m = LUGARES.find(([k]) => t === k); return m ? m[1] : null; };
 
 const res = await fetch(URL);
 if (!res.ok) { console.log(`No se pudo leer el calendario (HTTP ${res.status}). ¿Está compartido como público?`); process.exit(res.status === 404 ? 1 : 0); }
@@ -34,17 +34,21 @@ const lista = [
 
 const eventos = [];
 for (const ev of lista) {
-  if (!ev.start || ev.start.isDate) continue; // sin hora (todo el día)
+  if (!ev.start) continue;
   if (String(ev.estado || '').toUpperCase() === 'CANCELLED') continue;
-  const titulo = String(ev.titulo || '').replace(/\s+/g, ' ').trim();
-  const tipo = TIPOS.find(([k]) => titulo.toLowerCase().startsWith(k));
-  if (!tipo) continue;
+  let titulo = String(ev.titulo || '').replace(/\s+/g, ' ').trim();
+  if (!titulo) continue;
+  let lugar = String(ev.loc || '').split(',')[0].trim();
+  lugar = lugar ? (lugarDe(lugar) || lugar) : '';
+  // Si el título termina en un lugar conocido ("Misa Huechun"), separarlo
+  for (const [k, v] of LUGARES) {
+    if (titulo.toLowerCase().endsWith(' ' + k)) { titulo = titulo.slice(0, -k.length).trim(); if (!lugar) lugar = v; break; }
+  }
   const d = ev.start.toJSDate();
-  let resto = titulo.replace(/^\S+\s*/, '').trim();
-  let lugar = String(ev.loc || '').trim() || resto;
-  const m = LUGARES.find(([re]) => re.test(lugar));
-  lugar = m ? m[1] : (lugar ? (/^capilla|^templo/i.test(lugar) ? lugar : 'Capilla ' + lugar) : 'Templo parroquial');
-  eventos.push({ inicio: d.toISOString(), fecha: fmtFecha.format(d), hora: fmtHora.format(d), tipo: tipo[1], lugar });
+  const todoDia = ev.start.isDate;
+  const fecha = todoDia ? ev.start.toString().slice(0, 10) : fmtFecha.format(d);
+  const tipo = titulo.charAt(0).toUpperCase() + titulo.slice(1);
+  eventos.push({ inicio: todoDia ? fecha + 'T03:00:00.000Z' : d.toISOString(), fecha, hora: todoDia ? '' : fmtHora.format(d), tipo, lugar });
 }
 eventos.sort((a, b) => a.inicio.localeCompare(b.inicio) || a.lugar.localeCompare(b.lugar));
 
