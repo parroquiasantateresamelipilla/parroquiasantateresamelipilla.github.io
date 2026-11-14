@@ -2,20 +2,6 @@
  "actualizado": "2026-11-14",
  "eventos": [
   {
-   "inicio": "2026-11-13T22:00:00.000Z",
-   "fecha": "2026-11-13",
-   "hora": "19:00",
-   "tipo": "Misa",
-   "lugar": "Capilla San Francisco"
-  },
-  {
-   "inicio": "2026-11-13T22:00:00.000Z",
-   "fecha": "2026-11-13",
-   "hora": "19:00",
-   "tipo": "Liturgia",
-   "lugar": "Templo parroquial"
-  },
-  {
    "inicio": "2026-11-14T09:30:00.000Z",
    "fecha": "2026-11-14",
    "hora": "06:30",
