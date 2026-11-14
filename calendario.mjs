@@ -21,7 +21,7 @@ const ics = await res.text();
 
 const ahora = new Date();
 const inicio = new Date(ahora.getTime() - 6 * 3600e3);
-const fin = new Date(ahora.getTime() + 8 * 86400e3);
+const fin = new Date(ahora.getTime() + 62 * 86400e3);
 const { events, occurrences } = new IcalExpander({ ics, maxIterations: 2000 }).between(inicio, fin);
 
 const fmtFecha = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' });
