@@ -186,6 +186,24 @@ footer .name{font-family:var(--display);font-size:1.05rem;color:var(--ink)}
 .don-btn{font-size:1.05rem;padding:.85rem 1.4rem}
 .don-note{font-family:var(--ui);font-size:.82rem;color:var(--muted)}
 .val a{color:var(--sky)}
+
+/* Columna fija de publicaciones */
+.layout{display:flex;flex-direction:column}
+.layout > main{min-width:0}
+.feed-side{order:-1;border-bottom:1px solid var(--line);background:var(--surface)}
+.feed-in{padding-block:1.4rem;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:.6rem}
+.feed-in h3{font-size:1.25rem;color:var(--wine)}
+.posts.side{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(200px,62%);overflow-x:auto;gap:.9rem;padding-bottom:.4rem;scroll-snap-type:x mandatory}
+.posts.side .post{scroll-snap-align:start}
+.posts.side .pimg{aspect-ratio:4/3}
+.posts.side .pcap{-webkit-line-clamp:3;font-size:.9rem}
+@media (min-width:1100px){
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;max-width:1440px;margin:0 auto;align-items:start}
+  .feed-side{order:0;grid-column:2;grid-row:1;position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);max-height:calc(100vh - 92px);overflow-y:auto;border-bottom:0;border-left:1px solid var(--line);background:var(--bg)}
+  .feed-in{padding:1.4rem 1.2rem}
+  .posts.side{grid-auto-flow:row;grid-auto-columns:auto;overflow:visible}
+  .layout > main{grid-column:1;grid-row:1}
+}
 /* ===== Panel de administración ===== */
 .admin-fab{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;font-family:var(--ui);font-weight:600;font-size:.9rem;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:.7rem 1.1rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.2)}
 .drawer{position:fixed;top:0;right:0;bottom:0;width:min(460px,100%);z-index:30;background:var(--surface);border-left:1px solid var(--line);display:flex;flex-direction:column;font-family:var(--ui);font-size:.92rem;box-shadow:-10px 0 30px rgba(0,0,0,.15);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
@@ -245,6 +263,15 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
     <path d="M0 150v-30l120-28 140 22 160-36 150 30 170-26 140 24 180-30 140 26v48z" fill="var(--bg)"/>
   </svg>
 </div>
+<div class="layout">
+<aside class="feed-side" aria-label="Lo último en nuestras redes">
+  <div class="feed-in">
+    <span class="eyebrow">Últimas publicaciones</span>
+    <h3>Lo último en nuestras redes</h3>
+    <div class="posts side" id="v-posts"></div>
+    <a class="pmore" href="#redes">Síguenos en redes</a>
+  </div>
+</aside>
 <main>
   <section id="evangelio" class="gospel-band"><div class="wrap gospel">
     <span class="eyebrow" id="ev-fecha">Evangelio del día</span>
@@ -316,12 +343,9 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
   <section id="redes"><div class="wrap">
     <div class="sec-head"><span class="eyebrow">Redes sociales</span><h2>Síguenos</h2></div>
     <div class="socials" id="v-redes"></div>
-    <div class="sec-head" style="margin-top:2.6rem"><span class="eyebrow">Últimas publicaciones</span><h3 style="font-size:1.4rem">Lo último en nuestras redes</h3><p>Nuestras publicaciones más recientes. Toca una para verla completa.</p></div>
-    <div class="feeds">
-      <div class="feed"><div class="posts four" id="v-posts"></div></div>
-    </div>
   </div></section>
 </main>
+</div>
 <footer><div class="wrap">
   <div><p class="name" id="v-pieNombre"></p><p id="v-pieDatos"></p></div>
   <button class="btn small" type="button" id="adminLink">Administrar sitio</button>
