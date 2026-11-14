@@ -478,7 +478,7 @@ function renderAvisos(d){var av=$('v-avisos');av.textContent='';var hoy=hoyISO()
       dv.appendChild(el('h3',null,a.titulo));if(a.texto)dv.appendChild(el('p',null,a.texto));
       if(a.url){var l=el('a','pmore','Ver publicación');l.href=a.url;l.target='_blank';l.rel='noopener';dv.appendChild(l)}}
     ar.appendChild(dv);av.appendChild(ar)})}
-function loadIG(){var u=safeUrl(DATA.general.instagramFeed);if(!u)return;fetch(u).then(function(r){return r.json()}).then(function(j){var ps=Array.isArray(j)?j:(j.posts||[]);
+function loadIG(){var g=DATA.general;if(g.instagramFeed===undefined||g.instagramFeed==='')g.instagramFeed='https://feeds.behold.so/ouHf98n7bNYaCCKb5w8p';var u=safeUrl(g.instagramFeed);if(!u)return;fetch(u).then(function(r){return r.json()}).then(function(j){var ps=Array.isArray(j)?j:(j.posts||[]);
   IGRAW=ps;IGPOSTS=ps.slice(0,4).map(function(p){var sz=p.sizes||{};var img=(sz.medium&&sz.medium.mediaUrl)||(sz.large&&sz.large.mediaUrl)||p.thumbnailUrl||p.mediaUrl;
     var dt=p.timestamp?new Date(p.timestamp):null;return {url:p.permalink,img:img,texto:p.prunedCaption||p.caption||'',fecha:dt?dt.getDate()+' '+MESES[dt.getMonth()]:''}}).filter(function(x){return x.img&&safeUrl(x.url)});
   if(!draft)render(DATA)}).catch(function(){})}
