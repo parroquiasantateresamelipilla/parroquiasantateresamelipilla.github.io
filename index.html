@@ -130,7 +130,8 @@ section[id]{scroll-margin-top:5rem}
 .empty{font-family:var(--ui);color:var(--muted);font-size:.95rem}
 
 .mapcard{background:var(--sky-soft);border-radius:10px;padding:1.4rem;display:grid;gap:.8rem;align-content:start}
-.mapcard svg{width:100%;height:auto;max-width:100%}
+.gmap{width:100%;max-width:100%;aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:var(--surface)}
+.gmap iframe{width:100%;height:100%;border:0;display:block}
 .addr{font-family:var(--display);font-size:1.3rem}
 
 .channel{display:grid;grid-template-columns:2.4rem 1fr auto;gap:.8rem;align-items:center;padding:.8rem 0;border-bottom:1px solid var(--line)}
@@ -284,7 +285,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
     <div class="sec-head"><span class="eyebrow">Ubicación</span><h2>Cómo llegar</h2></div>
     <div class="grid2">
       <div class="mapcard">
-        <svg viewBox="0 0 320 170" aria-hidden="true"><rect width="320" height="170" rx="8" fill="var(--surface)"/><path d="M0 60h320M0 120h320M80 0v170M200 0v170" stroke="var(--line)" stroke-width="10"/><circle cx="140" cy="90" r="9" fill="var(--wine)"/><path d="M140 72v-14M134 64h12" stroke="var(--wine)" stroke-width="2.5"/></svg>
+        <div class="gmap" id="v-gmap"></div>
         <p class="addr" id="v-direccion"></p>
         <p style="font-family:var(--ui);font-size:.92rem;color:var(--muted)" id="v-referencia"></p>
         <div><a class="btn solid" id="v-mapa" target="_blank" rel="noopener">Abrir en Google Maps</a></div>
@@ -378,6 +379,9 @@ function render(d){
     var cur=ul;de.appendChild(ul);String(s.requisitos||'').split('\n').map(function(r){return r.trim()}).filter(Boolean).forEach(function(r){if(/:$/.test(r)){de.appendChild(el('p','req-sub',r.slice(0,-1)));cur=el('ul');de.appendChild(cur)}else cur.appendChild(el('li',null,r))});sa.appendChild(de)});
   renderAvisos(d);
   var u=d.ubicacion;$('v-direccion').textContent=u.direccion;$('v-referencia').textContent=u.referencia;
+  var gm=$('v-gmap');var q=encodeURIComponent((u.direccion||'Pardo 1281, Melipilla')+', Chile');
+  if(gm.dataset.q!==q){gm.dataset.q=q;gm.textContent='';var fr=document.createElement('iframe');fr.title='Mapa: '+(u.direccion||'Parroquia');fr.loading='lazy';fr.referrerPolicy='no-referrer-when-downgrade';
+    fr.src='https://www.google.com/maps?q='+q+'&z=16&output=embed';gm.appendChild(fr)}
   var mp=safeUrl(u.mapa)||('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(u.direccion));$('v-mapa').href=mp;
   var cp=$('v-capillas');cp.textContent='';(d.capillas||[]).forEach(function(c){var b=el('div','block');b.appendChild(el('h3',null,c.nombre));if(c.sector)b.appendChild(el('p','sub',c.sector));var h=el('p');lines(h,c.horario);b.appendChild(h);cp.appendChild(b)});
   var cn=$('v-canales');cn.textContent='';Object.keys(CH).forEach(function(k){var v=(d.contacto[k]||'').trim();if(!v)return;
