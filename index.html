@@ -7,7 +7,11 @@
 <meta name="description" content="Parroquia Santa Teresa de Jesús de los Andes, Melipilla. Horarios de Misa, Evangelio del día, oficina parroquial, sacramentos, capillas y contacto.">
 <meta property="og:title" content="Parroquia Santa Teresa de Jesús de los Andes · Melipilla">
 <meta property="og:description" content="Horarios de Misa, Evangelio del día, sacramentos y contacto.">
-<meta property="og:image" content="https://parroquiasantateresamelipilla.github.io/logo.jpg">
+<meta property="og:image" content="https://parroquiasantateresamelipilla.github.io/fachada-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fachada de la Parroquia Santa Teresa de los Andes, Pardo 1281, Melipilla">
+<link rel="preload" as="image" href="fachada.jpg">
 <meta property="og:url" content="https://parroquiasantateresamelipilla.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_CL">
@@ -17,7 +21,7 @@
 <meta name="robots" content="index,follow">
 <meta name="google-site-verification" content="BXMU8lMkOz_DFZh4_Md3LbBn2NgB8fEh1A1sW0xqF6I">
 <link rel="canonical" href="https://parroquiasantateresamelipilla.github.io/">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Church", "name": "Parroquia Santa Teresa de Jesús de los Andes", "alternateName": ["Parroquia Santa Teresa de los Andes Melipilla", "Santa Teresita Melipilla"], "description": "Parroquia católica de Melipilla, Diócesis de Melipilla. Horarios de Misa, sacramentos, Comedor Fraterno y contacto.", "url": "https://parroquiasantateresamelipilla.github.io/", "logo": "https://parroquiasantateresamelipilla.github.io/logo.jpg", "image": "https://parroquiasantateresamelipilla.github.io/logo.jpg", "telephone": "+56 9 8216 1720", "email": "psantateresa@hotmail.com", "address": {"@type": "PostalAddress", "streetAddress": "Pardo 1281", "addressLocality": "Melipilla", "addressRegion": "Región Metropolitana", "postalCode": "9580675", "addressCountry": "CL"}, "hasMap": "https://www.google.com/maps/search/?api=1&query=Pardo+1281+Melipilla", "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "09:30", "closes": "13:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "15:30", "closes": "18:30"}], "sameAs": ["https://www.facebook.com/santateresitamelipilla", "https://www.instagram.com/parroquiasantateresa_melipilla/"]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Church", "name": "Parroquia Santa Teresa de Jesús de los Andes", "alternateName": ["Parroquia Santa Teresa de los Andes Melipilla", "Santa Teresita Melipilla"], "description": "Parroquia católica de Melipilla, Diócesis de Melipilla. Horarios de Misa, sacramentos, Comedor Fraterno y contacto.", "url": "https://parroquiasantateresamelipilla.github.io/", "logo": "https://parroquiasantateresamelipilla.github.io/logo.jpg", "image": ["https://parroquiasantateresamelipilla.github.io/fachada.jpg", "https://parroquiasantateresamelipilla.github.io/fachada-og.jpg"], "telephone": "+56 9 8216 1720", "email": "psantateresa@hotmail.com", "address": {"@type": "PostalAddress", "streetAddress": "Pardo 1281", "addressLocality": "Melipilla", "addressRegion": "Región Metropolitana", "postalCode": "9580675", "addressCountry": "CL"}, "hasMap": "https://www.google.com/maps/search/?api=1&query=Pardo+1281+Melipilla", "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "09:30", "closes": "13:00"}, {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "15:30", "closes": "18:30"}], "sameAs": ["https://www.facebook.com/santateresitamelipilla", "https://www.instagram.com/parroquiasantateresa_melipilla/"]}</script>
 <link rel="icon" href="logo.jpg">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Spectral:ital,wght@0,400;0,600;1,400&family=Figtree:wght@400;500;600&display=swap">
 <style>
@@ -69,16 +73,22 @@ nav.menu a:hover{border-color:var(--gold)}
   nav.menu a:last-child{border-bottom:0}
 }
 
-.hero{position:relative;background:var(--sky-soft);overflow:hidden}
-.hero .wrap{position:relative;z-index:1;padding-block:3.2rem 7.5rem;display:grid;gap:1rem}
-.hero h1{font-size:clamp(2rem,5.6vw,3.4rem);color:var(--wine);max-width:18ch}
-.hero .lead{font-size:1.15rem;max-width:56ch}
-.hero .quote{font-style:italic;color:var(--muted)}
+.hero{position:relative;overflow:hidden;background:#2b201c url("fachada.jpg") center 58%/cover no-repeat}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(22,15,13,.86) 0%,rgba(22,15,13,.62) 45%,rgba(22,15,13,.12) 100%)}
+@media (max-width:700px){.hero{background-position:30% 60%}.hero::before{background:linear-gradient(180deg,rgba(22,15,13,.55) 0%,rgba(22,15,13,.85) 100%)}}
+.hero .eyebrow{color:#eadfd8}
+.hero .btn:not(.solid){color:#fff;border-color:rgba(255,255,255,.75)}
+.hero .btn:not(.solid):hover{background:rgba(255,255,255,.12)}
+.hero .btn.solid{background:#9a2f31;border-color:#9a2f31;color:#fff}
+.hero .wrap{position:relative;z-index:1;padding-block:4.5rem 9.5rem;display:grid;gap:1rem}
+.hero h1{font-size:clamp(2rem,5.6vw,3.4rem);color:#fff;max-width:18ch;text-shadow:0 2px 12px rgba(0,0,0,.35)}
+.hero .lead{font-size:1.15rem;max-width:52ch;color:#f4ece7}
+.hero .quote{font-style:italic;color:#e3d5cd}
 .cta{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.6rem}
 .btn{font-family:var(--ui);font-weight:600;font-size:.92rem;text-decoration:none;padding:.65rem 1.05rem;border-radius:6px;border:1px solid var(--wine);color:var(--wine);background:transparent;cursor:pointer;display:inline-block}
 .btn.solid{background:var(--wine);color:var(--bg)}
 .btn.small{padding:.4rem .7rem;font-size:.82rem}
-.ridge{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:150px;display:block}
+.ridge{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:110px;display:block;z-index:1}
 
 .next{margin-top:-2.6rem;position:relative;z-index:2}
 .next .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.3rem;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1.5rem;box-shadow:0 6px 24px rgba(30,25,20,.08)}
