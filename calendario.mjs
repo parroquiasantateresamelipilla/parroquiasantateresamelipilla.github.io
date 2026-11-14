@@ -47,6 +47,7 @@ for (const ev of lista) {
   const d = ev.start.toJSDate();
   const todoDia = ev.start.isDate;
   const fecha = todoDia ? ev.start.toString().slice(0, 10) : fmtFecha.format(d);
+  titulo = titulo.replace(/[\s\-–—:,]+$/, '');
   const tipo = titulo.charAt(0).toUpperCase() + titulo.slice(1);
   eventos.push({ inicio: todoDia ? fecha + 'T03:00:00.000Z' : d.toISOString(), fecha, hora: todoDia ? '' : fmtHora.format(d), tipo, lugar });
 }

@@ -176,10 +176,10 @@ footer .name{font-family:var(--display);font-size:1.05rem;color:var(--ink)}
 .post p{font-size:.95rem}
 .post .pmore{font-family:var(--ui);font-size:.85rem;color:var(--sky);font-weight:600}
 #fbPlugin{overflow:hidden;min-height:200px}
-.feeds{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:1.6rem;align-items:start}
+.feeds{display:block}
 .feeds > *{min-width:0}
 .feed h4{margin:0 0 .8rem;font-weight:600}
-.posts.two{grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))}
+.posts.four{grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr))}
 .pcap{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
 .don-band{background:var(--sky-soft)}
 .don{display:grid;gap:.9rem;justify-items:start}
@@ -316,10 +316,9 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
   <section id="redes"><div class="wrap">
     <div class="sec-head"><span class="eyebrow">Redes sociales</span><h2>Síguenos</h2></div>
     <div class="socials" id="v-redes"></div>
-    <div class="sec-head" style="margin-top:2.6rem"><span class="eyebrow">Últimas publicaciones</span><h3 style="font-size:1.4rem">Lo último en nuestras redes</h3></div>
+    <div class="sec-head" style="margin-top:2.6rem"><span class="eyebrow">Últimas publicaciones</span><h3 style="font-size:1.4rem">Lo último en nuestras redes</h3><p>Nuestras publicaciones más recientes. Toca una para verla completa.</p></div>
     <div class="feeds">
-      <div class="feed"><h4 class="eyebrow">Instagram</h4><div class="posts two" id="v-posts"></div></div>
-      <div class="feed" id="fbCol"><h4 class="eyebrow">Facebook</h4><div id="fbPlugin"></div></div>
+      <div class="feed"><div class="posts four" id="v-posts"></div></div>
     </div>
   </div></section>
 </main>
@@ -402,7 +401,7 @@ function render(d){
   var du=safeUrl(g.donaciones);$('donar').hidden=!du;$('v-donHero').hidden=!du;if(du){$('v-donLink').href=du;$('v-donHero').href=du}
   $('v-donTexto').textContent=g.donacionesTexto||'';
   var po=$('v-posts');po.textContent='';var manual=IGPOSTS&&IGPOSTS.length?[]:(d.publicaciones||[]);
-  (IGPOSTS||[]).slice(0,2).forEach(function(x){var a=el('a','post');a.href=x.url;a.target='_blank';a.rel='noopener';var im=el('img','pimg');im.src=x.img;im.alt='';im.loading='lazy';a.appendChild(im);
+  (IGPOSTS||[]).slice(0,4).forEach(function(x){var a=el('a','post');a.href=x.url;a.target='_blank';a.rel='noopener';var im=el('img','pimg');im.src=x.img;im.alt='';im.loading='lazy';a.appendChild(im);
     var bd=el('div','pbody');bd.appendChild(el('span','pmeta','Instagram · '+x.fecha));var cp=el('p',null,x.texto);cp.className='pcap';bd.appendChild(cp);bd.appendChild(el('span','pmore','Ver en Instagram'));a.appendChild(bd);po.appendChild(a)});
   manual.forEach(function(x){var url=safeUrl(x.url);var a=el(url?'a':'div','post');if(url){a.href=url;a.target='_blank';a.rel='noopener'}
     if(safeImg(x.imagen)){var im=el('img','pimg');im.src=x.imagen;im.alt='';a.appendChild(im)}else{var ph=el('div','pph');ph.innerHTML=ICONS[x.red]||ICONS.Otra;a.appendChild(ph)}
@@ -480,7 +479,7 @@ function renderAvisos(d){var av=$('v-avisos');av.textContent='';var hoy=hoyISO()
       if(a.url){var l=el('a','pmore','Ver publicación');l.href=a.url;l.target='_blank';l.rel='noopener';dv.appendChild(l)}}
     ar.appendChild(dv);av.appendChild(ar)})}
 function loadIG(){var u=safeUrl(DATA.general.instagramFeed);if(!u)return;fetch(u).then(function(r){return r.json()}).then(function(j){var ps=Array.isArray(j)?j:(j.posts||[]);
-  IGRAW=ps;IGPOSTS=ps.slice(0,2).map(function(p){var sz=p.sizes||{};var img=(sz.medium&&sz.medium.mediaUrl)||(sz.large&&sz.large.mediaUrl)||p.thumbnailUrl||p.mediaUrl;
+  IGRAW=ps;IGPOSTS=ps.slice(0,4).map(function(p){var sz=p.sizes||{};var img=(sz.medium&&sz.medium.mediaUrl)||(sz.large&&sz.large.mediaUrl)||p.thumbnailUrl||p.mediaUrl;
     var dt=p.timestamp?new Date(p.timestamp):null;return {url:p.permalink,img:img,texto:p.prunedCaption||p.caption||'',fecha:dt?dt.getDate()+' '+MESES[dt.getMonth()]:''}}).filter(function(x){return x.img&&safeUrl(x.url)});
   if(!draft)render(DATA)}).catch(function(){})}
 fetch('calendario.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(c){if(c){CAL=c;if(DATA&&!draft)render(DATA)}}).catch(function(){});
@@ -657,7 +656,7 @@ fetch('evangelio.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return
 
 /* Muro de Facebook con las últimas publicaciones */
 var fbDone=false;
-function loadFb(){if(fbDone)return;fbDone=true;var fb=(DATA.redes||[]).filter(function(r){return r.red==='Facebook'&&safeUrl(r.url)})[0];if(!fb)return;
+function loadFb(){return;if(fbDone)return;fbDone=true;var fb=(DATA.redes||[]).filter(function(r){return r.red==='Facebook'&&safeUrl(r.url)})[0];if(!fb)return;
   var f=document.createElement('iframe');f.title='Publicaciones de Facebook';f.loading='lazy';f.style.cssText='border:0;width:100%;max-width:500px;height:760px';
   f.src='https://www.facebook.com/plugins/page.php?href='+encodeURIComponent(fb.url)+'&tabs=timeline&width=500&height=760&small_header=true&adapt_container_width=true&hide_cover=false';$('fbPlugin').appendChild(f)}
 
