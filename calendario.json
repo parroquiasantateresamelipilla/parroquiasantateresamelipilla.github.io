@@ -138,7 +138,7 @@
    "inicio": "2026-11-21T09:30:00.000Z",
    "fecha": "2026-11-21",
    "hora": "06:30",
-   "tipo": "Rosario del Alba -",
+   "tipo": "Rosario del Alba",
    "lugar": "Capilla Huilco"
   },
   {
@@ -154,6 +154,657 @@
    "hora": "19:00",
    "tipo": "Misa",
    "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-11-22T12:00:00.000Z",
+   "fecha": "2026-11-22",
+   "hora": "09:00",
+   "tipo": "Misa",
+   "lugar": "Capilla El Bajo"
+  },
+  {
+   "inicio": "2026-11-22T13:15:00.000Z",
+   "fecha": "2026-11-22",
+   "hora": "10:15",
+   "tipo": "Misa",
+   "lugar": "Capilla San Francisco"
+  },
+  {
+   "inicio": "2026-11-22T13:30:00.000Z",
+   "fecha": "2026-11-22",
+   "hora": "10:30",
+   "tipo": "Liturgia Capilla",
+   "lugar": "Capilla Huilco"
+  },
+  {
+   "inicio": "2026-11-22T15:00:00.000Z",
+   "fecha": "2026-11-22",
+   "hora": "12:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-11-23T22:00:00.000Z",
+   "fecha": "2026-11-23",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Capilla El Bajo"
+  },
+  {
+   "inicio": "2026-11-23T22:00:00.000Z",
+   "fecha": "2026-11-23",
+   "hora": "19:00",
+   "tipo": "Liturgia",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-11-24T22:00:00.000Z",
+   "fecha": "2026-11-24",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Capilla Huechún"
+  },
+  {
+   "inicio": "2026-11-24T22:00:00.000Z",
+   "fecha": "2026-11-24",
+   "hora": "19:00",
+   "tipo": "Liturgia",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-11-25T22:00:00.000Z",
+   "fecha": "2026-11-25",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Capilla Huilco"
+  },
+  {
+   "inicio": "2026-11-25T22:00:00.000Z",
+   "fecha": "2026-11-25",
+   "hora": "19:00",
+   "tipo": "Liturgia",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-11-26T22:00:00.000Z",
+   "fecha": "2026-11-26",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-11-27T22:00:00.000Z",
+   "fecha": "2026-11-27",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Capilla San Francisco"
+  },
+  {
+   "inicio": "2026-11-27T22:00:00.000Z",
+   "fecha": "2026-11-27",
+   "hora": "19:00",
+   "tipo": "Liturgia",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-11-28T09:30:00.000Z",
+   "fecha": "2026-11-28",
+   "hora": "06:30",
+   "tipo": "Rosario del Alba",
+   "lugar": "Capilla El Bajo"
+  },
+  {
+   "inicio": "2026-11-28T13:30:00.000Z",
+   "fecha": "2026-11-28",
+   "hora": "10:30",
+   "tipo": "Bautizos",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-11-28T15:00:00.000Z",
+   "fecha": "2026-11-28",
+   "hora": "12:00",
+   "tipo": "Misa",
+   "lugar": "Capilla Huechún"
+  },
+  {
+   "inicio": "2026-11-28T22:00:00.000Z",
+   "fecha": "2026-11-28",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-11-29T12:00:00.000Z",
+   "fecha": "2026-11-29",
+   "hora": "09:00",
+   "tipo": "Liturgia Capilla El Carmen del Bajo",
+   "lugar": ""
+  },
+  {
+   "inicio": "2026-11-29T13:30:00.000Z",
+   "fecha": "2026-11-29",
+   "hora": "10:30",
+   "tipo": "Misa",
+   "lugar": "Capilla Huilco"
+  },
+  {
+   "inicio": "2026-11-29T13:30:00.000Z",
+   "fecha": "2026-11-29",
+   "hora": "10:30",
+   "tipo": "Misa",
+   "lugar": "Capilla Huilco"
+  },
+  {
+   "inicio": "2026-11-29T15:00:00.000Z",
+   "fecha": "2026-11-29",
+   "hora": "12:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-11-30T22:00:00.000Z",
+   "fecha": "2026-11-30",
+   "hora": "19:00",
+   "tipo": "Liturgia",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-01T22:00:00.000Z",
+   "fecha": "2026-12-01",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Capilla Huechún"
+  },
+  {
+   "inicio": "2026-12-01T22:00:00.000Z",
+   "fecha": "2026-12-01",
+   "hora": "19:00",
+   "tipo": "Liturgia",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-02T22:00:00.000Z",
+   "fecha": "2026-12-02",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Capilla Huilco"
+  },
+  {
+   "inicio": "2026-12-02T22:00:00.000Z",
+   "fecha": "2026-12-02",
+   "hora": "19:00",
+   "tipo": "Liturgia",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-03T22:00:00.000Z",
+   "fecha": "2026-12-03",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-04T22:00:00.000Z",
+   "fecha": "2026-12-04",
+   "hora": "19:00",
+   "tipo": "Liturgia",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-05T09:30:00.000Z",
+   "fecha": "2026-12-05",
+   "hora": "06:30",
+   "tipo": "Rosario del Alba",
+   "lugar": "Capilla San Francisco"
+  },
+  {
+   "inicio": "2026-12-05T20:00:00.000Z",
+   "fecha": "2026-12-05",
+   "hora": "17:00",
+   "tipo": "Liturgia Huechun y adoración",
+   "lugar": ""
+  },
+  {
+   "inicio": "2026-12-05T22:00:00.000Z",
+   "fecha": "2026-12-05",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-06T12:00:00.000Z",
+   "fecha": "2026-12-06",
+   "hora": "09:00",
+   "tipo": "Misa el Bajo y Adoración",
+   "lugar": ""
+  },
+  {
+   "inicio": "2026-12-06T13:15:00.000Z",
+   "fecha": "2026-12-06",
+   "hora": "10:15",
+   "tipo": "Misa Huilco y Adoración - Entrega de la Biblia",
+   "lugar": ""
+  },
+  {
+   "inicio": "2026-12-06T13:15:00.000Z",
+   "fecha": "2026-12-06",
+   "hora": "10:15",
+   "tipo": "Misa Huilco y Adoración - Entrega de la Biblia",
+   "lugar": ""
+  },
+  {
+   "inicio": "2026-12-06T15:00:00.000Z",
+   "fecha": "2026-12-06",
+   "hora": "12:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-07T20:15:00.000Z",
+   "fecha": "2026-12-07",
+   "hora": "17:15",
+   "tipo": "Misa Decanato",
+   "lugar": ""
+  },
+  {
+   "inicio": "2026-12-08T13:00:00.000Z",
+   "fecha": "2026-12-08",
+   "hora": "10:00",
+   "tipo": "Misa",
+   "lugar": "Capilla Huechún"
+  },
+  {
+   "inicio": "2026-12-08T15:00:00.000Z",
+   "fecha": "2026-12-08",
+   "hora": "12:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-09T22:00:00.000Z",
+   "fecha": "2026-12-09",
+   "hora": "19:00",
+   "tipo": "Liturgia",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-10T22:00:00.000Z",
+   "fecha": "2026-12-10",
+   "hora": "19:00",
+   "tipo": "Misa y Adoración al Santísimo",
+   "lugar": ""
+  },
+  {
+   "inicio": "2026-12-11T22:00:00.000Z",
+   "fecha": "2026-12-11",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-12T20:00:00.000Z",
+   "fecha": "2026-12-12",
+   "hora": "17:00",
+   "tipo": "Misa",
+   "lugar": "Capilla Huechún"
+  },
+  {
+   "inicio": "2026-12-12T22:00:00.000Z",
+   "fecha": "2026-12-12",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-13T12:00:00.000Z",
+   "fecha": "2026-12-13",
+   "hora": "09:00",
+   "tipo": "Liturgia",
+   "lugar": "Capilla El Bajo"
+  },
+  {
+   "inicio": "2026-12-13T13:30:00.000Z",
+   "fecha": "2026-12-13",
+   "hora": "10:30",
+   "tipo": "Misa San Francisco y Adoración",
+   "lugar": ""
+  },
+  {
+   "inicio": "2026-12-13T13:30:00.000Z",
+   "fecha": "2026-12-13",
+   "hora": "10:30",
+   "tipo": "Liturgia Capilla",
+   "lugar": "Capilla Huilco"
+  },
+  {
+   "inicio": "2026-12-13T15:00:00.000Z",
+   "fecha": "2026-12-13",
+   "hora": "12:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-15T22:00:00.000Z",
+   "fecha": "2026-12-15",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-16T22:00:00.000Z",
+   "fecha": "2026-12-16",
+   "hora": "19:00",
+   "tipo": "Liturgia",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-17T22:00:00.000Z",
+   "fecha": "2026-12-17",
+   "hora": "19:00",
+   "tipo": "Misa y Adoración al Santísimo",
+   "lugar": ""
+  },
+  {
+   "inicio": "2026-12-18T22:00:00.000Z",
+   "fecha": "2026-12-18",
+   "hora": "19:00",
+   "tipo": "Liturgia",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-19T13:30:00.000Z",
+   "fecha": "2026-12-19",
+   "hora": "10:30",
+   "tipo": "Bautizos",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-19T20:00:00.000Z",
+   "fecha": "2026-12-19",
+   "hora": "17:00",
+   "tipo": "Liturgia",
+   "lugar": "Capilla Huechún"
+  },
+  {
+   "inicio": "2026-12-19T22:00:00.000Z",
+   "fecha": "2026-12-19",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-20T12:00:00.000Z",
+   "fecha": "2026-12-20",
+   "hora": "09:00",
+   "tipo": "Misa",
+   "lugar": "Capilla El Bajo"
+  },
+  {
+   "inicio": "2026-12-20T13:30:00.000Z",
+   "fecha": "2026-12-20",
+   "hora": "10:30",
+   "tipo": "Misa",
+   "lugar": "Capilla Huilco"
+  },
+  {
+   "inicio": "2026-12-20T13:30:00.000Z",
+   "fecha": "2026-12-20",
+   "hora": "10:30",
+   "tipo": "Liturgia",
+   "lugar": "Capilla San Francisco"
+  },
+  {
+   "inicio": "2026-12-20T15:00:00.000Z",
+   "fecha": "2026-12-20",
+   "hora": "12:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-22T22:00:00.000Z",
+   "fecha": "2026-12-22",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-23T22:00:00.000Z",
+   "fecha": "2026-12-23",
+   "hora": "19:00",
+   "tipo": "Liturgia",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-24T21:00:00.000Z",
+   "fecha": "2026-12-24",
+   "hora": "18:00",
+   "tipo": "Misa",
+   "lugar": "Capilla Huechún"
+  },
+  {
+   "inicio": "2026-12-25T00:00:00.000Z",
+   "fecha": "2026-12-24",
+   "hora": "21:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-25T13:00:00.000Z",
+   "fecha": "2026-12-25",
+   "hora": "10:00",
+   "tipo": "Misa ¿?",
+   "lugar": ""
+  },
+  {
+   "inicio": "2026-12-25T15:00:00.000Z",
+   "fecha": "2026-12-25",
+   "hora": "12:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-25T21:00:00.000Z",
+   "fecha": "2026-12-25",
+   "hora": "18:00",
+   "tipo": "Misa",
+   "lugar": "Capilla El Bajo"
+  },
+  {
+   "inicio": "2026-12-26T20:00:00.000Z",
+   "fecha": "2026-12-26",
+   "hora": "17:00",
+   "tipo": "Misa",
+   "lugar": "Capilla Huechún"
+  },
+  {
+   "inicio": "2026-12-26T22:00:00.000Z",
+   "fecha": "2026-12-26",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-27T12:00:00.000Z",
+   "fecha": "2026-12-27",
+   "hora": "09:00",
+   "tipo": "Liturgia",
+   "lugar": "Capilla El Bajo"
+  },
+  {
+   "inicio": "2026-12-27T13:15:00.000Z",
+   "fecha": "2026-12-27",
+   "hora": "10:15",
+   "tipo": "Misa",
+   "lugar": "Capilla San Francisco"
+  },
+  {
+   "inicio": "2026-12-27T13:30:00.000Z",
+   "fecha": "2026-12-27",
+   "hora": "10:30",
+   "tipo": "Liturgia Capilla",
+   "lugar": "Capilla Huilco"
+  },
+  {
+   "inicio": "2026-12-27T15:00:00.000Z",
+   "fecha": "2026-12-27",
+   "hora": "12:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-29T22:00:00.000Z",
+   "fecha": "2026-12-29",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-30T22:00:00.000Z",
+   "fecha": "2026-12-30",
+   "hora": "19:00",
+   "tipo": "Liturgia",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2026-12-31T22:00:00.000Z",
+   "fecha": "2026-12-31",
+   "hora": "19:00",
+   "tipo": "Misa y Adoración al Santísimo",
+   "lugar": ""
+  },
+  {
+   "inicio": "2027-01-02T15:00:00.000Z",
+   "fecha": "2027-01-02",
+   "hora": "12:00",
+   "tipo": "Misa Huechun y adoración",
+   "lugar": ""
+  },
+  {
+   "inicio": "2027-01-02T22:00:00.000Z",
+   "fecha": "2027-01-02",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2027-01-03T12:00:00.000Z",
+   "fecha": "2027-01-03",
+   "hora": "09:00",
+   "tipo": "Misa el Bajo y Adoración",
+   "lugar": ""
+  },
+  {
+   "inicio": "2027-01-03T13:15:00.000Z",
+   "fecha": "2027-01-03",
+   "hora": "10:15",
+   "tipo": "Misa Huilco y Adoración",
+   "lugar": ""
+  },
+  {
+   "inicio": "2027-01-03T13:15:00.000Z",
+   "fecha": "2027-01-03",
+   "hora": "10:15",
+   "tipo": "Liturgia Capilla",
+   "lugar": "Capilla San Francisco"
+  },
+  {
+   "inicio": "2027-01-03T15:00:00.000Z",
+   "fecha": "2027-01-03",
+   "hora": "12:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2027-01-05T22:00:00.000Z",
+   "fecha": "2027-01-05",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2027-01-06T22:00:00.000Z",
+   "fecha": "2027-01-06",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2027-01-07T22:00:00.000Z",
+   "fecha": "2027-01-07",
+   "hora": "19:00",
+   "tipo": "Misa y Adoración al Santísimo",
+   "lugar": ""
+  },
+  {
+   "inicio": "2027-01-08T22:00:00.000Z",
+   "fecha": "2027-01-08",
+   "hora": "19:00",
+   "tipo": "Liturgia",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2027-01-09T20:00:00.000Z",
+   "fecha": "2027-01-09",
+   "hora": "17:00",
+   "tipo": "Liturgia",
+   "lugar": "Capilla Huechún"
+  },
+  {
+   "inicio": "2027-01-09T22:00:00.000Z",
+   "fecha": "2027-01-09",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2027-01-10T12:00:00.000Z",
+   "fecha": "2027-01-10",
+   "hora": "09:00",
+   "tipo": "Liturgia",
+   "lugar": "Capilla El Bajo"
+  },
+  {
+   "inicio": "2027-01-10T13:30:00.000Z",
+   "fecha": "2027-01-10",
+   "hora": "10:30",
+   "tipo": "Misa San Francisco y Adoración",
+   "lugar": ""
+  },
+  {
+   "inicio": "2027-01-10T13:30:00.000Z",
+   "fecha": "2027-01-10",
+   "hora": "10:30",
+   "tipo": "Liturgia Capilla",
+   "lugar": "Capilla Huilco"
+  },
+  {
+   "inicio": "2027-01-10T15:00:00.000Z",
+   "fecha": "2027-01-10",
+   "hora": "12:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2027-01-12T22:00:00.000Z",
+   "fecha": "2027-01-12",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2027-01-13T22:00:00.000Z",
+   "fecha": "2027-01-13",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2027-01-14T22:00:00.000Z",
+   "fecha": "2027-01-14",
+   "hora": "19:00",
+   "tipo": "Misa y Adoración al Santísimo",
+   "lugar": ""
   }
  ]
 }
