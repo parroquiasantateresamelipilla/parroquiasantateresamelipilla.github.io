@@ -87,7 +87,10 @@ section[id]{scroll-margin-top:5rem}
 .sched th{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .sched td:first-child{font-weight:600;white-space:nowrap}
 .sched tr.today td{background:var(--sky-soft)}
-.sched tr.today td:first-child::after{content:" · hoy";color:var(--sky);font-weight:500}
+.sched tr.cont td{border-top:0;padding-top:.15rem}
+.sched tr:has(+ tr.cont) td:not([rowspan]){border-bottom:0;padding-bottom:.15rem}
+.sched td[rowspan]{border-bottom:1px solid var(--line)}
+.sched tr.today td[rowspan]::after{content:" · hoy";color:var(--sky);font-weight:500}
 .sched .nota{display:block;color:var(--muted);font-size:.85rem}
 .tablebox{overflow-x:auto}
 .side{display:grid;gap:1.2rem;align-content:start}
@@ -416,11 +419,11 @@ function calOk(){return !!(CAL&&CAL.eventos&&CAL.actualizado&&dayDiff(CAL.actual
 var MESES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 function renderCal(tb){var hoy=hoyISO();
   for(var i=0;i<7;i++){var f=addDays(hoy,i),ev=CAL.eventos.filter(function(e){return e.fecha===f});
-    var tr=el('tr');if(i===0)tr.className='today';var td0=el('td',null,DAYS[dowOf(f)]);td0.appendChild(el('span','nota',(+f.slice(8))+' '+MESES[+f.slice(5,7)-1]));tr.appendChild(td0);
-    var t1=el('td'),t2=el('td');
-    if(!ev.length){t1.textContent='Sin actividades';t2.textContent='—'}
-    ev.forEach(function(e){t1.appendChild(el('div',null,(e.hora?e.hora+' ':'')+e.tipo));t2.appendChild(el('div',null,e.lugar||'—'))});
-    tr.appendChild(t1);tr.appendChild(t2);tb.appendChild(tr)}}
+    var rows=ev.length?ev:[null];
+    rows.forEach(function(e,j){var tr=el('tr');if(i===0)tr.className='today';if(j>0)tr.classList.add('cont');
+      if(j===0){var td0=el('td',null,DAYS[dowOf(f)]);td0.appendChild(el('span','nota',(+f.slice(8))+' '+MESES[+f.slice(5,7)-1]));td0.rowSpan=rows.length;tr.appendChild(td0)}
+      tr.appendChild(el('td',null,e?((e.hora?e.hora+' ':'')+e.tipo):'Sin actividades'));
+      tr.appendChild(el('td',null,e?(e.lugar||'—'):'—'));tb.appendChild(tr)})}}
 function nextMass(d){if(!$('nextTime'))return;if(calOk()){var now=Date.now(),nx=CAL.eventos.filter(function(e){return e.tipo==='Misa'&&Date.parse(e.inicio)>now})[0];
     if(nx){var dd=dayDiff(nx.fecha);$('nextTime').textContent=(dd===0?'Hoy':dd===1?'Mañana':DAYS[dowOf(nx.fecha)])+', '+nx.hora;$('nextNote').textContent=nx.lugar;return}}
   $('nextNote').textContent='Según el horario publicado abajo';
