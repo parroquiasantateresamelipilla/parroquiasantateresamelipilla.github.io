@@ -2,27 +2,6 @@
  "actualizado": "2026-11-15",
  "eventos": [
   {
-   "inicio": "2026-11-15T12:00:00.000Z",
-   "fecha": "2026-11-15",
-   "hora": "09:00",
-   "tipo": "Liturgia",
-   "lugar": "Capilla El Bajo"
-  },
-  {
-   "inicio": "2026-11-15T13:30:00.000Z",
-   "fecha": "2026-11-15",
-   "hora": "10:30",
-   "tipo": "Misa",
-   "lugar": "Capilla Huilco"
-  },
-  {
-   "inicio": "2026-11-15T13:30:00.000Z",
-   "fecha": "2026-11-15",
-   "hora": "10:30",
-   "tipo": "Liturgia",
-   "lugar": "Capilla San Francisco"
-  },
-  {
    "inicio": "2026-11-15T15:00:00.000Z",
    "fecha": "2026-11-15",
    "hora": "12:00",
@@ -770,6 +749,13 @@
    "hora": "19:00",
    "tipo": "Liturgia",
    "lugar": "Templo parroquial"
+  },
+  {
+   "inicio": "2027-01-16T20:00:00.000Z",
+   "fecha": "2027-01-16",
+   "hora": "17:00",
+   "tipo": "Misa",
+   "lugar": "Capilla Huechún"
   }
  ]
 }
