@@ -502,8 +502,8 @@
    "inicio": "2026-12-19T22:00:00.000Z",
    "fecha": "2026-12-19",
    "hora": "19:00",
-   "tipo": "Misa",
-   "lugar": "Templo parroquial"
+   "tipo": "Misa Parroquia + Bautizo Jóvenes",
+   "lugar": ""
   },
   {
    "inicio": "2026-12-20T12:00:00.000Z",
@@ -777,6 +777,13 @@
    "hora": "19:00",
    "tipo": "Misa y Adoración al Santísimo",
    "lugar": ""
+  },
+  {
+   "inicio": "2027-01-15T22:00:00.000Z",
+   "fecha": "2027-01-15",
+   "hora": "19:00",
+   "tipo": "Liturgia",
+   "lugar": "Templo parroquial"
   }
  ]
 }
