@@ -219,6 +219,19 @@ footer .name{font-family:var(--display);font-size:1.05rem;color:var(--ink)}
 .post .pmeta{font-family:var(--ui);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .post p{font-size:.95rem}
 .post .pmore{font-family:var(--ui);font-size:.85rem;color:var(--sky);font-weight:600}
+.popup-bg{position:fixed;inset:0;z-index:40;background:rgba(15,10,8,.62);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));animation:popfade .3s ease}
+.popup{position:relative;background:var(--surface);color:var(--ink);border-radius:14px;max-width:min(520px,100%);max-height:100%;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.4);display:grid}
+.popup img{display:block;width:100%;max-width:100%;height:auto;max-height:60vh;object-fit:cover;border-radius:14px 14px 0 0}
+.popup-body{padding:1.2rem 1.4rem 1.4rem;display:grid;gap:.7rem}
+.popup-body h2{font-size:1.5rem;color:var(--wine)}
+.popup-body p{white-space:pre-line}
+.popup-body .btn{justify-self:start}
+.popup-x{position:absolute;top:.6rem;right:.6rem;width:2.4rem;height:2.4rem;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;font:600 1.3rem/1 var(--ui);cursor:pointer;display:grid;place-items:center}
+.popup-x:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@keyframes popfade{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.popup-bg{animation:none}}
+.switch{display:flex;align-items:center;gap:.7rem;font-weight:600;font-size:.95rem;padding:.8rem;border:1px solid var(--line);border-radius:8px;background:var(--bg);cursor:pointer}
+.switch input{width:1.2rem;height:1.2rem;accent-color:var(--wine)}
 .spotify{max-width:720px}
 .spotify iframe{display:block;width:100%;height:352px;border:0;border-radius:12px}
 #fbPlugin{overflow:hidden;min-height:200px}
@@ -590,7 +603,7 @@ function loadIG(){var g=DATA.general;if(g.instagramFeed===undefined||g.instagram
     var dt=p.timestamp?new Date(p.timestamp):null;return {url:p.permalink,img:img,texto:p.prunedCaption||p.caption||'',fecha:dt?dt.getDate()+' '+MESES[dt.getMonth()]:''}}).filter(function(x){return x.img&&safeUrl(x.url)});
   if(!draft)render(DATA)}).catch(function(){})}
 fetch('calendario.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(c){if(c){CAL=c;if(DATA&&!draft)render(DATA)}}).catch(function(){});
-fetch('data.json?v='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){DATA=d;render(DATA);loadFb();loadIG();if(location.hash==='#admin')openEditor()}).catch(function(){$('v-bienvenida').textContent='No se pudo cargar la información. Recarga la página.'});
+fetch('data.json?v='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){DATA=d;render(DATA);loadFb();loadIG();if(location.hash==='#admin')openEditor();else setTimeout(function(){mostrarPopup(false)},1200)}).catch(function(){$('v-bienvenida').textContent='No se pudo cargar la información. Recarga la página.'});
 $('menuBtn').onclick=function(){var o=$('menu').classList.toggle('open');this.setAttribute('aria-expanded',o)};
 $('menu').onclick=function(e){if(e.target.tagName==='A'){$('menu').classList.remove('open');$('menuBtn').setAttribute('aria-expanded','false')}};
 $('msgForm').onsubmit=function(e){e.preventDefault();var ok=$('formOk'),b=$('f-send');if($('f-honey').value)return;
@@ -607,6 +620,7 @@ $('msgForm').onsubmit=function(e){e.preventDefault();var ok=$('formOk'),b=$('f-s
 
 /* ===== Administración ===== */
 var SECTIONS=[
+ {id:'popup',label:'Pop-up de campaña',custom:'popup'},
  {id:'portada',label:'Fotos de portada',custom:'portada'},
  {id:'general',label:'General',help:'Nombre, bienvenida, logo y aviso superior.',obj:'general',fields:[['nombre','Nombre completo'],['nombreCorto','Nombre corto (encabezado)'],['ciudad','Ciudad'],['subtitulo','Subtítulo (diócesis)'],['bienvenida','Texto de bienvenida','area'],['frase','Frase destacada'],['fiesta','Fiesta patronal'],['aviso','Aviso superior (déjalo vacío para ocultarlo)'],['logo','Logo de la parroquia','img'],['donaciones','Enlace para donaciones (déjalo vacío para ocultar)'],['donacionesTexto','Texto de la sección de donaciones','area'],['instagramFeed','Enlace JSON de Behold (Instagram automático)'],['spotify','Enlace del álbum o lista de Spotify (vacío para ocultar)']]},
  {id:'horarios',label:'Horarios de Misa',help:'Escribe las horas separadas por coma (ej: 09:00, 12:00). Deja vacío si ese día no hay Misa.',custom:'misas'},
@@ -648,6 +662,7 @@ function buildForm(){var body=$('ed-body');body.textContent='';var s=SECTIONS.fi
   if(s.obj){s.fields.forEach(function(f){body.appendChild(field(f[1],'ed-'+s.id+'-'+f[0],f[2],draft[s.obj][f[0]],function(v){draft[s.obj][f[0]]=v;changed()},f[3]))})}
   else if(s.custom==='usuarios'){buildUsers(body)}
   else if(s.custom==='portada'){buildPortada(body)}
+  else if(s.custom==='popup'){buildPopup(body)}
   else if(s.custom==='misas'){
     body.appendChild(field('Nota sobre los horarios','ed-horariosNota','area',draft.horariosNota,function(v){draft.horariosNota=v;changed()}));
     [1,2,3,4,5,6,0].forEach(function(i){var m=draft.misas[i];var it=el('div','item');it.appendChild(el('b',null,DAYS[i]));
@@ -691,6 +706,39 @@ function renderSlides(g){var box=$('v-slides');if(!box)return;var fotos=fotosPor
   if(fotos.length>1){var i=0;slideTimer=setInterval(function(){var ds=box.children;if(!ds.length)return;ds[i].className='';i=(i+1)%ds.length;ds[i].className='on'},10000)}}
 function putB64(path,content,msg){return gh('/contents/'+path+'?ref=main').then(function(r){if(r.status===401||r.status===403)throw{auth:1};return r.ok?r.json():{}}).then(function(cur){
   return gh('/contents/'+path,{method:'PUT',body:JSON.stringify({message:msg,content:content,sha:cur.sha,branch:'main'})})}).then(function(r){if(r.status===401||r.status===403)throw{auth:1};if(!r.ok)throw{code:r.status};return r})}
+/* Pop-up de campaña */
+function popupClave(pp){return 'popup-'+String((pp.titulo||'')+'|'+(pp.texto||'')+'|'+(pp.imagen||'')).length+'-'+String(pp.titulo||'').slice(0,20)}
+function mostrarPopup(force){var pp=(DATA&&DATA.popup)||{};var src=draft&&draft.popup?draft.popup:pp;
+  if(!force){if(!pp.activo||draft)return;try{if(sessionStorage.getItem(popupClave(pp)))return}catch(e){}}
+  if(!src.titulo&&!src.texto&&!src.imagen)return;var old=$('popupBg');if(old)old.remove();
+  var bg=el('div','popup-bg');bg.id='popupBg';var box=el('div','popup');box.setAttribute('role','dialog');box.setAttribute('aria-modal','true');box.setAttribute('aria-label',src.titulo||'Aviso de la parroquia');
+  var x=el('button','popup-x','×');x.type='button';x.setAttribute('aria-label','Cerrar');box.appendChild(x);
+  if(safeImg(src.imagen)){var im=el('img');im.src=PREV[src.imagen]||src.imagen;im.alt=src.titulo||'';box.appendChild(im)}
+  var bd=el('div','popup-body');if(src.titulo)bd.appendChild(el('h2',null,src.titulo));if(src.texto)bd.appendChild(el('p',null,src.texto));
+  var bu=safeUrl(src.enlace)||(/^#[\w-]+$/.test(src.enlace||'')?src.enlace:'');
+  if(bu&&src.boton){var a=el('a','btn solid',src.boton);a.href=bu;if(/^https?:/.test(bu)){a.target='_blank';a.rel='noopener'}a.onclick=function(){cerrar()};bd.appendChild(a)}
+  box.appendChild(bd);bg.appendChild(box);document.body.appendChild(bg);x.focus();
+  function cerrar(){bg.remove();document.removeEventListener('keydown',esc);if(!force){try{sessionStorage.setItem(popupClave(pp),'1')}catch(e){}}}
+  function esc(e){if(e.key==='Escape')cerrar()}
+  x.onclick=cerrar;bg.onclick=function(e){if(e.target===bg)cerrar()};document.addEventListener('keydown',esc)}
+function buildPopup(body){if(!draft.popup)draft.popup={activo:false,titulo:'',texto:'',imagen:'',boton:'',enlace:''};var pp=draft.popup;
+  body.appendChild(el('p','help','Un aviso que aparece al entrar al sitio, para campañas o eventos. Cada visitante lo ve una vez por visita y lo puede cerrar. Después de cambiarlo, presiona Publicar cambios.'));
+  var sw=el('label','switch');sw.htmlFor='ed-pop-on';var cb=el('input');cb.type='checkbox';cb.id='ed-pop-on';cb.checked=!!pp.activo;sw.appendChild(cb);
+  var st=el('span',null,pp.activo?'Pop-up ACTIVADO: se muestra en el sitio':'Pop-up desactivado');sw.appendChild(st);
+  cb.onchange=function(){pp.activo=cb.checked;st.textContent=pp.activo?'Pop-up ACTIVADO: se muestra en el sitio':'Pop-up desactivado';changed()};body.appendChild(sw);
+  body.appendChild(field('Título','ed-pop-tit','',pp.titulo,function(v){pp.titulo=v;changed()}));
+  body.appendChild(field('Texto','ed-pop-txt','area',pp.texto,function(v){pp.texto=v;changed()}));
+  var w=el('div','fld');w.appendChild(el('span',null,'Foto (opcional)'));var row=el('div');row.style.cssText='display:flex;gap:.6rem;align-items:center;flex-wrap:wrap';
+  var th=el('img','thumb');th.alt='';th.style.width='96px';th.style.height='64px';var setT=function(){th.hidden=!pp.imagen;if(pp.imagen)th.src=PREV[pp.imagen]||pp.imagen};setT();
+  var inp=el('input');inp.type='file';inp.accept='image/*';inp.id='ed-pop-img';inp.style.cssText='flex:1;min-width:0';
+  var rm=el('button','iconbtn danger','Quitar foto');rm.type='button';rm.onclick=function(){pp.imagen='';setT();changed()};
+  inp.onchange=function(){var f=inp.files&&inp.files[0];if(!f)return;inp.disabled=true;status('Subiendo foto…','');
+    fotoGrande(f,function(url){var path='fotos/popup-'+Date.now()+'.jpg';putB64(path,url.split(',')[1],'Foto de pop-up').then(function(){PREV[path]=url;pp.imagen=path;setT();inp.disabled=false;inp.value='';changed();status('Foto lista. Presiona Publicar cambios.','ok')},
+      function(e){inp.disabled=false;if(e&&e.auth){setTok('');showLogin('La clave venció o no tiene permiso.')}else status('No se pudo subir la foto. Inténtalo de nuevo.','bad')})},function(){inp.disabled=false;status('Ese archivo no es una imagen válida.','bad')})};
+  row.appendChild(th);row.appendChild(inp);row.appendChild(rm);w.appendChild(row);body.appendChild(w);
+  body.appendChild(field('Texto del botón (opcional, ej.: Donar ahora)','ed-pop-btn','',pp.boton,function(v){pp.boton=v;changed()}));
+  body.appendChild(field('Enlace del botón (https://… o #donar)','ed-pop-url','',pp.enlace,function(v){pp.enlace=v;changed()}));
+  var pv=el('button','btn small','Ver vista previa');pv.type='button';pv.onclick=function(){mostrarPopup(true)};body.appendChild(pv)}
 function fotoGrande(file,cb,err){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){
   var max=1920,s=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);
   c.getContext('2d').drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.82))};im.onerror=err;im.src=r.result};r.onerror=err;r.readAsDataURL(file)}
