@@ -232,6 +232,43 @@ footer .name{font-family:var(--display);font-size:1.05rem;color:var(--ink)}
 @media (prefers-reduced-motion:reduce){.popup-bg{animation:none}}
 .switch{display:flex;align-items:center;gap:.7rem;font-weight:600;font-size:.95rem;padding:.8rem;border:1px solid var(--line);border-radius:8px;background:var(--bg);cursor:pointer}
 .switch input{width:1.2rem;height:1.2rem;accent-color:var(--wine)}
+.urg-bar{background:var(--wine);color:#fff;font-family:var(--ui);font-size:.9rem}
+.urg-bar .wrap{display:flex;flex-wrap:wrap;gap:.3rem .6rem;align-items:center;justify-content:center;padding-block:.5rem;text-align:center}
+.urg-bar a{color:#fff;font-weight:700;text-decoration:underline;white-space:nowrap}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:1rem}
+.svc{display:flex;gap:.9rem;align-items:flex-start;padding:1rem 1.1rem;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);text-decoration:none;min-width:0}
+.svc:hover{border-color:var(--wine)}
+.svc svg{flex:none;color:var(--wine);margin-top:.1rem}
+.svc div{min-width:0;display:grid;gap:.2rem}
+.svc b{font-family:var(--display);font-weight:400;font-size:1.12rem}
+.svc span{font-family:var(--ui);font-size:.86rem;color:var(--muted)}
+.susc{display:grid;gap:1rem;max-width:560px}
+.susc .pform{grid-template-columns:1fr 1fr auto;align-items:end;padding:0;border:0;background:none}
+.susc .pform .ok{grid-column:1/-1}
+@media (max-width:640px){.susc .pform{grid-template-columns:1fr}}
+body.modo-pagina main > section,body.modo-pagina .hero,body.modo-pagina .feed-side{display:none!important}
+body.modo-pagina .layout{display:block!important;max-width:none}
+.pagina{padding-block:2.2rem 3.5rem;display:grid;gap:1rem}
+.pagina h1{font-size:clamp(2rem,5vw,2.8rem);color:var(--wine)}
+.pagina h2{font-size:1.5rem}
+.pg-back{font-family:var(--ui);font-size:.88rem;font-weight:600;color:var(--sky);text-decoration:none;justify-self:start}
+.pg-intro{max-width:65ch;display:grid;gap:.7rem;font-size:1.1rem}
+.pg-cols{display:grid;gap:2rem;margin-top:1rem}
+@media (min-width:900px){.pg-cols{grid-template-columns:minmax(0,1fr) minmax(320px,420px);align-items:start}.pg-cols.solo{grid-template-columns:minmax(0,1fr)}}
+.pg-main,.pg-side{display:grid;gap:1rem;align-content:start;min-width:0}
+.pg-steps{margin:0;padding-left:1.3rem;display:grid;gap:.5rem}
+.pg-box{border-left:3px solid var(--gold);padding-left:1rem;display:grid;gap:.4rem}
+.pg-box ul{margin:0;padding-left:1.1rem}
+.pg-pdf{width:100%;max-width:100%;height:75vh;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.pg-img{width:100%;max-width:100%;border-radius:8px;border:1px solid var(--line)}
+.pg-arch{margin:0;padding-left:1.1rem;display:grid;gap:.3rem;font-family:var(--ui)}
+.pform{display:grid;gap:.8rem;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.3rem;position:relative}
+.pform h3{font-size:1.25rem;color:var(--wine)}
+.pform label{font-family:var(--ui);font-size:.85rem;font-weight:600;display:grid;gap:.3rem}
+.pform input,.pform textarea,.pform select{font:400 .95rem var(--ui);padding:.6rem .7rem;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);width:100%}
+.pform textarea{min-height:6rem;resize:vertical}
+.pform .btn{justify-self:start}
+.faq-r{font-family:var(--ui);font-size:.95rem;color:var(--muted);display:grid;gap:.5rem;margin-top:.5rem}
 .spotify{max-width:720px}
 .spotify iframe{display:block;width:100%;height:352px;border:0;border-radius:12px}
 #fbPlugin{overflow:hidden;min-height:200px}
@@ -304,10 +341,11 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
     <a class="brand" href="#inicio"><span id="v-logo"></span><span><b id="v-nombreCorto"></b><small id="v-ciudad"></small></span></a>
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">Menú</button>
     <nav class="menu" id="menu">
-      <a href="#evangelio">Evangelio</a><a href="#horarios">Horarios</a><a href="#pastoral">Pastoral</a><a href="#comunidad">Comunidad</a><a href="#sacramentos">Sacramentos</a><a href="#avisos">Avisos</a><a href="#musica">Música</a><a href="#ubicacion">Ubicación</a><a href="#contacto">Contacto</a><a href="#donar">Donar</a>
+      <a href="#evangelio">Evangelio</a><a href="#horarios">Horarios</a><a href="#pastoral">Pastoral</a><a href="#comunidad">Comunidad</a><a href="#sacramentos">Sacramentos</a><a href="#servicios">Servicios</a><a href="#avisos">Avisos</a><a href="#musica">Música</a><a href="#ubicacion">Ubicación</a><a href="#contacto">Contacto</a><a href="#donar">Donar</a>
     </nav>
   </div>
 </header>
+<div class="urg-bar" id="v-urg" hidden><div class="wrap"><span id="v-urgTxt"></span><a id="v-urgTel"></a></div></div>
 <div class="hero" id="inicio">
   <div class="hero-slides" id="v-slides" aria-hidden="true"></div>
   <div class="wrap hero-grid">
@@ -340,6 +378,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
   </div>
 </aside>
 <main>
+  <div id="pagina" hidden></div>
   <section id="evangelio" class="gospel-band"><div class="wrap gospel">
     <span class="eyebrow" id="ev-fecha">Evangelio del día</span>
     <h2 id="ev-cita">Evangelio del día</h2>
@@ -347,6 +386,10 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
     <p class="ev-res" id="ev-res" hidden></p>
     <div><a class="btn solid" id="ev-link" href="https://www.eucaristiadiaria.cl/dia.php" target="_blank" rel="noopener">Leer el Evangelio completo</a></div>
     <p class="ev-src">Fuente: Eucaristía Diaria, Área de Liturgia y Espiritualidad.</p>
+  </div></section>
+  <section id="servicios"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Servicios en línea</span><h2>¿En qué te podemos ayudar?</h2><p>Cada opción se abre en una pestaña nueva.</p></div>
+    <div class="svc-grid" id="v-servicios"></div>
   </div></section>
   <section id="horarios"><div class="wrap">
     <div class="sec-head"><span class="eyebrow">Horarios</span><h2>Misas, confesiones y oficina</h2><p id="v-horariosNota"></p></div>
@@ -411,6 +454,10 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
       </form>
     </div>
   </div></section>
+  <section id="suscribete"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Avisos</span><h2>Recibe nuestras noticias</h2><p id="v-suscTxt"></p></div>
+    <div class="susc" id="v-susc"></div>
+  </div></section>
   <section id="redes"><div class="wrap">
     <div class="sec-head"><span class="eyebrow">Redes sociales</span><h2>Síguenos</h2></div>
     <div class="socials" id="v-redes"></div>
@@ -447,6 +494,110 @@ var ICONS={
  Otra:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>'};
 var CH={correo:['Correo','<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>'],telefono:['Teléfono','<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/>'],whatsapp:['WhatsApp','<path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/>'],urgencias:['Urgencias sacramentales','<path d="M12 3v18M6 9h12"/>']};
 
+/* ===== Páginas de servicios (se abren en pestaña aparte con ?p=) ===== */
+var LUGARES_OPC=['Templo parroquial','Capilla Huechún','Capilla San Francisco','Capilla El Bajo','Capilla Huilco','Aún no sé'];
+var DEF={
+ pg_nuevo:{titulo:'¿Eres nuevo en la parroquia?',intro:'¡Bienvenido a la Parroquia Santa Teresa de Jesús de los Andes! Nos alegra que quieras ser parte de esta comunidad. Aquí te contamos cómo dar los primeros pasos.',pasos:'Participa de la Misa dominical en el templo o en una de nuestras capillas.\nInscríbete como parroquiano con el formulario de esta página.\nConoce nuestros grupos y servicios, como el Comedor Fraterno.\nAcércate a la oficina parroquial si necesitas un sacramento o un certificado.'},
+ pg_intenciones:{titulo:'Intenciones de Misa',intro:'Puedes pedir que la Misa se ofrezca por un difunto, por la salud de un enfermo o en acción de gracias. Completa el formulario y la secretaría te confirmará la fecha y el lugar.',aporte:'El aporte por la intención es voluntario y puedes hacerlo en línea.'},
+ pg_oracion:{titulo:'Peticiones de oración',intro:'Comparte tu intención y la comunidad rezará por ella. Si lo prefieres, márcala como confidencial y solo la conocerá el sacerdote.'},
+ pg_inscripciones:{titulo:'Inscripción a sacramentos',intro:'Completa el formulario y la secretaría parroquial te contactará con los pasos a seguir. Más abajo puedes revisar los requisitos de cada sacramento.'},
+ pg_boletin:{titulo:'Hoja parroquial',intro:'Avisos, lecturas y actividades de cada semana.'},
+ pg_historia:{titulo:'Nuestra historia',historia:'Pronto compartiremos aquí la historia de nuestra parroquia, sus comunidades y quienes la han servido a lo largo de los años.',
+   patrona:'Santa Teresa de Jesús de los Andes nació en Santiago el 13 de julio de 1900 con el nombre de Juana Fernández Solar. Desde joven vivió una intensa amistad con Jesús y en 1919 ingresó al Carmelo de Los Andes, donde tomó el nombre de Teresa de Jesús.\n\nMurió el 12 de abril de 1920, con apenas 19 años. San Juan Pablo II la beatificó en Santiago en 1987 y la canonizó en 1993: fue la primera santa chilena. Celebramos su fiesta el 13 de julio, y sus restos descansan en el Santuario de Auco, en Rinconada de Los Andes.'},
+ pg_comedor:{titulo:'Comedor Fraterno',intro:'El Comedor Fraterno es nuestro servicio diario a los más necesitados. Puedes ayudar donando alimentos o sumándote como voluntario.',horario:'Todos los días a las 10:00.',necesidades:'Arroz\nFideos\nLegumbres\nAceite\nConservas\nLeche',recepcion:'En la oficina parroquial, durante el horario de atención.'},
+ pg_preguntas:{titulo:'Preguntas frecuentes',intro:'Respuestas a lo que más nos consultan en la oficina parroquial.'},
+ boletines:[],
+ faq:[{p:'¿Cómo pido un certificado de bautismo, confirmación o matrimonio?',r:'Acércate a la oficina parroquial en su horario de atención. Si recibiste el sacramento en otra parroquia, debes pedirlo allá.'},
+  {p:'¿Cómo pido un responso?',r:'Coordínalo en la oficina parroquial o escríbenos por WhatsApp. Se pueden hacer en el templo o en las capillas.'},
+  {p:'¿Qué hago si alguien está grave o falleció?',r:'Llama o escribe de inmediato al teléfono de la parroquia para coordinar la visita del sacerdote o el responso.'},
+  {p:'¿Cómo inscribo a mi hijo en catequesis?',r:'Completa el formulario de Inscripción a sacramentos y la secretaría te contactará.'},
+  {p:'¿Cómo pido una intención de Misa?',r:'Desde la página Intenciones de Misa o directamente en la oficina parroquial.'}],
+ urgencias:{activo:'Sí',texto:'¿Un enfermo grave o un fallecimiento? Llama o escribe de inmediato:',telefono:'+56 9 8216 1720'},
+ suscripcion:{canal:'',texto:'Recibe los avisos de la parroquia en tu correo.'}
+};
+function conDefaults(d){Object.keys(DEF).forEach(function(k){if(d[k]===undefined){d[k]=JSON.parse(JSON.stringify(DEF[k]))}else if(!Array.isArray(DEF[k])&&typeof DEF[k]==='object'){Object.keys(DEF[k]).forEach(function(j){if(d[k][j]===undefined)d[k][j]=DEF[k][j]})}});return d}
+var IC={
+ nuevo:'<path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0"/>',
+ intenciones:'<path d="M12 3c2 3 3 4.5 3 6.5a3 3 0 0 1-6 0C9 7.5 10 6 12 3zM8 21h8M9 21v-6h6v6"/>',
+ oracion:'<path d="M12 21V11M9 8l3-5 3 5M7 14l5-3 5 3"/>',
+ inscripciones:'<path d="M7 3h7l4 4v14H7zM14 3v4h4M10 12h5M10 16h5"/>',
+ boletin:'<path d="M4 5h13v14H4zM17 8h3v11a2 2 0 0 1-2 2H6M7 9h7M7 13h7"/>',
+ historia:'<path d="M12 3v18M7 8h10M5 21h14"/>',
+ comedor:'<path d="M5 3v8a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 2-2 6 0 8v10"/>',
+ preguntas:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/>'};
+var PAGINAS=[
+ {id:'nuevo',k:'pg_nuevo',res:'Bienvenida e inscripción como parroquiano'},
+ {id:'intenciones',k:'pg_intenciones',res:'Pide una Misa por un difunto, un enfermo o en acción de gracias'},
+ {id:'oracion',k:'pg_oracion',res:'Comparte tu intención y rezaremos por ella'},
+ {id:'inscripciones',k:'pg_inscripciones',res:'Bautismo, catequesis, confirmación y matrimonio'},
+ {id:'boletin',k:'pg_boletin',res:'La hoja parroquial de cada semana'},
+ {id:'historia',k:'pg_historia',res:'Nuestra parroquia y Santa Teresa de los Andes'},
+ {id:'comedor',k:'pg_comedor',res:'Cómo ayudar a los más necesitados'},
+ {id:'preguntas',k:'pg_preguntas',res:'Certificados, responsos, urgencias y más'}];
+var FORMS={
+ nuevo:{asunto:'Inscripción de parroquiano',titulo:'Inscríbete en la parroquia',boton:'Enviar inscripción',ok:'¡Gracias! Recibimos tu inscripción y te contactaremos pronto.',campos:[['Nombre completo','text',1],['Teléfono','tel',1],['Correo','email'],['Dirección','text'],['Comunidad o capilla','select',0,LUGARES_OPC],['Integrantes de la familia','textarea'],['¿Te gustaría participar en algún grupo o servicio?','textarea']]},
+ intenciones:{asunto:'Intención de Misa',titulo:'Pide una intención',boton:'Enviar intención',ok:'¡Gracias! La secretaría te confirmará la fecha de la intención.',campos:[['Tu nombre','text',1],['Teléfono o correo','text',1],['Tipo de intención','select',1,['Por un difunto','Por la salud de un enfermo','Acción de gracias','Otra intención']],['¿Por quién se ofrece?','text',1],['Fecha deseada','date'],['Lugar','select',0,LUGARES_OPC],['Comentario','textarea']]},
+ oracion:{asunto:'Petición de oración',titulo:'Deja tu petición',boton:'Enviar petición',ok:'Recibimos tu petición. Rezaremos por tu intención.',campos:[['Tu nombre (opcional)','text'],['Teléfono o correo (opcional)','text'],['Tu petición','textarea',1],['¿Es confidencial?','select',1,['No, se puede rezar en comunidad','Sí, solo para el sacerdote']]]},
+ inscripciones:{asunto:'Inscripción a sacramento',titulo:'Formulario de inscripción',boton:'Enviar inscripción',ok:'¡Gracias! La secretaría te contactará con los pasos a seguir.',campos:[['Sacramento','select',1,['Bautismo','Primera Comunión','Confirmación','Matrimonio','Unción de los enfermos','Otro']],['Nombre de la persona que recibirá el sacramento','text',1],['Edad o fecha de nacimiento','text'],['Nombre de quien inscribe (si es otra persona)','text'],['Teléfono','tel',1],['Correo','email'],['Comentario','textarea']]},
+ comedor:{asunto:'Voluntario Comedor Fraterno',titulo:'Quiero ser voluntario',boton:'Enviar',ok:'¡Gracias por querer ayudar! Te contactaremos pronto.',campos:[['Nombre','text',1],['Teléfono','tel',1],['Correo','email'],['¿Cómo quieres ayudar?','select',1,['Cocinar','Servir','Donar alimentos','Otra forma']],['Días disponibles','text'],['Comentario','textarea']]},
+ suscripcion:{asunto:'Suscripción a avisos parroquiales',titulo:'',boton:'Suscribirme',ok:'¡Listo! Te enviaremos los avisos de la parroquia.',campos:[['Nombre','text',1],['Correo','email',1]]}};
+function construirForm(key){var cfg=FORMS[key];var f=el('form','pform');f.noValidate=false;if(cfg.titulo)f.appendChild(el('h3',null,cfg.titulo));
+  cfg.campos.forEach(function(c,i){var id='pf-'+key+'-'+i;var w=el('label');w.htmlFor=id;w.appendChild(el('span',null,c[0]+(c[2]?' *':'')));var inp;
+    if(c[1]==='textarea')inp=el('textarea');else if(c[1]==='select'){inp=el('select');(c[3]||[]).forEach(function(o){inp.appendChild(el('option',null,o))})}else{inp=el('input');inp.type=c[1]}
+    inp.id=id;inp.name=c[0];if(c[2])inp.required=true;if(c[1]==='email')inp.autocomplete='email';if(c[1]==='tel')inp.autocomplete='tel';w.appendChild(inp);f.appendChild(w)});
+  var hp=el('input');hp.type='text';hp.tabIndex=-1;hp.autocomplete='off';hp.style.cssText='position:absolute;left:-9999px';hp.setAttribute('aria-hidden','true');f.appendChild(hp);
+  var b=el('button','btn solid',cfg.boton);b.type='submit';f.appendChild(b);var st=el('p','ok');st.setAttribute('role','status');st.hidden=true;f.appendChild(st);
+  f.onsubmit=function(e){e.preventDefault();if(hp.value)return;var body={_subject:cfg.asunto+' (sitio web)',_template:'table'};
+    [].forEach.call(f.querySelectorAll('input,select,textarea'),function(x){if(x!==hp&&x.name)body[x.name]=x.value.trim()});
+    var mail=[].filter.call(f.querySelectorAll('input'),function(x){return /@/.test(x.value)})[0];if(mail)body._replyto=mail.value.trim();
+    var dest=(DATA&&DATA.contacto&&DATA.contacto.correo)||'psantateresa@hotmail.com';b.disabled=true;st.hidden=false;st.style.color='';st.textContent='Enviando…';
+    fetch('https://formsubmit.co/ajax/'+encodeURIComponent(dest),{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(body)})
+    .then(function(r){return r.json()}).then(function(j){b.disabled=false;if(String(j.success)==='true'){st.textContent=cfg.ok;f.reset()}else{st.style.color='var(--bad)';st.textContent='No se pudo enviar. Escríbenos por WhatsApp o al correo de la parroquia.'}})
+    .catch(function(){b.disabled=false;st.style.color='var(--bad)';st.textContent='No hay conexión. Inténtalo de nuevo.'})};
+  return f}
+function parrafos(node,t){String(t||'').split(/\n{2,}/).forEach(function(p){if(p.trim())node.appendChild(el('p',null,p.trim()))})}
+function lista(t){var ul=el('ul');String(t||'').split('\n').map(function(x){return x.trim()}).filter(Boolean).forEach(function(x){ul.appendChild(el('li',null,x))});return ul}
+var PAGE=(function(){try{var p=new URLSearchParams(location.search).get('p');return PAGINAS.some(function(x){return x.id===p})?p:''}catch(e){return ''}})();
+function renderServicios(d){var g=$('v-servicios');if(!g)return;g.textContent='';PAGINAS.forEach(function(p){var c=d[p.k]||{};var a=el('a','svc');a.href='?p='+p.id;a.target='_blank';a.rel='noopener';
+  a.innerHTML='<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+IC[p.id]+'</svg>';
+  var t=el('div');t.appendChild(el('b',null,c.titulo||''));t.appendChild(el('span',null,p.res));a.appendChild(t);g.appendChild(a)})}
+function renderUrgencias(d){var u=d.urgencias||{},bar=$('v-urg');if(!bar)return;var on=u.activo!=='No'&&(u.texto||u.telefono);bar.hidden=!on;if(!on)return;
+  $('v-urgTxt').textContent=u.texto||'';var a=$('v-urgTel');a.textContent=u.telefono||'';var w=waUrl(u.telefono);a.href=w||('tel:'+String(u.telefono||'').replace(/[^\d+]/g,''));if(w){a.target='_blank';a.rel='noopener'}}
+function renderSuscripcion(d){var s=d.suscripcion||{},box=$('v-susc');if(!box)return;box.textContent='';$('v-suscTxt').textContent=s.texto||'';
+  var c=safeUrl(s.canal);if(c){var a=el('a','btn','Unirme al canal de WhatsApp');a.href=c;a.target='_blank';a.rel='noopener';box.appendChild(a)}
+  box.appendChild(construirForm('suscripcion'))}
+function renderPagina(d){var box=$('pagina');if(!box||!PAGE)return;document.body.classList.add('modo-pagina');[].forEach.call(document.querySelectorAll('a[href^="#"]'),function(x){var h=x.getAttribute('href');if(h.length>1&&h!=='#admin')x.setAttribute('href','./'+h)});var p=PAGINAS.filter(function(x){return x.id===PAGE})[0],c=d[p.k]||{};box.textContent='';box.hidden=false;
+  document.title=(c.titulo||'')+' · Parroquia Santa Teresa de los Andes, Melipilla';
+  var w=el('div','wrap pagina');var back=el('a','pg-back','← Volver al inicio');back.href='./';w.appendChild(back);
+  w.appendChild(el('span','eyebrow','Parroquia Santa Teresa de los Andes'));w.appendChild(el('h1',null,c.titulo||''));
+  var intro=el('div','pg-intro');parrafos(intro,c.intro);w.appendChild(intro);
+  var cols=el('div','pg-cols');var main=el('div','pg-main');var side=el('div','pg-side');
+  if(PAGE==='nuevo'){main.appendChild(el('h2',null,'Primeros pasos'));var ol=el('ol','pg-steps');String(c.pasos||'').split('\n').filter(function(x){return x.trim()}).forEach(function(x){ol.appendChild(el('li',null,x.trim()))});main.appendChild(ol);side.appendChild(construirForm('nuevo'))}
+  else if(PAGE==='intenciones'){var du=safeUrl(d.general&&d.general.donaciones);var bx=el('div','pg-box');parrafos(bx,c.aporte);if(du){var a=el('a','btn','Hacer el aporte en línea');a.href=du;a.target='_blank';a.rel='noopener';bx.appendChild(a)}main.appendChild(bx);side.appendChild(construirForm('intenciones'))}
+  else if(PAGE==='oracion'){side.appendChild(construirForm('oracion'))}
+  else if(PAGE==='inscripciones'){main.appendChild(el('h2',null,'Requisitos'));var sa=el('div','sacr');(d.sacramentos||[]).forEach(function(s){var de=el('details');de.appendChild(el('summary',null,s.titulo));var ul=el('ul');var cur=ul;de.appendChild(ul);
+    String(s.requisitos||'').split('\n').map(function(r){return r.trim()}).filter(Boolean).forEach(function(r){if(/:$/.test(r)){de.appendChild(el('p','req-sub',r.slice(0,-1)));cur=el('ul');de.appendChild(cur)}else cur.appendChild(el('li',null,r))});sa.appendChild(de)});main.appendChild(sa);side.appendChild(construirForm('inscripciones'))}
+  else if(PAGE==='boletin'){var bs=(d.boletines||[]).filter(function(b){return b.archivo}).slice().reverse();
+    if(!bs.length)main.appendChild(el('p','empty','Pronto publicaremos aquí la hoja parroquial.'));
+    else{var cur2=bs[0];main.appendChild(el('h2',null,(cur2.titulo||'Hoja parroquial')+(cur2.fecha?' · '+cur2.fecha:'')));
+      if(/\.pdf$/i.test(cur2.archivo)){var ob=el('iframe','pg-pdf');ob.src=cur2.archivo;ob.title=cur2.titulo||'Hoja parroquial';main.appendChild(ob);var op=el('a','btn','Abrir o descargar el PDF');op.href=cur2.archivo;op.target='_blank';op.rel='noopener';main.appendChild(op)}
+      else{var im=el('img','pg-img');im.src=cur2.archivo;im.alt=cur2.titulo||'Hoja parroquial';main.appendChild(im)}
+      if(bs.length>1){side.appendChild(el('h3',null,'Hojas anteriores'));var ul2=el('ul','pg-arch');bs.slice(1).forEach(function(b){var li=el('li');var a=el('a',null,(b.fecha?b.fecha+' · ':'')+(b.titulo||'Hoja parroquial'));a.href=b.archivo;a.target='_blank';a.rel='noopener';li.appendChild(a);ul2.appendChild(li)});side.appendChild(ul2)}}}
+  else if(PAGE==='historia'){main.appendChild(el('h2',null,'La parroquia'));parrafos(main,c.historia);side.appendChild(el('h2',null,'Santa Teresa de los Andes'));parrafos(side,c.patrona)}
+  else if(PAGE==='comedor'){var b1=el('div','pg-box');b1.appendChild(el('h3',null,'Horario'));b1.appendChild(el('p',null,c.horario||''));main.appendChild(b1);
+    var b2=el('div','pg-box');b2.appendChild(el('h3',null,'Qué necesitamos'));b2.appendChild(lista(c.necesidades));main.appendChild(b2);
+    var b3=el('div','pg-box');b3.appendChild(el('h3',null,'Dónde entregar las donaciones'));parrafos(b3,c.recepcion);main.appendChild(b3);side.appendChild(construirForm('comedor'))}
+  else if(PAGE==='preguntas'){var fq=el('div','sacr faq');(d.faq||[]).forEach(function(q){if(!q.p)return;var de=el('details');de.appendChild(el('summary',null,q.p));var bd=el('div','faq-r');parrafos(bd,q.r);de.appendChild(bd);fq.appendChild(de)});main.appendChild(fq)}
+  cols.appendChild(main);if(side.childNodes.length)cols.appendChild(side);else cols.classList.add('solo');w.appendChild(cols);box.appendChild(w)}
+function archivoField(label,id,value,onval){var w=el('div','fld');w.appendChild(el('span',null,label));var row=el('div');row.style.cssText='display:flex;gap:.6rem;align-items:center;flex-wrap:wrap';
+  var cur=el('a');cur.target='_blank';cur.rel='noopener';var setC=function(v){cur.hidden=!v;cur.href=v||'#';cur.textContent=v?'Ver archivo actual':''};setC(value);
+  var inp=el('input');inp.type='file';inp.accept='application/pdf,image/*';inp.id=id;inp.style.cssText='flex:1;min-width:0';
+  inp.onchange=function(){var f=inp.files&&inp.files[0];if(!f)return;if(f.size>9e6){status('El archivo pesa más de 9 MB. Usa uno más liviano.','bad');inp.value='';return}inp.disabled=true;status('Subiendo archivo…','');
+    var r=new FileReader();r.onload=function(){var ext=(f.name.match(/\.(pdf|jpe?g|png|webp)$/i)||['.pdf'])[0].toLowerCase();var path='boletines/hoja-'+Date.now()+ext;
+      putB64(path,String(r.result).split(',')[1],'Sube hoja parroquial').then(function(){inp.disabled=false;onval(path);setC(path);status('Archivo subido. Presiona Publicar cambios.','ok')},
+        function(e){inp.disabled=false;if(e&&e.auth){setTok('');showLogin('La clave venció o no tiene permiso.')}else status('No se pudo subir el archivo. Inténtalo de nuevo.','bad')})};r.readAsDataURL(f)};
+  row.appendChild(cur);row.appendChild(inp);w.appendChild(row);return w}
+
 function render(d){
   var g=d.general;
   $('v-aviso').textContent=g.aviso||'';$('v-avisoBar').hidden=!g.aviso;
@@ -472,7 +623,7 @@ function render(d){
     c.appendChild(el('span','role',p.cargo));c.appendChild(el('h3',null,p.nombre));if(p.detalle)c.appendChild(el('p',null,p.detalle));pe.appendChild(c)});
   var sa=$('v-sacramentos');sa.textContent='';d.sacramentos.forEach(function(s){var de=el('details');de.appendChild(el('summary',null,s.titulo));var ul=el('ul');
     var cur=ul;de.appendChild(ul);String(s.requisitos||'').split('\n').map(function(r){return r.trim()}).filter(Boolean).forEach(function(r){if(/:$/.test(r)){de.appendChild(el('p','req-sub',r.slice(0,-1)));cur=el('ul');de.appendChild(cur)}else cur.appendChild(el('li',null,r))});sa.appendChild(de)});
-  renderAvisos(d);renderToday(d);
+  renderAvisos(d);renderToday(d);renderServicios(d);renderUrgencias(d);renderSuscripcion(d);renderPagina(d);
   var u=d.ubicacion;$('v-direccion').textContent=u.direccion;$('v-referencia').textContent=u.referencia;
   renderSlides(g);
   if(g.spotify===undefined)g.spotify='https://open.spotify.com/embed/album/0fC4itPHG7Vj9fsqONKUMz?utm_source=generator';
@@ -603,7 +754,7 @@ function loadIG(){var g=DATA.general;if(g.instagramFeed===undefined||g.instagram
     var dt=p.timestamp?new Date(p.timestamp):null;return {url:p.permalink,img:img,texto:p.prunedCaption||p.caption||'',fecha:dt?dt.getDate()+' '+MESES[dt.getMonth()]:''}}).filter(function(x){return x.img&&safeUrl(x.url)});
   if(!draft)render(DATA)}).catch(function(){})}
 fetch('calendario.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(c){if(c){CAL=c;if(DATA&&!draft)render(DATA)}}).catch(function(){});
-fetch('data.json?v='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){DATA=d;render(DATA);loadFb();loadIG();if(location.hash==='#admin')openEditor();else setTimeout(function(){mostrarPopup(false)},1200)}).catch(function(){$('v-bienvenida').textContent='No se pudo cargar la información. Recarga la página.'});
+fetch('data.json?v='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){DATA=conDefaults(d);render(DATA);loadFb();loadIG();if(location.hash==='#admin')openEditor();else if(!PAGE)setTimeout(function(){mostrarPopup(false)},1200)}).catch(function(){$('v-bienvenida').textContent='No se pudo cargar la información. Recarga la página.'});
 $('menuBtn').onclick=function(){var o=$('menu').classList.toggle('open');this.setAttribute('aria-expanded',o)};
 $('menu').onclick=function(e){if(e.target.tagName==='A'){$('menu').classList.remove('open');$('menuBtn').setAttribute('aria-expanded','false')}};
 $('msgForm').onsubmit=function(e){e.preventDefault();var ok=$('formOk'),b=$('f-send');if($('f-honey').value)return;
@@ -633,6 +784,16 @@ var SECTIONS=[
  {id:'capillas',label:'Capillas',list:'capillas',noun:'capilla',help:'Indica los horarios con una línea por celebración.',fields:[['nombre','Nombre'],['sector','Sector'],['horario','Horarios (uno por línea)','area']]},
  {id:'contacto',label:'Contacto',obj:'contacto',help:'Los campos vacíos no se muestran.',fields:[['correo','Correo'],['telefono','Teléfono'],['whatsapp','WhatsApp'],['urgencias','Urgencias sacramentales']]},
  {id:'publicaciones',label:'Publicaciones',list:'publicaciones',noun:'publicación',help:'Destaca aquí tus últimas publicaciones: copia el enlace de la publicación y sube su imagen.',fields:[['red','Red','select',['Facebook','Instagram','YouTube','WhatsApp','TikTok','Otra']],['fecha','Fecha (ej: 3 nov)'],['texto','Texto breve','area'],['imagen','Imagen','img'],['url','Enlace a la publicación']]},
+ {id:'urgencias',label:'Urgencias',obj:'urgencias',help:'Franja que aparece arriba en todo el sitio.',fields:[['activo','Mostrar el aviso de urgencias','select',['Sí','No']],['texto','Texto'],['telefono','Teléfono o WhatsApp']]},
+ {id:'pg_nuevo',label:'Pág. Bienvenida',obj:'pg_nuevo',fields:[['titulo','Título'],['intro','Texto de bienvenida','area'],['pasos','Primeros pasos (uno por línea)','area']]},
+ {id:'pg_intenciones',label:'Pág. Intenciones',obj:'pg_intenciones',fields:[['titulo','Título'],['intro','Texto','area'],['aporte','Texto sobre el aporte','area']]},
+ {id:'pg_oracion',label:'Pág. Oración',obj:'pg_oracion',fields:[['titulo','Título'],['intro','Texto','area']]},
+ {id:'pg_inscripciones',label:'Pág. Inscripciones',obj:'pg_inscripciones',help:'Los requisitos se toman de la pestaña Sacramentos.',fields:[['titulo','Título'],['intro','Texto','area']]},
+ {id:'boletines',label:'Hoja parroquial',list:'boletines',noun:'hoja',help:'Sube cada semana la hoja en PDF o imagen. La última de la lista se muestra como la hoja vigente; las demás quedan en el archivo.',fields:[['fecha','Fecha (ej.: 22 de noviembre)'],['titulo','Título (ej.: Hoja parroquial, Cristo Rey)'],['archivo','Archivo (PDF o imagen)','archivo']]},
+ {id:'pg_historia',label:'Pág. Historia',obj:'pg_historia',help:'Deja una línea en blanco entre párrafos.',fields:[['titulo','Título'],['historia','Historia de la parroquia','area'],['patrona','Santa Teresa de los Andes','area']]},
+ {id:'pg_comedor',label:'Pág. Comedor',obj:'pg_comedor',fields:[['titulo','Título'],['intro','Texto','area'],['horario','Horario'],['necesidades','Qué necesitamos (uno por línea)','area'],['recepcion','Dónde entregar las donaciones','area']]},
+ {id:'faq',label:'Preguntas frecuentes',list:'faq',noun:'pregunta',fields:[['p','Pregunta'],['r','Respuesta','area']]},
+ {id:'suscripcion',label:'Suscripción',obj:'suscripcion',fields:[['texto','Texto','area'],['canal','Enlace del canal de WhatsApp (opcional)']]},
  {id:'redes',label:'Redes',help:'Para mostrar automáticamente las últimas publicaciones de Instagram, pega en la pestaña General el enlace JSON de Behold.',list:'redes',noun:'red social',fields:[['red','Red','select',['Facebook','Instagram','YouTube','WhatsApp','TikTok','Otra']],['usuario','Texto visible'],['url','Enlace (https://…)']]},
  {id:'usuarios',label:'Usuarios y contraseña',custom:'usuarios'}
 ];
@@ -642,6 +803,7 @@ function field(label,id,kind,value,onval,opts){
   var w=el('label','fld');w.htmlFor=id;w.appendChild(el('span',null,label));var inp;
   if(kind==='area'){inp=el('textarea');inp.value=value||''}
   else if(kind==='select'){inp=el('select');opts.forEach(function(o){var op=el('option',null,o);if(o===value)op.selected=true;inp.appendChild(op)})}
+  else if(kind==='archivo'){return archivoField(label,id,value,onval)}
   else if(kind==='img'){
     var box=el('div');box.style.cssText='display:flex;gap:.6rem;align-items:center;flex-wrap:wrap';
     var th=el('img','thumb');th.alt='';var setT=function(v){th.hidden=!v;if(v)th.src=v};setT(value);
