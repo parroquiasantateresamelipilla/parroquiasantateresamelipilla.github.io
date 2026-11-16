@@ -10,7 +10,7 @@ const LUGARES = [
   ['parroquia', 'Templo parroquial'],
   ['huechun', 'Capilla Huechún'], ['huechún', 'Capilla Huechún'],
   ['san francisco', 'Capilla San Francisco'], ['san fco.', 'Capilla San Francisco'], ['san fco', 'Capilla San Francisco'],
-  ['el bajo', 'Capilla El Bajo'],
+  ['capilla el carmen del bajo', 'Capilla El Bajo'], ['el carmen del bajo', 'Capilla El Bajo'], ['el bajo', 'Capilla El Bajo'],
   ['huilco', 'Capilla Huilco'], ['hulco', 'Capilla Huilco'],
 ];
 const lugarDe = s => { const t = s.toLowerCase().trim(); const m = LUGARES.find(([k]) => t === k); return m ? m[1] : null; };
@@ -28,8 +28,8 @@ const fmtFecha = new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric
 const fmtHora = new Intl.DateTimeFormat('es-CL', { timeZone: TZ, hour: '2-digit', minute: '2-digit', hour12: false });
 
 const lista = [
-  ...events.map(e => ({ titulo: e.summary, desc: e.description, loc: e.location, start: e.startDate, estado: e.component.getFirstPropertyValue('status') })),
-  ...occurrences.map(o => ({ titulo: o.item.summary, desc: o.item.description, loc: o.item.location, start: o.startDate, estado: o.item.component.getFirstPropertyValue('status') })),
+  ...events.map(e => ({ titulo: e.summary, desc: e.description, loc: e.location, start: e.startDate, estado: e.component.getFirstPropertyValue('status'), rec: !!e.component.getFirstPropertyValue('recurrence-id') })),
+  ...occurrences.map(o => ({ titulo: o.item.summary, desc: o.item.description, loc: o.item.location, start: o.startDate, estado: o.item.component.getFirstPropertyValue('status'), rec: true })),
 ];
 
 const eventos = [];
@@ -40,16 +40,19 @@ for (const ev of lista) {
   if (!titulo) continue;
   let lugar = String(ev.loc || '').split(',')[0].trim();
   lugar = lugar ? (lugarDe(lugar) || lugar) : '';
-  // Si el título termina en un lugar conocido ("Misa Huechun"), separarlo
+  // Si el título nombra un lugar conocido ("Misa Huechun", "Misa el Bajo y Adoración"), separarlo
   for (const [k, v] of LUGARES) {
-    if (titulo.toLowerCase().endsWith(' ' + k)) { titulo = titulo.slice(0, -k.length).trim(); if (!lugar) lugar = v; break; }
+    const re = new RegExp('\\s(?:capilla\\s+)?' + k.replace(/[.]/g, '\\.') + '(?=$|[\\s+\\-–,])', 'i');
+    const m = titulo.match(re);
+    if (m && m.index > 0) { titulo = (titulo.slice(0, m.index) + ' ' + titulo.slice(m.index + m[0].length)).replace(/\s+/g, ' ').trim(); if (!lugar) lugar = v; break; }
   }
+  titulo = titulo.replace(/\s+capilla$/i, '').trim();
   const d = ev.start.toJSDate();
   const todoDia = ev.start.isDate;
   const fecha = todoDia ? ev.start.toString().slice(0, 10) : fmtFecha.format(d);
   titulo = titulo.replace(/[\s\-–—:,]+$/, '');
   const tipo = titulo.charAt(0).toUpperCase() + titulo.slice(1);
-  eventos.push({ inicio: todoDia ? fecha + 'T03:00:00.000Z' : d.toISOString(), fecha, hora: todoDia ? '' : fmtHora.format(d), tipo, lugar });
+  eventos.push({ inicio: todoDia ? fecha + 'T03:00:00.000Z' : d.toISOString(), fecha, hora: todoDia ? '' : fmtHora.format(d), tipo, lugar, rec: ev.rec });
 }
 eventos.sort((a, b) => a.inicio.localeCompare(b.inicio) || a.lugar.localeCompare(b.lugar));
 
