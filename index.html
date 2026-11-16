@@ -243,7 +243,9 @@ footer .name{font-family:var(--display);font-size:1.05rem;color:var(--ink)}
 .svc b{font-family:var(--display);font-weight:400;font-size:1.12rem}
 .svc span{font-family:var(--ui);font-size:.86rem;color:var(--muted)}
 .susc{display:grid;gap:1rem;max-width:560px}
+.susc > .btn{justify-self:start}
 .susc .pform{grid-template-columns:1fr 1fr auto;align-items:end;padding:0;border:0;background:none}
+.susc .pform h3{grid-column:1/-1;font-size:1.05rem}
 .susc .pform .ok{grid-column:1/-1}
 @media (max-width:640px){.susc .pform{grid-template-columns:1fr}}
 body.modo-pagina main > section,body.modo-pagina .hero,body.modo-pagina .feed-side{display:none!important}
@@ -513,7 +515,7 @@ var DEF={
   {p:'¿Cómo inscribo a mi hijo en catequesis?',r:'Completa el formulario de Inscripción a sacramentos y la secretaría te contactará.'},
   {p:'¿Cómo pido una intención de Misa?',r:'Desde la página Intenciones de Misa o directamente en la oficina parroquial.'}],
  urgencias:{activo:'Sí',texto:'¿Un enfermo grave o un fallecimiento? Llama o escribe de inmediato:',telefono:'+56 9 8216 1720'},
- suscripcion:{canal:'',texto:'Recibe los avisos de la parroquia en tu correo.'}
+ suscripcion:{canal:'',texto:'Únete al grupo de WhatsApp de la parroquia y recibe todos los avisos.'}
 };
 function conDefaults(d){Object.keys(DEF).forEach(function(k){if(d[k]===undefined){d[k]=JSON.parse(JSON.stringify(DEF[k]))}else if(!Array.isArray(DEF[k])&&typeof DEF[k]==='object'){Object.keys(DEF[k]).forEach(function(j){if(d[k][j]===undefined)d[k][j]=DEF[k][j]})}});return d}
 var IC={
@@ -540,7 +542,7 @@ var FORMS={
  oracion:{asunto:'Petición de oración',titulo:'Deja tu petición',boton:'Enviar petición',ok:'Recibimos tu petición. Rezaremos por tu intención.',campos:[['Tu nombre (opcional)','text'],['Teléfono o correo (opcional)','text'],['Tu petición','textarea',1],['¿Es confidencial?','select',1,['No, se puede rezar en comunidad','Sí, solo para el sacerdote']]]},
  inscripciones:{asunto:'Inscripción a sacramento',titulo:'Formulario de inscripción',boton:'Enviar inscripción',ok:'¡Gracias! La secretaría te contactará con los pasos a seguir.',campos:[['Sacramento','select',1,['Bautismo','Primera Comunión','Confirmación','Matrimonio','Unción de los enfermos','Otro']],['Nombre de la persona que recibirá el sacramento','text',1],['Edad o fecha de nacimiento','text'],['Nombre de quien inscribe (si es otra persona)','text'],['Teléfono','tel',1],['Correo','email'],['Comentario','textarea']]},
  comedor:{asunto:'Voluntario Comedor Fraterno',titulo:'Quiero ser voluntario',boton:'Enviar',ok:'¡Gracias por querer ayudar! Te contactaremos pronto.',campos:[['Nombre','text',1],['Teléfono','tel',1],['Correo','email'],['¿Cómo quieres ayudar?','select',1,['Cocinar','Servir','Donar alimentos','Otra forma']],['Días disponibles','text'],['Comentario','textarea']]},
- suscripcion:{asunto:'Suscripción a avisos parroquiales',titulo:'',boton:'Suscribirme',ok:'¡Listo! Te enviaremos los avisos de la parroquia.',campos:[['Nombre','text',1],['Correo','email',1]]}};
+ suscripcion:{asunto:'Agregar al grupo de WhatsApp de la parroquia',titulo:'O déjanos tu número y te agregamos',boton:'Agregarme al grupo',ok:'¡Gracias! Te agregaremos pronto al grupo de WhatsApp.',campos:[['Nombre','text',1],['Número de WhatsApp','tel',1]]}};
 function construirForm(key){var cfg=FORMS[key];var f=el('form','pform');f.noValidate=false;if(cfg.titulo)f.appendChild(el('h3',null,cfg.titulo));
   cfg.campos.forEach(function(c,i){var id='pf-'+key+'-'+i;var w=el('label');w.htmlFor=id;w.appendChild(el('span',null,c[0]+(c[2]?' *':'')));var inp;
     if(c[1]==='textarea')inp=el('textarea');else if(c[1]==='select'){inp=el('select');(c[3]||[]).forEach(function(o){inp.appendChild(el('option',null,o))})}else{inp=el('input');inp.type=c[1]}
