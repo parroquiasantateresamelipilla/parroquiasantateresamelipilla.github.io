@@ -564,7 +564,7 @@ function renderServicios(d){var g=$('v-servicios');if(!g)return;g.textContent=''
 function renderUrgencias(d){var u=d.urgencias||{},bar=$('v-urg');if(!bar)return;var on=u.activo!=='No'&&(u.texto||u.telefono);bar.hidden=!on;if(!on)return;
   $('v-urgTxt').textContent=u.texto||'';var a=$('v-urgTel');a.textContent=u.telefono||'';var w=waUrl(u.telefono);a.href=w||('tel:'+String(u.telefono||'').replace(/[^\d+]/g,''));if(w){a.target='_blank';a.rel='noopener'}}
 function renderSuscripcion(d){var s=d.suscripcion||{},box=$('v-susc');if(!box)return;box.textContent='';$('v-suscTxt').textContent=s.texto||'';
-  var c=safeUrl(s.canal);if(c){var a=el('a','btn','Unirme al canal de WhatsApp');a.href=c;a.target='_blank';a.rel='noopener';box.appendChild(a)}
+  var c=safeUrl(s.canal);if(c){var a=el('a','btn','Unirme al grupo de WhatsApp');a.href=c;a.target='_blank';a.rel='noopener';box.appendChild(a)}
   box.appendChild(construirForm('suscripcion'))}
 function renderPagina(d){var box=$('pagina');if(!box||!PAGE)return;document.body.classList.add('modo-pagina');[].forEach.call(document.querySelectorAll('a[href^="#"]'),function(x){var h=x.getAttribute('href');if(h.length>1&&h!=='#admin')x.setAttribute('href','./'+h)});var p=PAGINAS.filter(function(x){return x.id===PAGE})[0],c=d[p.k]||{};box.textContent='';box.hidden=false;
   document.title=(c.titulo||'')+' · Parroquia Santa Teresa de los Andes, Melipilla';
@@ -793,7 +793,7 @@ var SECTIONS=[
  {id:'pg_historia',label:'Pág. Historia',obj:'pg_historia',help:'Deja una línea en blanco entre párrafos.',fields:[['titulo','Título'],['historia','Historia de la parroquia','area'],['patrona','Santa Teresa de los Andes','area']]},
  {id:'pg_comedor',label:'Pág. Comedor',obj:'pg_comedor',fields:[['titulo','Título'],['intro','Texto','area'],['horario','Horario'],['necesidades','Qué necesitamos (uno por línea)','area'],['recepcion','Dónde entregar las donaciones','area']]},
  {id:'faq',label:'Preguntas frecuentes',list:'faq',noun:'pregunta',fields:[['p','Pregunta'],['r','Respuesta','area']]},
- {id:'suscripcion',label:'Suscripción',obj:'suscripcion',fields:[['texto','Texto','area'],['canal','Enlace del canal de WhatsApp (opcional)']]},
+ {id:'suscripcion',label:'Suscripción',obj:'suscripcion',fields:[['texto','Texto','area'],['canal','Enlace del grupo o canal de WhatsApp (opcional)']]},
  {id:'redes',label:'Redes',help:'Para mostrar automáticamente las últimas publicaciones de Instagram, pega en la pestaña General el enlace JSON de Behold.',list:'redes',noun:'red social',fields:[['red','Red','select',['Facebook','Instagram','YouTube','WhatsApp','TikTok','Otra']],['usuario','Texto visible'],['url','Enlace (https://…)']]},
  {id:'usuarios',label:'Usuarios y contraseña',custom:'usuarios'}
 ];
