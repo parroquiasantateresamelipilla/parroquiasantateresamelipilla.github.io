@@ -1,0 +1,181 @@
+{
+ "actualizado": "2026-11-16",
+ "eventos": [
+  {
+   "inicio": "2026-11-16T03:00:00.000Z",
+   "fecha": "2026-11-16",
+   "hora": "",
+   "tipo": "Aniversario Grupo don Benja",
+   "lugar": "",
+   "rec": true
+  },
+  {
+   "inicio": "2026-11-17T12:35:00.000Z",
+   "fecha": "2026-11-17",
+   "hora": "09:35",
+   "tipo": "Reunión Ministros de Comunión",
+   "lugar": "",
+   "rec": true
+  },
+  {
+   "inicio": "2026-11-19T23:00:00.000Z",
+   "fecha": "2026-11-19",
+   "hora": "20:00",
+   "tipo": "Encuentro padres primera Comunión",
+   "lugar": "",
+   "rec": true
+  },
+  {
+   "inicio": "2026-11-25T23:00:00.000Z",
+   "fecha": "2026-11-25",
+   "hora": "20:00",
+   "tipo": "Encuentro Jovenes",
+   "lugar": "Capilla Huilco",
+   "rec": true
+  },
+  {
+   "inicio": "2026-11-26T23:00:00.000Z",
+   "fecha": "2026-11-26",
+   "hora": "20:00",
+   "tipo": "Encuentro catequistas niños centro",
+   "lugar": "",
+   "rec": true
+  },
+  {
+   "inicio": "2026-12-02T23:00:00.000Z",
+   "fecha": "2026-12-02",
+   "hora": "20:00",
+   "tipo": "Encuentro Bautismal: Padres y Padrinos",
+   "lugar": "",
+   "rec": true
+  },
+  {
+   "inicio": "2026-12-02T23:00:00.000Z",
+   "fecha": "2026-12-02",
+   "hora": "20:00",
+   "tipo": "Encuentro padres primera Comunión",
+   "lugar": "Capilla Huechún",
+   "rec": true
+  },
+  {
+   "inicio": "2026-12-03T16:00:00.000Z",
+   "fecha": "2026-12-03",
+   "hora": "13:00",
+   "tipo": "Reunión Comedor",
+   "lugar": "",
+   "rec": true
+  },
+  {
+   "inicio": "2026-12-03T23:00:00.000Z",
+   "fecha": "2026-12-03",
+   "hora": "20:00",
+   "tipo": "Reunión de Coros",
+   "lugar": "",
+   "rec": true
+  },
+  {
+   "inicio": "2026-12-09T23:00:00.000Z",
+   "fecha": "2026-12-09",
+   "hora": "20:00",
+   "tipo": "Encuentro padres primera Comunión",
+   "lugar": "Capilla Huilco",
+   "rec": true
+  },
+  {
+   "inicio": "2026-12-15T12:35:00.000Z",
+   "fecha": "2026-12-15",
+   "hora": "09:35",
+   "tipo": "Reunión Ministros de Comunión",
+   "lugar": "",
+   "rec": true
+  },
+  {
+   "inicio": "2026-12-17T23:00:00.000Z",
+   "fecha": "2026-12-17",
+   "hora": "20:00",
+   "tipo": "Encuentro padres primera Comunión",
+   "lugar": "",
+   "rec": true
+  },
+  {
+   "inicio": "2026-12-22T22:00:00.000Z",
+   "fecha": "2026-12-22",
+   "hora": "19:00",
+   "tipo": "Reunión Encargados de",
+   "lugar": "",
+   "rec": true
+  },
+  {
+   "inicio": "2026-12-23T23:00:00.000Z",
+   "fecha": "2026-12-23",
+   "hora": "20:00",
+   "tipo": "Encuentro Jovenes",
+   "lugar": "Capilla Huilco",
+   "rec": true
+  },
+  {
+   "inicio": "2026-12-26T03:00:00.000Z",
+   "fecha": "2026-12-26",
+   "hora": "",
+   "tipo": "Aniversario de Pascua Padre Luis Borremans",
+   "lugar": "",
+   "rec": true
+  },
+  {
+   "inicio": "2027-01-02T12:30:00.000Z",
+   "fecha": "2027-01-02",
+   "hora": "09:30",
+   "tipo": "Reunión diáconos permanentes",
+   "lugar": "",
+   "rec": true
+  },
+  {
+   "inicio": "2027-01-05T23:00:00.000Z",
+   "fecha": "2027-01-05",
+   "hora": "20:00",
+   "tipo": "Consejo Parroquial",
+   "lugar": "",
+   "rec": true
+  },
+  {
+   "inicio": "2027-01-06T23:00:00.000Z",
+   "fecha": "2027-01-06",
+   "hora": "20:00",
+   "tipo": "Encuentro Bautismal: Padres y Padrinos",
+   "lugar": "",
+   "rec": true
+  },
+  {
+   "inicio": "2027-01-06T23:00:00.000Z",
+   "fecha": "2027-01-06",
+   "hora": "20:00",
+   "tipo": "Encuentro padres primera Comunión",
+   "lugar": "Capilla Huechún",
+   "rec": true
+  },
+  {
+   "inicio": "2027-01-07T23:00:00.000Z",
+   "fecha": "2027-01-07",
+   "hora": "20:00",
+   "tipo": "Reunión de Coros",
+   "lugar": "",
+   "rec": true
+  },
+  {
+   "inicio": "2027-01-08T15:00:00.000Z",
+   "fecha": "2027-01-08",
+   "hora": "12:00",
+   "tipo": "Reunión Comedor",
+   "lugar": "",
+   "rec": true
+  },
+  {
+   "inicio": "2027-01-13T23:00:00.000Z",
+   "fecha": "2027-01-13",
+   "hora": "20:00",
+   "tipo": "Encuentro padres primera Comunión",
+   "lugar": "Capilla Huilco",
+   "rec": true
+  }
+ ]
+}
