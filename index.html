@@ -219,6 +219,8 @@ footer .name{font-family:var(--display);font-size:1.05rem;color:var(--ink)}
 .post .pmeta{font-family:var(--ui);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .post p{font-size:.95rem}
 .post .pmore{font-family:var(--ui);font-size:.85rem;color:var(--sky);font-weight:600}
+.spotify{max-width:720px}
+.spotify iframe{display:block;width:100%;height:352px;border:0;border-radius:12px}
 #fbPlugin{overflow:hidden;min-height:200px}
 .feeds{display:block}
 .feeds > *{min-width:0}
@@ -289,7 +291,7 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
     <a class="brand" href="#inicio"><span id="v-logo"></span><span><b id="v-nombreCorto"></b><small id="v-ciudad"></small></span></a>
     <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">Menú</button>
     <nav class="menu" id="menu">
-      <a href="#evangelio">Evangelio</a><a href="#horarios">Horarios</a><a href="#pastoral">Pastoral</a><a href="#comunidad">Comunidad</a><a href="#sacramentos">Sacramentos</a><a href="#avisos">Avisos</a><a href="#ubicacion">Ubicación</a><a href="#contacto">Contacto</a><a href="#donar">Donar</a>
+      <a href="#evangelio">Evangelio</a><a href="#horarios">Horarios</a><a href="#pastoral">Pastoral</a><a href="#comunidad">Comunidad</a><a href="#sacramentos">Sacramentos</a><a href="#avisos">Avisos</a><a href="#musica">Música</a><a href="#ubicacion">Ubicación</a><a href="#contacto">Contacto</a><a href="#donar">Donar</a>
     </nav>
   </div>
 </header>
@@ -359,6 +361,10 @@ body{margin:0}img{max-width:100%}[hidden]{display:none!important}
   <section id="avisos"><div class="wrap">
     <div class="sec-head"><span class="eyebrow">Avisos parroquiales</span><h2>Lo que viene en la parroquia</h2><p>Actividades de hoy y de los próximos días, tomadas de nuestras publicaciones y del calendario parroquial.</p></div>
     <div class="news" id="v-avisos"></div>
+  </div></section>
+  <section id="musica"><div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Música</span><h2>Escucha nuestro álbum</h2><p>Música de nuestra comunidad parroquial, disponible en Spotify.</p></div>
+    <div class="spotify" id="v-spotify"></div>
   </div></section>
   <section id="ubicacion"><div class="wrap">
     <div class="sec-head"><span class="eyebrow">Ubicación</span><h2>Cómo llegar</h2></div>
@@ -456,6 +462,12 @@ function render(d){
   renderAvisos(d);renderToday(d);
   var u=d.ubicacion;$('v-direccion').textContent=u.direccion;$('v-referencia').textContent=u.referencia;
   renderSlides(g);
+  if(g.spotify===undefined)g.spotify='https://open.spotify.com/embed/album/0fC4itPHG7Vj9fsqONKUMz?utm_source=generator';
+  var sp=$('v-spotify'),su=String(g.spotify||'').trim();
+  if(/^https:\/\/open\.spotify\.com\/(album|playlist|artist|track)\//.test(su))su=su.replace('open.spotify.com/','open.spotify.com/embed/').replace('/embed/embed/','/embed/');
+  var spOk=/^https:\/\/open\.spotify\.com\/embed\/(album|playlist|artist|track)\/[A-Za-z0-9]+/.test(su);$('musica').hidden=!spOk;
+  if(spOk&&sp.dataset.src!==su){sp.dataset.src=su;sp.textContent='';var fr=document.createElement('iframe');fr.src=su;fr.title='Álbum de la parroquia en Spotify';fr.loading='lazy';
+    fr.allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';fr.setAttribute('allowfullscreen','');sp.appendChild(fr)}
   var gm=$('v-gmap');var q=encodeURIComponent((u.direccion||'Pardo 1281, Melipilla')+', Chile');
   if(gm.dataset.q!==q){gm.dataset.q=q;gm.textContent='';var fr=document.createElement('iframe');fr.title='Mapa: '+(u.direccion||'Parroquia');fr.loading='lazy';fr.referrerPolicy='no-referrer-when-downgrade';
     fr.src='https://www.google.com/maps?q='+q+'&z=16&output=embed';gm.appendChild(fr)}
@@ -596,7 +608,7 @@ $('msgForm').onsubmit=function(e){e.preventDefault();var ok=$('formOk'),b=$('f-s
 /* ===== Administración ===== */
 var SECTIONS=[
  {id:'portada',label:'Fotos de portada',custom:'portada'},
- {id:'general',label:'General',help:'Nombre, bienvenida, logo y aviso superior.',obj:'general',fields:[['nombre','Nombre completo'],['nombreCorto','Nombre corto (encabezado)'],['ciudad','Ciudad'],['subtitulo','Subtítulo (diócesis)'],['bienvenida','Texto de bienvenida','area'],['frase','Frase destacada'],['fiesta','Fiesta patronal'],['aviso','Aviso superior (déjalo vacío para ocultarlo)'],['logo','Logo de la parroquia','img'],['donaciones','Enlace para donaciones (déjalo vacío para ocultar)'],['donacionesTexto','Texto de la sección de donaciones','area'],['instagramFeed','Enlace JSON de Behold (Instagram automático)']]},
+ {id:'general',label:'General',help:'Nombre, bienvenida, logo y aviso superior.',obj:'general',fields:[['nombre','Nombre completo'],['nombreCorto','Nombre corto (encabezado)'],['ciudad','Ciudad'],['subtitulo','Subtítulo (diócesis)'],['bienvenida','Texto de bienvenida','area'],['frase','Frase destacada'],['fiesta','Fiesta patronal'],['aviso','Aviso superior (déjalo vacío para ocultarlo)'],['logo','Logo de la parroquia','img'],['donaciones','Enlace para donaciones (déjalo vacío para ocultar)'],['donacionesTexto','Texto de la sección de donaciones','area'],['instagramFeed','Enlace JSON de Behold (Instagram automático)'],['spotify','Enlace del álbum o lista de Spotify (vacío para ocultar)']]},
  {id:'horarios',label:'Horarios de Misa',help:'Escribe las horas separadas por coma (ej: 09:00, 12:00). Deja vacío si ese día no hay Misa.',custom:'misas'},
  {id:'atencion',label:'Confesiones y oficina',obj:'atencion',fields:[['confesiones','Confesiones','area'],['oficina','Horario de oficina','area'],['tramites','Trámites en oficina','area']]},
  {id:'pastoral',label:'Pastoral',list:'pastoral',noun:'servicio',fields:[['titulo','Título'],['texto','Descripción','area']]},
