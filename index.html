@@ -692,7 +692,9 @@ function render(d){
 function copy(b,v,node){var done=function(){b.textContent='Copiado';setTimeout(function(){b.textContent='Copiar'},1600)};
   var sel=function(){var r=document.createRange();r.selectNodeContents(node);var s=getSelection();s.removeAllRanges();s.addRange(r)};
   try{navigator.clipboard.writeText(v).then(done,sel)}catch(e){sel()}}
-var CAL=null;
+var CAL=null,ACT=null;
+/* Misas y liturgias + calendario de actividades (este último no se usa en la página de horarios ni en capillas) */
+function todosEventos(){var a=(CAL&&CAL.eventos)||[],b=(ACT&&ACT.eventos)||[];return a.concat(b).sort(function(x,y){return x.inicio.localeCompare(y.inicio)})}
 function hoyISO(){try{return new Date().toLocaleDateString('en-CA',{timeZone:'America/Santiago'})}catch(e){return new Date().toISOString().slice(0,10)}}
 function addDays(iso,n){var d=new Date(iso+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)}
 function dowOf(iso){return new Date(iso+'T12:00:00Z').getUTCDay()}
@@ -700,7 +702,7 @@ function dayDiff(iso){return Math.round((Date.parse(iso+'T12:00:00Z')-Date.parse
 function calOk(){return !!(CAL&&CAL.eventos&&CAL.actualizado&&dayDiff(CAL.actualizado)>=-2)}
 var MESES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 function renderCal(tb){var hoy=hoyISO();
-  for(var i=0;i<7;i++){var f=addDays(hoy,i),ev=CAL.eventos.filter(function(e){return e.fecha===f});
+  for(var i=0;i<7;i++){var f=addDays(hoy,i),ev=todosEventos().filter(function(e){return e.fecha===f});
     var rows=ev.length?ev:[null];
     rows.forEach(function(e,j){var tr=el('tr');if(i===0)tr.className='today';if(j>0)tr.classList.add('cont');
       if(j===0){var td0=el('td',null,DAYS[dowOf(f)]);td0.appendChild(el('span','nota',(+f.slice(8))+' '+MESES[+f.slice(5,7)-1]));td0.rowSpan=rows.length;tr.appendChild(td0)}
@@ -743,7 +745,7 @@ function extraerActividades(posts){var out=[],hoy=hoyISO(),vistos={};
     out.push({ini:ini,fin:fin,hora:hora,titulo:titulo,texto:texto,url:safeUrl(p.permalink),fuente:'Instagram'})});
   return out}
 function actividadesDelDia(d,f){var out=[],vist={};
-  if(calOk()){CAL.eventos.filter(function(e){return e.fecha===f}).forEach(function(e){var k=(e.hora||'')+'|'+e.tipo.toLowerCase();if(vist[k])return;vist[k]=1;out.push({hora:e.hora||'',titulo:e.tipo,lugar:e.lugar||'',inicio:e.inicio})})}
+  if(calOk()){todosEventos().filter(function(e){return e.fecha===f}).forEach(function(e){var k=(e.hora||'')+'|'+e.tipo.toLowerCase();if(vist[k])return;vist[k]=1;out.push({hora:e.hora||'',titulo:e.tipo,lugar:e.lugar||'',inicio:e.inicio})})}
   else{var m=(d.misas||[])[dowOf(f)];if(m&&m.horas)m.horas.split(',').map(function(x){return x.trim()}).filter(Boolean).forEach(function(h){out.push({hora:h,titulo:'Misa',lugar:m.lugar||''})})}
   extraerActividades(IGRAW).forEach(function(a){if(a.ini<=f&&a.fin>=f){var dup=out.some(function(o){return o.hora&&o.hora===a.hora||o.titulo.toLowerCase().indexOf(a.titulo.toLowerCase().slice(0,14))>=0||a.titulo.toLowerCase().indexOf(o.titulo.toLowerCase())>=0&&o.titulo.length>6});
     if(!dup)out.push({hora:a.ini===a.fin?a.hora:(a.hora||''),titulo:a.titulo,url:a.url,lugar:''})}});
@@ -760,7 +762,7 @@ function renderToday(d){var box=$('v-todayList');if(!box)return;box.textContent=
       li.appendChild(t);ul.appendChild(li)});sec.appendChild(ul)}
     box.appendChild(sec)})}
 function renderAvisos(d){var av=$('v-avisos');av.textContent='';var hoy=hoyISO(),items=extraerActividades(IGRAW);
-  if(calOk()){var vist={};CAL.eventos.filter(function(e){return !/^(misa|liturgia)/i.test(e.tipo)&&e.fecha>=hoy}).forEach(function(e){var k=e.tipo+e.fecha;if(vist[k])return;vist[k]=1;
+  if(calOk()){var vist={};todosEventos().filter(function(e){return !/^(misa|liturgia)/i.test(e.tipo)&&e.fecha>=hoy}).forEach(function(e){var k=e.tipo+e.fecha;if(vist[k])return;vist[k]=1;
     items.push({ini:e.fecha,fin:e.fecha,hora:e.hora,titulo:e.tipo,texto:e.lugar||'',fuente:'Calendario'})})}
   items.sort(function(a,b){var x=a.ini<hoy?hoy:a.ini,y=b.ini<hoy?hoy:b.ini;return x.localeCompare(y)||(a.hora||'').localeCompare(b.hora||'')});
   if(items.length<6){(d.avisos||[]).forEach(function(a){if(items.length<8)items.push({manual:a})})}
@@ -779,6 +781,7 @@ function loadIG(){var g=DATA.general;if(g.instagramFeed===undefined||g.instagram
     var dt=p.timestamp?new Date(p.timestamp):null;return {url:p.permalink,img:img,texto:p.prunedCaption||p.caption||'',fecha:dt?dt.getDate()+' '+MESES[dt.getMonth()]:''}}).filter(function(x){return x.img&&safeUrl(x.url)});
   if(!draft)render(DATA)}).catch(function(){})}
 fetch('calendario.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(c){if(c){CAL=c;if(DATA&&!draft)render(DATA)}}).catch(function(){});
+fetch('actividades.json?v='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(c){if(c&&c.eventos){ACT=c;if(DATA&&!draft)render(DATA)}}).catch(function(){});
 fetch('data.json?v='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){DATA=conDefaults(d);render(DATA);loadFb();loadIG();if(location.hash==='#admin')openEditor();else if(!PAGE)setTimeout(function(){mostrarPopup(false)},1200)}).catch(function(){$('v-bienvenida').textContent='No se pudo cargar la información. Recarga la página.'});
 $('menuBtn').onclick=function(){var o=$('menu').classList.toggle('open');this.setAttribute('aria-expanded',o)};
 $('menu').onclick=function(e){if(e.target.tagName==='A'){$('menu').classList.remove('open');$('menuBtn').setAttribute('aria-expanded','false')}};
