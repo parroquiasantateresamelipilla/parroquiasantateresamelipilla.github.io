@@ -2,22 +2,6 @@
  "actualizado": "2026-11-18",
  "eventos": [
   {
-   "inicio": "2026-11-17T22:00:00.000Z",
-   "fecha": "2026-11-17",
-   "hora": "19:00",
-   "tipo": "Misa",
-   "lugar": "Capilla Huechún",
-   "rec": false
-  },
-  {
-   "inicio": "2026-11-17T22:00:00.000Z",
-   "fecha": "2026-11-17",
-   "hora": "19:00",
-   "tipo": "Liturgia",
-   "lugar": "Templo parroquial",
-   "rec": false
-  },
-  {
    "inicio": "2026-11-18T22:00:00.000Z",
    "fecha": "2026-11-18",
    "hora": "19:00",
