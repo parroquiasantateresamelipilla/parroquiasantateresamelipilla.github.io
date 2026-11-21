@@ -160,6 +160,14 @@
    "tipo": "Reunión Ministros de Comunión",
    "lugar": "",
    "rec": true
+  },
+  {
+   "inicio": "2027-01-21T23:00:00.000Z",
+   "fecha": "2027-01-21",
+   "hora": "20:00",
+   "tipo": "Encuentro padres primera Comunión",
+   "lugar": "",
+   "rec": true
   }
  ]
 }
