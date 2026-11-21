@@ -2,14 +2,6 @@
  "actualizado": "2026-11-21",
  "eventos": [
   {
-   "inicio": "2026-11-21T09:30:00.000Z",
-   "fecha": "2026-11-21",
-   "hora": "06:30",
-   "tipo": "Rosario del Alba",
-   "lugar": "Capilla Huilco",
-   "rec": false
-  },
-  {
    "inicio": "2026-11-21T20:00:00.000Z",
    "fecha": "2026-11-21",
    "hora": "17:00",
