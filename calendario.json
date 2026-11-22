@@ -840,6 +840,22 @@
    "tipo": "Liturgia",
    "lugar": "Templo parroquial",
    "rec": true
+  },
+  {
+   "inicio": "2027-01-23T13:30:00.000Z",
+   "fecha": "2027-01-23",
+   "hora": "10:30",
+   "tipo": "Bautizos",
+   "lugar": "Templo parroquial",
+   "rec": true
+  },
+  {
+   "inicio": "2027-01-23T15:00:00.000Z",
+   "fecha": "2027-01-23",
+   "hora": "12:00",
+   "tipo": "Liturgia",
+   "lugar": "Capilla Huechún",
+   "rec": true
   }
  ]
 }
