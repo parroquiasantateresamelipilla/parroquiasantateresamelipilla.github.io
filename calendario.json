@@ -1,14 +1,6 @@
 {
- "actualizado": "2026-11-21",
+ "actualizado": "2026-11-22",
  "eventos": [
-  {
-   "inicio": "2026-11-21T20:00:00.000Z",
-   "fecha": "2026-11-21",
-   "hora": "17:00",
-   "tipo": "Liturgia",
-   "lugar": "Capilla Huechún",
-   "rec": true
-  },
   {
    "inicio": "2026-11-21T22:00:00.000Z",
    "fecha": "2026-11-21",
