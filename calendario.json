@@ -832,6 +832,22 @@
    "tipo": "Misa",
    "lugar": "Templo parroquial",
    "rec": true
+  },
+  {
+   "inicio": "2027-01-24T12:00:00.000Z",
+   "fecha": "2027-01-24",
+   "hora": "09:00",
+   "tipo": "Liturgia",
+   "lugar": "Capilla El Bajo",
+   "rec": true
+  },
+  {
+   "inicio": "2027-01-24T13:15:00.000Z",
+   "fecha": "2027-01-24",
+   "hora": "10:15",
+   "tipo": "Misa",
+   "lugar": "Capilla San Francisco",
+   "rec": true
   }
  ]
 }
