@@ -848,6 +848,22 @@
    "tipo": "Misa",
    "lugar": "Capilla San Francisco",
    "rec": true
+  },
+  {
+   "inicio": "2027-01-24T13:30:00.000Z",
+   "fecha": "2027-01-24",
+   "hora": "10:30",
+   "tipo": "Liturgia",
+   "lugar": "Capilla Huilco",
+   "rec": true
+  },
+  {
+   "inicio": "2027-01-24T15:00:00.000Z",
+   "fecha": "2027-01-24",
+   "hora": "12:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial",
+   "rec": true
   }
  ]
 }
