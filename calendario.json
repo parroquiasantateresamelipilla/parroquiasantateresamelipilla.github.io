@@ -2,14 +2,6 @@
  "actualizado": "2026-11-22",
  "eventos": [
   {
-   "inicio": "2026-11-22T15:00:00.000Z",
-   "fecha": "2026-11-22",
-   "hora": "12:00",
-   "tipo": "Misa",
-   "lugar": "Templo parroquial",
-   "rec": true
-  },
-  {
    "inicio": "2026-11-23T22:00:00.000Z",
    "fecha": "2026-11-23",
    "hora": "19:00",
@@ -831,6 +823,14 @@
    "hora": "12:00",
    "tipo": "Liturgia",
    "lugar": "Capilla Huechún",
+   "rec": true
+  },
+  {
+   "inicio": "2027-01-23T22:00:00.000Z",
+   "fecha": "2027-01-23",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial",
    "rec": true
   }
  ]
