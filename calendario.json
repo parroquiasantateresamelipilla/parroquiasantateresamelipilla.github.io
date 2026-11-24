@@ -2,22 +2,6 @@
  "actualizado": "2026-11-24",
  "eventos": [
   {
-   "inicio": "2026-11-23T22:00:00.000Z",
-   "fecha": "2026-11-23",
-   "hora": "19:00",
-   "tipo": "Misa",
-   "lugar": "Capilla El Bajo",
-   "rec": false
-  },
-  {
-   "inicio": "2026-11-23T22:00:00.000Z",
-   "fecha": "2026-11-23",
-   "hora": "19:00",
-   "tipo": "Liturgia",
-   "lugar": "Templo parroquial",
-   "rec": false
-  },
-  {
    "inicio": "2026-11-24T22:00:00.000Z",
    "fecha": "2026-11-24",
    "hora": "19:00",
