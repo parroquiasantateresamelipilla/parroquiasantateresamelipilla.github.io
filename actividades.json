@@ -1,22 +1,6 @@
 {
- "actualizado": "2026-11-24",
+ "actualizado": "2026-11-25",
  "eventos": [
-  {
-   "inicio": "2026-11-25T23:00:00.000Z",
-   "fecha": "2026-11-25",
-   "hora": "20:00",
-   "tipo": "Encuentro Jovenes",
-   "lugar": "Capilla Huilco",
-   "rec": true
-  },
-  {
-   "inicio": "2026-11-26T23:00:00.000Z",
-   "fecha": "2026-11-26",
-   "hora": "20:00",
-   "tipo": "Encuentro catequistas niños centro",
-   "lugar": "",
-   "rec": true
-  },
   {
    "inicio": "2026-12-02T23:00:00.000Z",
    "fecha": "2026-12-02",
