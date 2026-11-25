@@ -824,6 +824,14 @@
    "tipo": "Misa",
    "lugar": "Templo parroquial",
    "rec": true
+  },
+  {
+   "inicio": "2027-01-26T22:00:00.000Z",
+   "fecha": "2027-01-26",
+   "hora": "19:00",
+   "tipo": "Misa",
+   "lugar": "Templo parroquial",
+   "rec": true
   }
  ]
 }
