@@ -86,6 +86,14 @@
    "fecha": "2026-11-30",
    "hora": "19:00",
    "tipo": "Liturgia",
+   "lugar": "Capilla El Bajo",
+   "rec": false
+  },
+  {
+   "inicio": "2026-11-30T22:00:00.000Z",
+   "fecha": "2026-11-30",
+   "hora": "19:00",
+   "tipo": "Liturgia",
    "lugar": "Templo parroquial",
    "rec": false
   },
@@ -127,6 +135,14 @@
    "hora": "19:00",
    "tipo": "Misa",
    "lugar": "Templo parroquial",
+   "rec": false
+  },
+  {
+   "inicio": "2026-12-04T22:00:00.000Z",
+   "fecha": "2026-12-04",
+   "hora": "19:00",
+   "tipo": "Liturgia",
+   "lugar": "Capilla San Francisco",
    "rec": false
   },
   {
@@ -815,6 +831,14 @@
    "hora": "19:00",
    "tipo": "Misa",
    "lugar": "Templo parroquial",
+   "rec": true
+  },
+  {
+   "inicio": "2027-01-28T22:00:00.000Z",
+   "fecha": "2027-01-28",
+   "hora": "19:00",
+   "tipo": "Misa y Adoración al Santísimo",
+   "lugar": "",
    "rec": true
   }
  ]
