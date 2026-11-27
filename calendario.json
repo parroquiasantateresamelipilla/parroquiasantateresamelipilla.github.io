@@ -2,14 +2,6 @@
  "actualizado": "2026-11-27",
  "eventos": [
   {
-   "inicio": "2026-11-26T22:00:00.000Z",
-   "fecha": "2026-11-26",
-   "hora": "19:00",
-   "tipo": "Misa",
-   "lugar": "Templo parroquial",
-   "rec": false
-  },
-  {
    "inicio": "2026-11-27T22:00:00.000Z",
    "fecha": "2026-11-27",
    "hora": "19:00",
