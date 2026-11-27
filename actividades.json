@@ -160,6 +160,14 @@
    "tipo": "Reunión Encargados de",
    "lugar": "",
    "rec": true
+  },
+  {
+   "inicio": "2027-01-27T23:00:00.000Z",
+   "fecha": "2027-01-27",
+   "hora": "20:00",
+   "tipo": "Encuentro Jovenes",
+   "lugar": "Capilla Huilco",
+   "rec": true
   }
  ]
 }
