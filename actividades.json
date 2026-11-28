@@ -168,6 +168,14 @@
    "tipo": "Encuentro Jovenes",
    "lugar": "Capilla Huilco",
    "rec": true
+  },
+  {
+   "inicio": "2027-01-28T23:00:00.000Z",
+   "fecha": "2027-01-28",
+   "hora": "20:00",
+   "tipo": "Encuentro catequistas niños centro",
+   "lugar": "",
+   "rec": true
   }
  ]
 }
